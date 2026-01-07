@@ -1,0 +1,4218 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#059669" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="سهل إيطالي" />
+    <meta name="description" content="تطبيق سهل إيطالي لتعلم اللغة الإيطالية من المستوى A1 إلى B2" />
+    
+    <title>سهل إيطالي - SahlItali</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #059669;
+            --primary-dark: #047857;
+            --primary-light: #10B981;
+            --secondary: #8B5CF6;
+            --accent: #F59E0B;
+            --success: #22C55E;
+            --danger: #EF4444;
+            --warning: #F59E0B;
+            --info: #06B6D4;
+            
+            --a1-color: #22C55E;
+            --a2-color: #3B82F6;
+            --b1-color: #F59E0B;
+            --b2-color: #EF4444;
+            
+            --dark: #1F2937;
+            --light: #F9FAFB;
+            --card-bg: #FFFFFF;
+            --text-main: #1F2937;
+            --text-secondary: #6B7280;
+            --border: #E5E7EB;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --transition: all 0.3s ease;
+            
+            --nav-height: 65px;
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        body.dark-mode {
+            --dark: #111827;
+            --light: #1F2937;
+            --card-bg: #374151;
+            --text-main: #F3F4F6;
+            --text-secondary: #9CA3AF;
+            --border: #4B5563;
+            background: linear-gradient(135deg, #111827 0%, #1F2937 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ECFDF5 0%, #D1FAE5 100%);
+            color: var(--text-main);
+        }
+
+        .italian-text {
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            text-align: left;
+        }
+
+        .italian-text-center {
+            direction: ltr;
+            unicode-bidi: bidi-override;
+            text-align: center;
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(135deg, #059669 0%, #047857 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 99999;
+            transition: opacity 0.5s, visibility 0.5s;
+        }
+
+        .loading-overlay.hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .loading-text {
+            color: white;
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        /* Mini Loader */
+        .mini-loader {
+            position: fixed;
+            top: 70px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: var(--shadow);
+            animation: fadeInDown 0.3s ease;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        /* Offline Banner */
+        .offline-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--warning);
+            color: white;
+            padding: 8px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 99999;
+            display: none;
+        }
+
+        .offline-banner.show { display: block; }
+
+        /* App Layout */
+        .app-wrapper {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            height: 100dvh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .app-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 12px 15px;
+            padding-top: calc(12px + env(safe-area-inset-top));
+            flex-shrink: 0;
+            z-index: 100;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-logo-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .header-title { font-size: 18px; font-weight: 800; }
+        .header-subtitle { font-size: 10px; opacity: 0.9; }
+
+        .header-actions { display: flex; gap: 8px; }
+
+        .header-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            border: none;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transition: all 0.2s ease;
+        }
+
+        .header-btn:active { transform: scale(0.95); }
+
+        .header-btn .badge {
+            position: absolute;
+            top: -2px;
+            right: -2px;
+            background: var(--danger);
+            color: white;
+            font-size: 8px;
+            font-weight: 700;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--primary);
+        }
+
+        .stats-bar { display: flex; gap: 8px; }
+
+        .stat-item {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: calc(var(--nav-height) + var(--safe-bottom) + 15px);
+        }
+
+        .page {
+            display: none;
+            padding: 15px;
+            padding-bottom: 20px;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.2s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: calc(var(--nav-height) + var(--safe-bottom));
+            background: var(--card-bg);
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            padding-top: 8px;
+            padding-bottom: var(--safe-bottom);
+            box-shadow: 0 -2px 20px rgba(0,0,0,0.08);
+            z-index: 9999;
+            border-top: 1px solid var(--border);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 10px;
+            color: var(--text-secondary);
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            background: none;
+            min-width: 55px;
+            transition: color 0.2s ease;
+            position: relative;
+        }
+
+        .nav-item i {
+            font-size: 20px;
+            margin-bottom: 3px;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-item span { line-height: 1; }
+        .nav-item.active { color: var(--primary); }
+        .nav-item.active i { transform: scale(1.15); }
+
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 35px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 0 0 3px 3px;
+        }
+
+        .nav-item:active { opacity: 0.7; }
+
+        /* ==================== نظام الفلاش كارد المتطور ==================== */
+        
+        /* Flashcard Study Mode */
+        .flashcard-study-header {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 15px;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .flashcard-session-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .flashcard-session-title {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        .flashcard-session-count {
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* SRS Boxes Display */
+        .srs-boxes {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .srs-box {
+            flex: 1;
+            text-align: center;
+            padding: 10px 5px;
+            border-radius: var(--radius-sm);
+            background: var(--light);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .srs-box.active {
+            border-color: var(--primary);
+            background: rgba(5, 150, 105, 0.1);
+        }
+
+        .srs-box-number {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .srs-box-label {
+            font-size: 9px;
+            color: var(--text-secondary);
+        }
+
+        .srs-box.box-1 { border-left: 3px solid var(--danger); }
+        .srs-box.box-2 { border-left: 3px solid var(--warning); }
+        .srs-box.box-3 { border-left: 3px solid var(--info); }
+        .srs-box.box-4 { border-left: 3px solid var(--primary); }
+        .srs-box.box-5 { border-left: 3px solid var(--success); }
+
+        /* Enhanced Flashcard */
+        .flashcard-container {
+            perspective: 2000px;
+            height: 300px;
+            margin-bottom: 20px;
+        }
+
+        .flashcard {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: var(--radius);
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+        }
+
+        .flashcard-front {
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+        }
+
+        .flashcard-back {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .flashcard-back .flashcard-header {
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .flashcard-level {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .flashcard-level.a1 { background: var(--a1-color); }
+        .flashcard-level.a2 { background: var(--a2-color); }
+        .flashcard-level.b1 { background: var(--b1-color); }
+        .flashcard-level.b2 { background: var(--b2-color); }
+
+        .flashcard-box-indicator {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .flashcard-back .flashcard-box-indicator {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .flashcard-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .flashcard-word {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            direction: ltr;
+        }
+
+        .flashcard-phonetic {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-style: italic;
+            margin-bottom: 8px;
+            direction: ltr;
+        }
+
+        .flashcard-back .flashcard-phonetic {
+            color: rgba(255,255,255,0.8);
+        }
+
+        .flashcard-type {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(0,0,0,0.05);
+            border-radius: 15px;
+            font-size: 11px;
+        }
+
+        .flashcard-back .flashcard-type {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .flashcard-translation {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .flashcard-example {
+            background: rgba(255,255,255,0.1);
+            padding: 12px 15px;
+            border-radius: var(--radius-sm);
+            width: 100%;
+        }
+
+        .flashcard-example-label {
+            font-size: 10px;
+            opacity: 0.7;
+            margin-bottom: 5px;
+        }
+
+        .flashcard-example-it {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 3px;
+            direction: ltr;
+        }
+
+        .flashcard-example-ar {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .flashcard-footer {
+            padding: 10px 15px;
+            text-align: center;
+            font-size: 11px;
+            opacity: 0.6;
+        }
+
+        /* SRS Rating Buttons */
+        .srs-rating-container {
+            margin-bottom: 15px;
+        }
+
+        .srs-rating-title {
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+        }
+
+        .srs-rating-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .srs-rating-btn {
+            padding: 12px 8px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            transition: all 0.2s ease;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .srs-rating-btn i { font-size: 18px; }
+
+        .srs-rating-btn.again {
+            background: linear-gradient(135deg, #FEE2E2, #FECACA);
+            color: var(--danger);
+        }
+
+        .srs-rating-btn.hard {
+            background: linear-gradient(135deg, #FEF3C7, #FDE68A);
+            color: var(--warning);
+        }
+
+        .srs-rating-btn.good {
+            background: linear-gradient(135deg, #DBEAFE, #BFDBFE);
+            color: var(--info);
+        }
+
+        .srs-rating-btn.easy {
+            background: linear-gradient(135deg, #D1FAE5, #A7F3D0);
+            color: var(--success);
+        }
+
+        .srs-rating-btn:active { transform: scale(0.95); }
+
+        .srs-rating-btn .next-review {
+            font-size: 9px;
+            font-weight: 500;
+            opacity: 0.8;
+        }
+
+        /* Flashcard Controls */
+        .flashcard-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .flashcard-control-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .flashcard-control-btn.speak {
+            background: var(--light);
+            color: var(--primary);
+            border: 2px solid var(--border);
+        }
+
+        .flashcard-control-btn.flip {
+            background: var(--primary);
+            color: white;
+        }
+
+        .flashcard-control-btn.like {
+            background: var(--light);
+            color: var(--text-secondary);
+            border: 2px solid var(--border);
+        }
+
+        .flashcard-control-btn.like.liked {
+            background: var(--danger);
+            color: white;
+            border-color: var(--danger);
+        }
+
+        .flashcard-control-btn:active { transform: scale(0.95); }
+
+        /* Session Stats */
+        .session-stats {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .session-stats-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .session-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .session-stat-item {
+            text-align: center;
+            padding: 10px;
+            background: var(--light);
+            border-radius: var(--radius-sm);
+        }
+
+        .session-stat-value {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .session-stat-value.correct { color: var(--success); }
+        .session-stat-value.wrong { color: var(--danger); }
+        .session-stat-value.remaining { color: var(--info); }
+        .session-stat-value.mastered { color: var(--primary); }
+
+        .session-stat-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+
+        /* Flashcard Selection Modal */
+        .flashcard-mode-selector {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .flashcard-mode-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 20px 15px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .flashcard-mode-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .flashcard-mode-card.selected {
+            border-color: var(--primary);
+            background: rgba(5, 150, 105, 0.05);
+        }
+
+        .flashcard-mode-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin: 0 auto 10px;
+        }
+
+        .flashcard-mode-card:nth-child(1) .flashcard-mode-icon {
+            background: linear-gradient(135deg, var(--danger), #F87171);
+            color: white;
+        }
+
+        .flashcard-mode-card:nth-child(2) .flashcard-mode-icon {
+            background: linear-gradient(135deg, var(--warning), #FBBF24);
+            color: white;
+        }
+
+        .flashcard-mode-card:nth-child(3) .flashcard-mode-icon {
+            background: linear-gradient(135deg, var(--info), #22D3EE);
+            color: white;
+        }
+
+        .flashcard-mode-card:nth-child(4) .flashcard-mode-icon {
+            background: linear-gradient(135deg, var(--success), #4ADE80);
+            color: white;
+        }
+
+        .flashcard-mode-title {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .flashcard-mode-count {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Study Complete Screen */
+        .study-complete {
+            text-align: center;
+            padding: 30px 20px;
+        }
+
+        .study-complete-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .study-complete-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .study-complete-subtitle {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+        }
+
+        .study-complete-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .study-complete-stat {
+            background: var(--light);
+            padding: 15px;
+            border-radius: var(--radius-sm);
+        }
+
+        .study-complete-stat-value {
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .study-complete-stat-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        /* ==================== القاموس المحسّن ==================== */
+
+        /* Advanced Dictionary Header */
+        .dictionary-advanced-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+
+        .dictionary-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .dictionary-main-title {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .dictionary-total-words {
+            background: rgba(255,255,255,0.2);
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+
+        /* Dictionary Search */
+        .dictionary-search-container {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .dictionary-search-input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 14px;
+            background: rgba(255,255,255,0.95);
+            color: var(--dark);
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .dictionary-search-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .dictionary-search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        .dictionary-search-clear {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 5px;
+            display: none;
+        }
+
+        .dictionary-search-clear.show { display: block; }
+
+        /* Dictionary Filters */
+        .dictionary-filters {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .dictionary-filter-btn {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            transition: all 0.2s ease;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .dictionary-filter-btn.active {
+            background: white;
+            color: var(--primary);
+        }
+
+        .dictionary-filter-btn:active { transform: scale(0.95); }
+
+        /* Dictionary Stats Bar */
+        .dictionary-stats-bar {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 12px;
+            margin-bottom: 15px;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .dict-stat {
+            text-align: center;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+        }
+
+        .dict-stat:hover { background: var(--light); }
+        .dict-stat.active { background: rgba(5, 150, 105, 0.1); }
+
+        .dict-stat-value {
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .dict-stat.a1 .dict-stat-value { color: var(--a1-color); }
+        .dict-stat.a2 .dict-stat-value { color: var(--a2-color); }
+        .dict-stat.b1 .dict-stat-value { color: var(--b1-color); }
+        .dict-stat.b2 .dict-stat-value { color: var(--b2-color); }
+
+        .dict-stat-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+
+        /* Dictionary Sort & View Options */
+        .dictionary-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .dictionary-sort {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dictionary-sort-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .dictionary-sort-select {
+            padding: 6px 10px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 12px;
+            background: var(--card-bg);
+            color: var(--text-main);
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .dictionary-view-toggle {
+            display: flex;
+            gap: 5px;
+        }
+
+        .view-toggle-btn {
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--card-bg);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .view-toggle-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Dictionary Word Card - Enhanced */
+        .dict-word-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            margin-bottom: 10px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .dict-word-card:active { transform: scale(0.98); }
+
+        .dict-word-main {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            gap: 12px;
+            cursor: pointer;
+        }
+
+        .dict-word-level {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 800;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .dict-word-level.a1 { background: var(--a1-color); }
+        .dict-word-level.a2 { background: var(--a2-color); }
+        .dict-word-level.b1 { background: var(--b1-color); }
+        .dict-word-level.b2 { background: var(--b2-color); }
+
+        .dict-word-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .dict-word-italian {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-main);
+            direction: ltr;
+            text-align: right;
+            margin-bottom: 2px;
+        }
+
+        .dict-word-arabic {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .dict-word-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dict-word-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .dict-word-btn.speak {
+            background: var(--light);
+            color: var(--primary);
+        }
+
+        .dict-word-btn.like {
+            background: var(--light);
+            color: var(--text-secondary);
+        }
+
+        .dict-word-btn.like.liked {
+            background: var(--danger);
+            color: white;
+        }
+
+        .dict-word-btn.expand {
+            background: var(--light);
+            color: var(--text-secondary);
+        }
+
+        .dict-word-btn:active { transform: scale(0.9); }
+
+        /* Word Detail Expanded */
+        .dict-word-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: var(--light);
+        }
+
+        .dict-word-card.expanded .dict-word-details {
+            max-height: 300px;
+        }
+
+        .dict-word-details-inner {
+            padding: 15px;
+            border-top: 1px solid var(--border);
+        }
+
+        .dict-detail-row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .dict-detail-label {
+            width: 80px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            flex-shrink: 0;
+        }
+
+        .dict-detail-value {
+            font-size: 13px;
+            color: var(--text-main);
+        }
+
+        .dict-detail-value.italian {
+            direction: ltr;
+            text-align: right;
+        }
+
+        .dict-example-box {
+            background: var(--card-bg);
+            padding: 12px;
+            border-radius: var(--radius-sm);
+            margin-top: 10px;
+        }
+
+        .dict-example-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .dict-example-it {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary);
+            direction: ltr;
+            text-align: right;
+            margin-bottom: 3px;
+        }
+
+        .dict-example-ar {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Word Detail Modal */
+        .word-detail-modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 10001;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .word-detail-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .word-detail-content {
+            background: var(--card-bg);
+            width: 100%;
+            max-height: 80vh;
+            border-radius: var(--radius) var(--radius) 0 0;
+            overflow-y: auto;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .word-detail-modal.show .word-detail-content {
+            transform: translateY(0);
+        }
+
+        .word-detail-header {
+            position: sticky;
+            top: 0;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .word-detail-close {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .word-detail-main-word {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 5px;
+            direction: ltr;
+        }
+
+        .word-detail-phonetic {
+            font-size: 14px;
+            opacity: 0.8;
+            font-style: italic;
+            direction: ltr;
+        }
+
+        .word-detail-body { padding: 20px; }
+
+        .word-detail-section {
+            margin-bottom: 20px;
+        }
+
+        .word-detail-section-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .word-detail-translation {
+            font-size: 24px;
+            font-weight: 700;
+            text-align: center;
+            padding: 20px;
+            background: var(--light);
+            border-radius: var(--radius-sm);
+        }
+
+        .word-detail-meta {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .word-detail-meta-item {
+            background: var(--light);
+            padding: 12px;
+            border-radius: var(--radius-sm);
+            text-align: center;
+        }
+
+        .word-detail-meta-label {
+            font-size: 10px;
+            color: var(--text-secondary);
+            margin-bottom: 3px;
+        }
+
+        .word-detail-meta-value {
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .word-detail-example {
+            background: var(--light);
+            padding: 15px;
+            border-radius: var(--radius-sm);
+            border-right: 3px solid var(--primary);
+        }
+
+        .word-detail-example-it {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 5px;
+            direction: ltr;
+            text-align: right;
+        }
+
+        .word-detail-example-ar {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .word-detail-actions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            padding: 15px 20px 30px;
+            border-top: 1px solid var(--border);
+        }
+
+        .word-detail-action-btn {
+            padding: 12px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        .word-detail-action-btn.speak {
+            background: var(--light);
+            color: var(--primary);
+        }
+
+        .word-detail-action-btn.like {
+            background: var(--light);
+            color: var(--text-secondary);
+        }
+
+        .word-detail-action-btn.like.liked {
+            background: var(--danger);
+            color: white;
+        }
+
+        .word-detail-action-btn.study {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Alphabet Quick Jump */
+        .alphabet-jump {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-bottom: 15px;
+            justify-content: center;
+        }
+
+        .alphabet-btn {
+            width: 28px;
+            height: 28px;
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            background: var(--card-bg);
+            color: var(--text-main);
+            font-size: 11px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .alphabet-btn:hover { background: var(--light); }
+        .alphabet-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .alphabet-btn.disabled { opacity: 0.3; pointer-events: none; }
+
+        /* Original styles preserved below... */
+        
+        /* Word of Day */
+        .word-of-day-wrapper { margin-bottom: 12px; }
+
+        .word-of-day {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: var(--radius);
+            color: white;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .word-of-day.collapsed { cursor: pointer; }
+
+        .word-of-day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+        }
+
+        .word-of-day-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .word-of-day-date { font-size: 9px; opacity: 0.8; margin-top: 2px; }
+        .word-of-day-actions { display: flex; gap: 6px; }
+
+        .word-of-day-btn {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            font-size: 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .word-of-day-btn.liked { background: var(--danger); }
+
+        .word-of-day-content { padding: 0 12px 12px; text-align: center; }
+        .word-of-day.collapsed .word-of-day-content { display: none; }
+
+        .word-of-day-italian {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 3px;
+            direction: ltr;
+        }
+
+        .word-of-day-phonetic {
+            font-size: 11px;
+            opacity: 0.8;
+            margin-bottom: 6px;
+            font-style: italic;
+            direction: ltr;
+        }
+
+        .word-of-day-type {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 9px;
+            margin-bottom: 8px;
+        }
+
+        .word-of-day-arabic {
+            font-size: 16px;
+            font-weight: 600;
+            padding: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: var(--radius-sm);
+            margin-bottom: 8px;
+        }
+
+        .word-of-day-example {
+            background: rgba(0,0,0,0.2);
+            padding: 8px 10px;
+            border-radius: var(--radius-sm);
+            text-align: center;
+        }
+
+        .word-of-day-example-label { font-size: 9px; opacity: 0.7; margin-bottom: 3px; }
+        .word-of-day-example-it { font-size: 12px; font-weight: 600; margin-bottom: 2px; direction: ltr; }
+        .word-of-day-example-ar { font-size: 11px; opacity: 0.9; }
+
+        .word-of-day-collapsed-view {
+            display: none;
+            padding: 0 12px 10px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .word-of-day.collapsed .word-of-day-collapsed-view { display: flex; }
+        .word-of-day-collapsed-text { display: flex; align-items: center; gap: 8px; }
+        .word-of-day-collapsed-word { font-size: 14px; font-weight: 700; direction: ltr; }
+        .word-of-day-collapsed-meaning { font-size: 12px; opacity: 0.9; }
+
+        .word-of-day-expand-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        /* Daily Goal */
+        .daily-goal {
+            background: linear-gradient(135deg, var(--accent), #FB923C);
+            color: white;
+            border-radius: var(--radius);
+            padding: 12px 15px;
+            margin-bottom: 12px;
+        }
+
+        .daily-goal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .daily-goal-title { font-size: 13px; font-weight: 700; }
+        .daily-goal-xp { font-size: 12px; }
+
+        .daily-goal-progress {
+            height: 6px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .daily-goal-fill {
+            height: 100%;
+            background: white;
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+
+        /* Level Selector */
+        .level-selector {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 12px;
+        }
+
+        .level-selector-title {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .level-tabs {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .level-tab {
+            padding: 12px 8px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--light);
+            text-align: center;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level-tab.a1 { border-color: var(--a1-color); color: var(--a1-color); }
+        .level-tab.a2 { border-color: var(--a2-color); color: var(--a2-color); }
+        .level-tab.b1 { border-color: var(--b1-color); color: var(--b1-color); }
+        .level-tab.b2 { border-color: var(--b2-color); color: var(--b2-color); }
+
+        .level-tab.active.a1 { background: var(--a1-color); color: white; }
+        .level-tab.active.a2 { background: var(--a2-color); color: white; }
+        .level-tab.active.b1 { background: var(--b1-color); color: white; }
+        .level-tab.active.b2 { background: var(--b2-color); color: white; }
+
+        .level-tab:active { transform: scale(0.95); }
+        .level-tab small { display: block; font-size: 9px; margin-top: 2px; opacity: 0.8; }
+
+        .level-tab .level-progress-indicator {
+            width: 100%;
+            height: 4px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 2px;
+            margin-top: 6px;
+            overflow: hidden;
+        }
+
+        .level-tab.active .level-progress-indicator { background: rgba(255,255,255,0.3); }
+
+        .level-progress-indicator-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+
+        .level-tab.active .level-progress-indicator-fill { background: white; }
+
+        .level-tab.a1:not(.active) .level-progress-indicator-fill { background: var(--a1-color); }
+        .level-tab.a2:not(.active) .level-progress-indicator-fill { background: var(--a2-color); }
+        .level-tab.b1:not(.active) .level-progress-indicator-fill { background: var(--b1-color); }
+        .level-tab.b2:not(.active) .level-progress-indicator-fill { background: var(--b2-color); }
+
+        /* Section Cards */
+        .section-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .section-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+
+        .section-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+        }
+
+        .section-card.words::before { background: var(--a1-color); }
+        .section-card.phrases::before { background: var(--a2-color); }
+        .section-card.conversations::before { background: var(--b1-color); }
+        .section-card.grammar::before { background: var(--b2-color); }
+        .section-card.quiz::before { background: var(--secondary); }
+        .section-card.practice::before { background: var(--accent); }
+
+        .section-card:active { transform: scale(0.97); }
+
+        .section-card-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            margin: 0 auto 10px;
+            color: white;
+        }
+
+        .section-card.words .section-card-icon { background: linear-gradient(135deg, var(--a1-color), #4ADE80); }
+        .section-card.phrases .section-card-icon { background: linear-gradient(135deg, var(--a2-color), #60A5FA); }
+        .section-card.conversations .section-card-icon { background: linear-gradient(135deg, var(--b1-color), #FBBF24); }
+        .section-card.grammar .section-card-icon { background: linear-gradient(135deg, var(--b2-color), #F87171); }
+        .section-card.quiz .section-card-icon { background: linear-gradient(135deg, var(--secondary), #A855F7); }
+        .section-card.practice .section-card-icon { background: linear-gradient(135deg, var(--accent), #FB923C); }
+
+        .section-card-title { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+        .section-card-count { font-size: 10px; color: var(--text-secondary); }
+
+        .section-card-badge {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: var(--danger);
+            color: white;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 8px;
+        }
+
+        /* Progress Overview */
+        .progress-overview {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            padding: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 15px;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .progress-title { font-size: 13px; font-weight: 700; }
+
+        .progress-percentage {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .progress-bar-container {
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.5s;
+        }
+
+        .progress-bar-fill.a1 { background: linear-gradient(to right, var(--a1-color), #4ADE80); }
+        .progress-bar-fill.a2 { background: linear-gradient(to right, var(--a2-color), #60A5FA); }
+        .progress-bar-fill.b1 { background: linear-gradient(to right, var(--b1-color), #FBBF24); }
+        .progress-bar-fill.b2 { background: linear-gradient(to right, var(--b2-color), #F87171); }
+
+        .progress-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+        }
+
+        .progress-stat {
+            text-align: center;
+            padding: 8px;
+            background: var(--light);
+            border-radius: var(--radius-sm);
+        }
+
+        .progress-stat-value {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .progress-stat-label { font-size: 9px; color: var(--text-secondary); }
+
+        /* Page Header */
+        .page-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .page-back {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            border: none;
+            background: var(--light);
+            color: var(--text-main);
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .page-title { font-size: 18px; font-weight: 800; }
+        .page-subtitle { font-size: 11px; color: var(--text-secondary); }
+
+        /* Category List */
+        .category-list { display: flex; flex-direction: column; gap: 10px; }
+
+        .category-item {
+            background: var(--card-bg);
+            border-radius: var(--radius-sm);
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            transition: transform 0.2s;
+        }
+
+        .category-item:active { transform: scale(0.98); }
+
+        .category-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+
+        .category-info { flex: 1; min-width: 0; }
+        .category-name { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+        .category-meta { font-size: 11px; color: var(--text-secondary); }
+        .category-progress-value { font-size: 14px; font-weight: 800; color: var(--primary); }
+        .category-arrow { color: var(--text-secondary); font-size: 12px; }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: calc(var(--nav-height) + var(--safe-bottom) + 20px);
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--dark);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            z-index: 10000;
+            opacity: 0;
+            transition: all 0.3s;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            pointer-events: none;
+        }
+
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+        .toast.success { background: var(--success); }
+        .toast.error { background: var(--danger); }
+        .toast.warning { background: var(--warning); }
+        .toast.info { background: var(--info); }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 10001;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+        }
+
+        .modal-overlay.show { opacity: 1; visibility: visible; }
+
+        .modal {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--card-bg);
+            border-radius: var(--radius) var(--radius) 0 0;
+            padding: 20px;
+            padding-bottom: calc(20px + var(--safe-bottom));
+            z-index: 10002;
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .modal.show { transform: translateY(0); }
+
+        .modal-handle {
+            width: 40px;
+            height: 5px;
+            background: var(--border);
+            border-radius: 3px;
+            margin: 0 auto 15px;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .modal-title { font-size: 18px; font-weight: 800; color: var(--text-main); }
+
+        .modal-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: var(--light);
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+        }
+
+        /* Button styles */
+        .btn-primary {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: var(--radius-sm);
+            background: var(--primary);
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary:active { transform: scale(0.98); }
+
+        .btn-secondary {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--light);
+            color: var(--text-main);
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-secondary:active { transform: scale(0.98); }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state i { font-size: 50px; margin-bottom: 15px; opacity: 0.3; }
+        .empty-state p { font-size: 14px; margin-bottom: 15px; }
+
+        /* Settings Section */
+        .settings-section { margin-bottom: 24px; }
+
+        .settings-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            padding-right: 5px;
+        }
+
+        .settings-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 12px;
+            border-radius: var(--radius-sm);
+            background: var(--light);
+            margin-bottom: 8px;
+            cursor: pointer;
+        }
+
+        .settings-item-info { display: flex; align-items: center; gap: 12px; }
+
+        .settings-item-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--card-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--primary);
+        }
+
+        .settings-item-text h4 { font-size: 14px; font-weight: 600; margin-bottom: 3px; }
+        .settings-item-text p { font-size: 12px; color: var(--text-secondary); }
+
+        .toggle {
+            width: 48px;
+            height: 26px;
+            background: var(--border);
+            border-radius: 13px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+            flex-shrink: 0;
+        }
+
+        .toggle.active { background: var(--primary); }
+
+        .toggle::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border-radius: 50%;
+            transition: left 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .toggle.active::after { left: 25px; }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">جاري تحميل البيانات...</div>
+    </div>
+
+    <!-- Offline Banner -->
+    <div class="offline-banner" id="offlineBanner">
+        📴 أنت غير متصل بالإنترنت - التطبيق يعمل بدون اتصال
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage"></span>
+    </div>
+
+    <!-- Modal Overlay -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <!-- Word Detail Modal - New -->
+    <div class="word-detail-modal" id="wordDetailModal">
+        <div class="word-detail-content">
+            <div class="word-detail-header">
+                <button class="word-detail-close" onclick="closeWordDetail()">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="word-detail-main-word" id="wordDetailWord">Ciao</div>
+                <div class="word-detail-phonetic" id="wordDetailPhonetic">/ˈtʃaːo/</div>
+            </div>
+            <div class="word-detail-body">
+                <div class="word-detail-section">
+                    <div class="word-detail-section-title">الترجمة</div>
+                    <div class="word-detail-translation" id="wordDetailTranslation">مرحباً</div>
+                </div>
+                <div class="word-detail-section">
+                    <div class="word-detail-section-title">معلومات</div>
+                    <div class="word-detail-meta">
+                        <div class="word-detail-meta-item">
+                            <div class="word-detail-meta-label">المستوى</div>
+                            <div class="word-detail-meta-value" id="wordDetailLevel">A1</div>
+                        </div>
+                        <div class="word-detail-meta-item">
+                            <div class="word-detail-meta-label">النوع</div>
+                            <div class="word-detail-meta-value" id="wordDetailType">تحية</div>
+                        </div>
+                        <div class="word-detail-meta-item">
+                            <div class="word-detail-meta-label">الفئة</div>
+                            <div class="word-detail-meta-value" id="wordDetailCategory">التحيات</div>
+                        </div>
+                        <div class="word-detail-meta-item">
+                            <div class="word-detail-meta-label">صندوق الحفظ</div>
+                            <div class="word-detail-meta-value" id="wordDetailBox">1</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="word-detail-section" id="wordDetailExampleSection">
+                    <div class="word-detail-section-title">مثال</div>
+                    <div class="word-detail-example">
+                        <div class="word-detail-example-it" id="wordDetailExampleIt">Ciao, come stai?</div>
+                        <div class="word-detail-example-ar" id="wordDetailExampleAr">مرحباً، كيف حالك؟</div>
+                    </div>
+                </div>
+            </div>
+            <div class="word-detail-actions">
+                <button class="word-detail-action-btn speak" onclick="speakDetailWord()">
+                    <i class="fas fa-volume-up"></i> نطق
+                </button>
+                <button class="word-detail-action-btn like" id="wordDetailLikeBtn" onclick="toggleDetailWordLike()">
+                    <i class="far fa-heart"></i> مفضلة
+                </button>
+                <button class="word-detail-action-btn study" onclick="studyDetailWord()">
+                    <i class="fas fa-graduation-cap"></i> دراسة
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-handle"></div>
+        <div class="modal-header">
+            <div class="modal-title">⚙️ الإعدادات</div>
+            <button class="modal-close" onclick="closeModal()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="settings-section">
+            <div class="settings-title">العرض</div>
+            <div class="settings-item" onclick="toggleDarkMode()">
+                <div class="settings-item-info">
+                    <div class="settings-item-icon"><i class="fas fa-moon"></i></div>
+                    <div class="settings-item-text">
+                        <h4>الوضع الليلي</h4>
+                        <p>تغيير مظهر التطبيق</p>
+                    </div>
+                </div>
+                <div class="toggle" id="darkModeToggle"></div>
+            </div>
+            <div class="settings-item" onclick="toggleSound()">
+                <div class="settings-item-info">
+                    <div class="settings-item-icon"><i class="fas fa-volume-up"></i></div>
+                    <div class="settings-item-text">
+                        <h4>الأصوات</h4>
+                        <p>تفعيل أصوات النطق</p>
+                    </div>
+                </div>
+                <div class="toggle active" id="soundToggle"></div>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <div class="settings-title">الدراسة</div>
+            <div class="settings-item" onclick="setDailyGoal()">
+                <div class="settings-item-info">
+                    <div class="settings-item-icon"><i class="fas fa-bullseye"></i></div>
+                    <div class="settings-item-text">
+                        <h4>الهدف اليومي</h4>
+                        <p id="dailyGoalDisplay">50 XP</p>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-left" style="color: var(--text-secondary);"></i>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <div class="settings-title">البيانات</div>
+            <div class="settings-item" onclick="resetProgress()">
+                <div class="settings-item-info">
+                    <div class="settings-item-icon" style="color: var(--danger);"><i class="fas fa-redo"></i></div>
+                    <div class="settings-item-text">
+                        <h4>إعادة التقدم</h4>
+                        <p>البدء من جديد</p>
+                    </div>
+                </div>
+                <i class="fas fa-chevron-left" style="color: var(--text-secondary);"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- App Wrapper -->
+    <div class="app-wrapper">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-top">
+                <div class="header-logo">
+                    <div class="header-logo-icon">🇮🇹</div>
+                    <div>
+                        <div class="header-title">سهل إيطالي</div>
+                        <div class="header-subtitle">SahlItaly A1-B2</div>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button class="header-btn" onclick="openSettings()">
+                        <i class="fas fa-cog"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="stats-bar">
+                <div class="stat-item">
+                    <i class="fas fa-fire"></i>
+                    <span id="streakCount">0</span>
+                               </div>
+                <div class="stat-item">
+                    <i class="fas fa-star"></i>
+                    <span id="xpCount">0</span> XP
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-trophy"></i>
+                    مستوى <span id="userLevel">1</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content" id="mainContent">
+            <!-- Home Page -->
+            <div class="page active" id="homePage">
+                <!-- Word of the Day -->
+                <div class="word-of-day-wrapper" id="wodWrapper">
+                    <div class="word-of-day" id="wordOfDay">
+                        <div class="word-of-day-header">
+                            <div>
+                                <div class="word-of-day-badge">📖 كلمة اليوم</div>
+                                <div class="word-of-day-date" id="wodDate"></div>
+                            </div>
+                            <div class="word-of-day-actions">
+                                <button class="word-of-day-btn" id="wodLikeBtn" onclick="toggleLikeWordOfDay(event)">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="word-of-day-btn" onclick="speakWordOfDay(event)">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                                <button class="word-of-day-btn" onclick="toggleWordOfDay(event)">
+                                    <i class="fas fa-chevron-up" id="wodToggleIcon"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="word-of-day-content" id="wodContent">
+                            <div class="word-of-day-italian" id="wodItalian">Ciao</div>
+                            <div class="word-of-day-phonetic" id="wodPhonetic">/ˈtʃaːo/</div>
+                            <div class="word-of-day-type" id="wodType">تحية</div>
+                            <div class="word-of-day-arabic" id="wodArabic">مرحباً</div>
+                            <div class="word-of-day-example">
+                                <div class="word-of-day-example-label">مثال:</div>
+                                <div class="word-of-day-example-it" id="wodExampleIt">Ciao, come stai?</div>
+                                <div class="word-of-day-example-ar" id="wodExampleAr">مرحباً، كيف حالك؟</div>
+                            </div>
+                        </div>
+                        <div class="word-of-day-collapsed-view" id="wodCollapsedView">
+                            <div class="word-of-day-collapsed-text">
+                                <span class="word-of-day-collapsed-word" id="wodCollapsedWord">Ciao</span>
+                                <span>-</span>
+                                <span class="word-of-day-collapsed-meaning" id="wodCollapsedMeaning">مرحباً</span>
+                            </div>
+                            <button class="word-of-day-expand-btn" onclick="toggleWordOfDay(event)">
+                                <i class="fas fa-chevron-down"></i> عرض
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Daily Goal -->
+                <div class="daily-goal">
+                    <div class="daily-goal-header">
+                        <div class="daily-goal-title">🎯 هدفك اليومي</div>
+                        <div class="daily-goal-xp"><span id="dailyXP">0</span> / <span id="dailyTarget">50</span> XP</div>
+                    </div>
+                    <div class="daily-goal-progress">
+                        <div class="daily-goal-fill" id="dailyGoalFill" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <!-- Level Selector -->
+                <div class="level-selector">
+                    <div class="level-selector-title">
+                        <i class="fas fa-layer-group"></i>
+                        اختر المستوى
+                    </div>
+                    <div class="level-tabs" id="levelTabs">
+                        <div class="level-tab a1 active" onclick="selectLevel('a1')" data-level="a1">
+                            A1
+                            <small>مبتدئ</small>
+                            <div class="level-progress-indicator">
+                                <div class="level-progress-indicator-fill" id="levelProgressA1" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="level-tab a2" onclick="selectLevel('a2')" data-level="a2">
+                            A2
+                            <small>أساسي</small>
+                            <div class="level-progress-indicator">
+                                <div class="level-progress-indicator-fill" id="levelProgressA2" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="level-tab b1" onclick="selectLevel('b1')" data-level="b1">
+                            B1
+                            <small>متوسط</small>
+                            <div class="level-progress-indicator">
+                                <div class="level-progress-indicator-fill" id="levelProgressB1" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="level-tab b2" onclick="selectLevel('b2')" data-level="b2">
+                            B2
+                            <small>متقدم</small>
+                            <div class="level-progress-indicator">
+                                <div class="level-progress-indicator-fill" id="levelProgressB2" style="width: 0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Progress Overview -->
+                <div class="progress-overview">
+                    <div class="progress-header">
+                        <div class="progress-title">تقدمك - <span id="currentLevelDisplay">A1</span></div>
+                        <div class="progress-percentage" id="levelProgress">0%</div>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill a1" id="levelProgressBar" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-stats">
+                        <div class="progress-stat">
+                            <div class="progress-stat-value" id="wordsLearned">0</div>
+                            <div class="progress-stat-label">كلمات</div>
+                        </div>
+                        <div class="progress-stat">
+                            <div class="progress-stat-value" id="phrasesLearned">0</div>
+                            <div class="progress-stat-label">عبارات</div>
+                        </div>
+                        <div class="progress-stat">
+                            <div class="progress-stat-value" id="grammarLearned">0</div>
+                            <div class="progress-stat-label">قواعد</div>
+                        </div>
+                        <div class="progress-stat">
+                            <div class="progress-stat-value" id="quizzesDone">0</div>
+                            <div class="progress-stat-label">اختبارات</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section Cards -->
+                <div class="section-grid">
+                    <div class="section-card words" onclick="openSection('flashcards')">
+                        <div class="section-card-badge">محسّن</div>
+                        <div class="section-card-icon"><i class="fas fa-clone"></i></div>
+                        <div class="section-card-title">البطاقات التعليمية</div>
+                        <div class="section-card-count" id="flashcardsCount">نظام الحفظ الذكي</div>
+                    </div>
+                    <div class="section-card phrases" onclick="openSection('words')">
+                        <div class="section-card-icon"><i class="fas fa-font"></i></div>
+                        <div class="section-card-title">الكلمات</div>
+                        <div class="section-card-count" id="wordsCount">0 كلمة</div>
+                    </div>
+                    <div class="section-card conversations" onclick="openSection('quiz')">
+                        <div class="section-card-icon"><i class="fas fa-question-circle"></i></div>
+                        <div class="section-card-title">اختبارات</div>
+                        <div class="section-card-count">اختبر نفسك</div>
+                    </div>
+                    <div class="section-card grammar" onclick="navigateTo('dictionary')">
+                        <div class="section-card-badge">محسّن</div>
+                        <div class="section-card-icon"><i class="fas fa-book-open"></i></div>
+                        <div class="section-card-title">القاموس</div>
+                        <div class="section-card-count">بحث متقدم</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== صفحة البطاقات التعليمية المتطورة ==================== -->
+            <div class="page" id="flashcardsPage">
+                <div class="page-header">
+                    <button class="page-back" onclick="goHome()"><i class="fas fa-arrow-right"></i></button>
+                    <div>
+                        <div class="page-title">🧠 البطاقات التعليمية</div>
+                        <div class="page-subtitle">نظام التكرار المتباعد</div>
+                    </div>
+                </div>
+
+                <!-- SRS Info Card -->
+                <div class="flashcard-study-header">
+                    <div class="flashcard-session-info">
+                        <div class="flashcard-session-title">📚 صناديق الحفظ</div>
+                        <div class="flashcard-session-count" id="totalCardsCount">0 كلمة</div>
+                    </div>
+                    <div class="srs-boxes" id="srsBoxes">
+                        <div class="srs-box box-1" onclick="startSRSSession(1)">
+                            <div class="srs-box-number" id="box1Count">0</div>
+                            <div class="srs-box-label">جديد</div>
+                        </div>
+                        <div class="srs-box box-2" onclick="startSRSSession(2)">
+                            <div class="srs-box-number" id="box2Count">0</div>
+                            <div class="srs-box-label">يومي</div>
+                        </div>
+                        <div class="srs-box box-3" onclick="startSRSSession(3)">
+                            <div class="srs-box-number" id="box3Count">0</div>
+                            <div class="srs-box-label">3 أيام</div>
+                        </div>
+                        <div class="srs-box box-4" onclick="startSRSSession(4)">
+                            <div class="srs-box-number" id="box4Count">0</div>
+                            <div class="srs-box-label">أسبوع</div>
+                        </div>
+                        <div class="srs-box box-5" onclick="startSRSSession(5)">
+                            <div class="srs-box-number" id="box5Count">0</div>
+                            <div class="srs-box-label">متقن</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Study Mode Selection -->
+                <div class="flashcard-mode-selector" id="flashcardModeSelector">
+                    <div class="flashcard-mode-card" onclick="startSRSSession('due')">
+                        <div class="flashcard-mode-icon"><i class="fas fa-clock"></i></div>
+                        <div class="flashcard-mode-title">للمراجعة الآن</div>
+                        <div class="flashcard-mode-count" id="dueCardsCount">0 كلمة</div>
+                    </div>
+                    <div class="flashcard-mode-card" onclick="startSRSSession('new')">
+                        <div class="flashcard-mode-icon"><i class="fas fa-plus"></i></div>
+                        <div class="flashcard-mode-title">كلمات جديدة</div>
+                        <div class="flashcard-mode-count" id="newCardsCount">0 كلمة</div>
+                    </div>
+                    <div class="flashcard-mode-card" onclick="startSRSSession('difficult')">
+                        <div class="flashcard-mode-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                        <div class="flashcard-mode-title">الصعبة</div>
+                        <div class="flashcard-mode-count" id="difficultCardsCount">0 كلمة</div>
+                    </div>
+                    <div class="flashcard-mode-card" onclick="startSRSSession('all')">
+                        <div class="flashcard-mode-icon"><i class="fas fa-layer-group"></i></div>
+                        <div class="flashcard-mode-title">جميع الكلمات</div>
+                        <div class="flashcard-mode-count" id="allCardsCount">0 كلمة</div>
+                    </div>
+                </div>
+
+                <!-- Category Selection for Flashcards -->
+                <div style="margin-bottom: 15px;">
+                    <div style="font-size: 14px; font-weight: 700; margin-bottom: 10px;">📂 اختر الفئة</div>
+                    <div class="category-list" id="flashcardCategoryList"></div>
+                </div>
+            </div>
+
+            <!-- ==================== صفحة دراسة البطاقات ==================== -->
+            <div class="page" id="flashcardStudyPage">
+                <div class="page-header">
+                    <button class="page-back" onclick="exitFlashcardStudy()"><i class="fas fa-arrow-right"></i></button>
+                    <div>
+                        <div class="page-title" id="flashcardStudyTitle">دراسة البطاقات</div>
+                        <div class="page-subtitle"><span id="flashcardProgress">0/0</span></div>
+                    </div>
+                </div>
+
+                <!-- Session Stats -->
+                <div class="session-stats" style="margin-bottom: 15px;">
+                    <div class="session-stats-title"><i class="fas fa-chart-line"></i> إحصائيات الجلسة</div>
+                    <div class="session-stats-grid">
+                        <div class="session-stat-item">
+                            <div class="session-stat-value correct" id="sessionCorrect">0</div>
+                            <div class="session-stat-label">صحيح</div>
+                        </div>
+                        <div class="session-stat-item">
+                            <div class="session-stat-value wrong" id="sessionWrong">0</div>
+                            <div class="session-stat-label">للمراجعة</div>
+                        </div>
+                        <div class="session-stat-item">
+                            <div class="session-stat-value remaining" id="sessionRemaining">0</div>
+                            <div class="session-stat-label">متبقي</div>
+                        </div>
+                        <div class="session-stat-item">
+                            <div class="session-stat-value mastered" id="sessionMastered">0</div>
+                            <div class="session-stat-label">متقن</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flashcard -->
+                <div class="flashcard-container" id="flashcardContainer">
+                    <div class="flashcard" id="flashcard" onclick="flipFlashcard()">
+                        <div class="flashcard-face flashcard-front">
+                            <div class="flashcard-header">
+                                <span class="flashcard-level a1" id="flashcardLevel">A1</span>
+                                <div class="flashcard-box-indicator">
+                                    <i class="fas fa-box"></i>
+                                    <span id="flashcardBox">1</span>
+                                </div>
+                            </div>
+                            <div class="flashcard-body">
+                                <div class="flashcard-word" id="flashcardWord">Ciao</div>
+                                <div class="flashcard-phonetic" id="flashcardPhonetic">/ˈtʃaːo/</div>
+                                <div class="flashcard-type" id="flashcardType">تحية</div>
+                            </div>
+                            <div class="flashcard-footer">انقر لرؤية الترجمة</div>
+                        </div>
+                        <div class="flashcard-face flashcard-back">
+                            <div class="flashcard-header">
+                                <span class="flashcard-level a1" id="flashcardLevelBack">A1</span>
+                                <div class="flashcard-box-indicator">
+                                    <i class="fas fa-box"></i>
+                                    <span id="flashcardBoxBack">1</span>
+                                </div>
+                            </div>
+                            <div class="flashcard-body">
+                                <div class="flashcard-translation" id="flashcardTranslation">مرحباً</div>
+                                <div class="flashcard-example" id="flashcardExample">
+                                    <div class="flashcard-example-label">مثال:</div>
+                                    <div class="flashcard-example-it" id="flashcardExampleIt">Ciao, come stai?</div>
+                                    <div class="flashcard-example-ar" id="flashcardExampleAr">مرحباً، كيف حالك؟</div>
+                                </div>
+                            </div>
+                            <div class="flashcard-footer">قيّم مدى معرفتك</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="flashcard-controls">
+                    <button class="flashcard-control-btn speak" onclick="speakFlashcard()">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <button class="flashcard-control-btn flip" onclick="flipFlashcard()">
+                        <i class="fas fa-sync-alt"></i> اقلب
+                    </button>
+                    <button class="flashcard-control-btn like" id="flashcardLikeBtn" onclick="toggleFlashcardLike()">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+
+                <!-- SRS Rating -->
+                <div class="srs-rating-container" id="srsRatingContainer" style="display: none;">
+                    <div class="srs-rating-title">كيف كانت إجابتك؟</div>
+                    <div class="srs-rating-buttons">
+                        <button class="srs-rating-btn again" onclick="rateFlashcard(0)">
+                            <i class="fas fa-redo"></i>
+                            أعد
+                            <span class="next-review">الآن</span>
+                        </button>
+                        <button class="srs-rating-btn hard" onclick="rateFlashcard(1)">
+                            <i class="fas fa-brain"></i>
+                            صعب
+                            <span class="next-review">1 يوم</span>
+                        </button>
+                        <button class="srs-rating-btn good" onclick="rateFlashcard(2)">
+                            <i class="fas fa-thumbs-up"></i>
+                            جيد
+                            <span class="next-review" id="goodNextReview">3 أيام</span>
+                        </button>
+                        <button class="srs-rating-btn easy" onclick="rateFlashcard(3)">
+                            <i class="fas fa-check-double"></i>
+                            سهل
+                            <span class="next-review" id="easyNextReview">7 أيام</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Study Complete -->
+                <div class="study-complete" id="studyComplete" style="display: none;">
+                    <div class="study-complete-icon">🎉</div>
+                    <div class="study-complete-title">أحسنت!</div>
+                    <div class="study-complete-subtitle">أكملت جلسة الدراسة</div>
+                    <div class="study-complete-stats">
+                        <div class="study-complete-stat">
+                            <div class="study-complete-stat-value" id="completeCorrect" style="color: var(--success);">0</div>
+                            <div class="study-complete-stat-label">صحيح</div>
+                        </div>
+                        <div class="study-complete-stat">
+                            <div class="study-complete-stat-value" id="completeWrong" style="color: var(--danger);">0</div>
+                            <div class="study-complete-stat-label">للمراجعة</div>
+                        </div>
+                        <div class="study-complete-stat">
+                            <div class="study-complete-stat-value" id="completeXP" style="color: var(--accent);">+0</div>
+                            <div class="study-complete-stat-label">XP</div>
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="openSection('flashcards')" style="margin-bottom: 10px;">
+                        <i class="fas fa-redo"></i> جلسة جديدة
+                    </button>
+                    <button class="btn-secondary" onclick="goHome()">
+                        <i class="fas fa-home"></i> الرئيسية
+                    </button>
+                </div>
+            </div>
+
+            <!-- ==================== صفحة القاموس المحسّنة ==================== -->
+            <div class="page" id="dictionaryPage">
+                <!-- Advanced Header -->
+                <div class="dictionary-advanced-header">
+                    <div class="dictionary-title-row">
+                        <div class="dictionary-main-title">📚 القاموس</div>
+                        <div class="dictionary-total-words"><span id="dictTotalWords">0</span> كلمة</div>
+                    </div>
+                    
+                    <!-- Search -->
+                    <div class="dictionary-search-container">
+                        <i class="fas fa-search dictionary-search-icon"></i>
+                        <input type="text" class="dictionary-search-input" id="dictSearchInput" 
+                               placeholder="ابحث بالإيطالية أو العربية..." oninput="searchDictionary()">
+                        <button class="dictionary-search-clear" id="dictSearchClear" onclick="clearDictSearch()">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    
+                    <!-- Filters -->
+                    <div class="dictionary-filters">
+                        <button class="dictionary-filter-btn active" data-filter="all" onclick="filterDict('all')">الكل</button>
+                        <button class="dictionary-filter-btn" data-filter="a1" onclick="filterDict('a1')">A1</button>
+                        <button class="dictionary-filter-btn" data-filter="a2" onclick="filterDict('a2')">A2</button>
+                        <button class="dictionary-filter-btn" data-filter="b1" onclick="filterDict('b1')">B1</button>
+                        <button class="dictionary-filter-btn" data-filter="b2" onclick="filterDict('b2')">B2</button>
+                        <button class="dictionary-filter-btn" data-filter="favorites" onclick="filterDict('favorites')">❤️</button>
+                    </div>
+                </div>
+
+                <!-- Stats Bar -->
+                <div class="dictionary-stats-bar">
+                    <div class="dict-stat a1" onclick="filterDict('a1')">
+                        <div class="dict-stat-value" id="dictA1Count">0</div>
+                        <div class="dict-stat-label">A1</div>
+                    </div>
+                    <div class="dict-stat a2" onclick="filterDict('a2')">
+                        <div class="dict-stat-value" id="dictA2Count">0</div>
+                        <div class="dict-stat-label">A2</div>
+                    </div>
+                    <div class="dict-stat b1" onclick="filterDict('b1')">
+                        <div class="dict-stat-value" id="dictB1Count">0</div>
+                        <div class="dict-stat-label">B1</div>
+                    </div>
+                    <div class="dict-stat b2" onclick="filterDict('b2')">
+                        <div class="dict-stat-value" id="dictB2Count">0</div>
+                        <div class="dict-stat-label">B2</div>
+                    </div>
+                </div>
+
+                <!-- Alphabet Jump -->
+                <div class="alphabet-jump" id="alphabetJump"></div>
+
+                <!-- Sort & View Options -->
+                <div class="dictionary-options">
+                    <div class="dictionary-sort">
+                        <span class="dictionary-sort-label">ترتيب:</span>
+                        <select class="dictionary-sort-select" id="dictSortSelect" onchange="sortDictionary()">
+                            <option value="alpha-asc">أ-ي (إيطالي)</option>
+                            <option value="alpha-desc">ي-أ (إيطالي)</option>
+                            <option value="arabic">أبجدي عربي</option>
+                            <option value="level">المستوى</option>
+                            <option value="recent">الأحدث</option>
+                        </select>
+                    </div>
+                    <div class="dictionary-view-toggle">
+                        <button class="view-toggle-btn active" id="viewList" onclick="setDictView('list')">
+                            <i class="fas fa-list"></i>
+                        </button>
+                        <button class="view-toggle-btn" id="viewGrid" onclick="setDictView('grid')">
+                            <i class="fas fa-th"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Words List -->
+                <div id="dictionaryContent"></div>
+            </div>
+
+            <!-- ==================== صفحة الكلمات ==================== -->
+            <div class="page" id="wordsPage">
+                <div class="page-header">
+                    <button class="page-back" onclick="goHome()"><i class="fas fa-arrow-right"></i></button>
+                    <div>
+                        <div class="page-title">الكلمات</div>
+                        <div class="page-subtitle">المستوى <span class="current-level-text">A1</span></div>
+                    </div>
+                </div>
+                <div class="category-list" id="wordsCategoryList"></div>
+            </div>
+
+            <!-- ==================== صفحة الاختبارات ==================== -->
+            <div class="page" id="quizPage">
+                <div class="page-header">
+                    <button class="page-back" onclick="goHome()"><i class="fas fa-arrow-right"></i></button>
+                    <div>
+                        <div class="page-title">الاختبارات</div>
+                        <div class="page-subtitle">المستوى <span class="current-level-text">A1</span></div>
+                    </div>
+                </div>
+                <div class="category-list">
+                    <div class="category-item" onclick="startQuiz('words')">
+                        <div class="category-icon" style="background: linear-gradient(135deg, var(--a1-color), #4ADE80); color: white;">
+                            <i class="fas fa-font"></i>
+                        </div>
+                        <div class="category-info">
+                            <div class="category-name">اختبار الكلمات</div>
+                            <div class="category-meta">10 أسئلة</div>
+                        </div>
+                        <i class="fas fa-chevron-left category-arrow"></i>
+                    </div>
+                    <div class="category-item" onclick="startQuiz('reverse')">
+                        <div class="category-icon" style="background: linear-gradient(135deg, var(--a2-color), #60A5FA); color: white;">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="category-info">
+                            <div class="category-name">عربي ← إيطالي</div>
+                            <div class="category-meta">10 أسئلة</div>
+                        </div>
+                        <i class="fas fa-chevron-left category-arrow"></i>
+                    </div>
+                    <div class="category-item" onclick="startQuiz('listening')">
+                        <div class="category-icon" style="background: linear-gradient(135deg, var(--b1-color), #FBBF24); color: white;">
+                            <i class="fas fa-headphones"></i>
+                        </div>
+                        <div class="category-info">
+                            <div class="category-name">اختبار الاستماع</div>
+                            <div class="category-meta">10 أسئلة</div>
+                        </div>
+                        <i class="fas fa-chevron-left category-arrow"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile Page -->
+            <div class="page" id="profilePage">
+                <div class="progress-overview" style="background: linear-gradient(135deg, var(--primary), var(--primary-dark)); color: white;">
+                    <div style="text-align: center; padding: 10px 0;">
+                        <div style="font-size: 50px; margin-bottom: 10px;">👨‍🎓</div>
+                        <div style="font-size: 22px; font-weight: 800;">المستوى <span id="profileLevel">1</span></div>
+                        <div style="font-size: 14px; opacity: 0.9; margin-bottom: 15px;"><span id="profileXP">0</span> XP</div>
+                        <div style="height: 6px; background: rgba(255,255,255,0.3); border-radius: 3px; overflow: hidden;">
+                            <div id="profileProgressFill" style="height: 100%; background: white; border-radius: 3px; width: 0%;"></div>
+                        </div>
+                        <div style="font-size: 11px; opacity: 0.8; margin-top: 5px;"><span id="profileXPNext">100</span> XP للمستوى التالي</div>
+                    </div>
+                </div>
+
+                <div class="progress-overview">
+                    <div class="progress-title" style="margin-bottom: 12px;">📊 الإحصائيات</div>
+                    <div class="progress-stats">
+                        <div class="progress-stat">
+                            <div class="progress-stat-value" id="totalWords">0</div>
+                            <div class="progress-stat-label">كلمات</div>
+                        </div>
+                        <div class="progress-stat">
+                            <div class="progress-stat-value" id="totalQuizzes">0</div>
+                            <div class="progress-stat-label">اختبارات</div>
+                        </div>
+                        <div class="progress-stat">
+                            <div class="progress-stat-value" id="currentStreak">0</div>
+                            <div class="progress-stat-label">🔥 أيام</div>
+                        </div>
+                        <div class="progress-stat">
+                            <div class="progress-stat-value" id="masteredWords">0</div>
+                            <div class="progress-stat-label">متقن</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="progress-overview" onclick="openFavorites()" style="cursor: pointer;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div class="progress-title">❤️ المفضلة</div>
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <span style="font-size: 11px; color: var(--text-secondary);" id="likedCount">0 كلمات</span>
+                            <i class="fas fa-chevron-left" style="color: var(--text-secondary);"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Favorites Page -->
+            <div class="page" id="favoritesPage">
+                <div class="page-header">
+                    <button class="page-back" onclick="navigateTo('profile')"><i class="fas fa-arrow-right"></i></button>
+                    <div>
+                        <div class="page-title">❤️ المفضلة</div>
+                        <div class="page-subtitle"><span id="favoritesTotal">0</span> كلمة</div>
+                    </div>
+                </div>
+                <div id="favoritesContent"></div>
+            </div>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" data-page="home" onclick="navigateTo('home')">
+                <i class="fas fa-home"></i>
+                <span>الرئيسية</span>
+            </button>
+            <button class="nav-item" data-page="flashcards" onclick="openSection('flashcards')">
+                <i class="fas fa-clone"></i>
+                <span>البطاقات</span>
+            </button>
+            <button class="nav-item" data-page="dictionary" onclick="navigateTo('dictionary')">
+                <i class="fas fa-book-open"></i>
+                <span>القاموس</span>
+            </button>
+            <button class="nav-item" data-page="profile" onclick="navigateTo('profile')">
+                <i class="fas fa-user"></i>
+                <span>حسابي</span>
+            </button>
+        </nav>
+    </div>
+
+    <script>
+        // ==================== التهيئة والإعدادات ====================
+        const CONFIG = {
+            STATE_KEY: 'sahlitali_state_v12',
+            SRS_INTERVALS: [0, 1, 3, 7, 14, 30], // أيام لكل صندوق
+        };
+
+        // ==================== قاعدة البيانات ====================
+        let DATABASE = {
+            words: {
+                a1: {
+                    greetings: {
+                        name: 'التحيات',
+                        icon: 'hand-wave',
+                        words: [
+                            { it: 'Ciao', ar: 'مرحباً', phonetic: '/ˈtʃaːo/', type: 'تحية', example: { it: 'Ciao, come stai?', ar: 'مرحباً، كيف حالك؟' } },
+                            { it: 'Buongiorno', ar: 'صباح الخير', phonetic: '/bwonˈdʒorno/', type: 'تحية', example: { it: 'Buongiorno signora!', ar: 'صباح الخير سيدتي!' } },
+                            { it: 'Buonasera', ar: 'مساء الخير', phonetic: '/bwona ˈsera/', type: 'تحية', example: { it: 'Buonasera a tutti!', ar: 'مساء الخير للجميع!' } },
+                            { it: 'Buonanotte', ar: 'تصبح على خير', phonetic: '/bwona ˈnotte/', type: 'تحية', example: { it: 'Buonanotte, dormi bene!', ar: 'تصبح على خير، نم جيداً!' } },
+                            { it: 'Arrivederci', ar: 'إلى اللقاء', phonetic: '/arriˈvedertʃi/', type: 'تحية', example: { it: 'Arrivederci a domani!', ar: 'إلى اللقاء غداً!' } },
+                            { it: 'Grazie', ar: 'شكراً', phonetic: '/ˈɡrattsje/', type: 'تعبير', example: { it: 'Grazie mille!', ar: 'شكراً جزيلاً!' } },
+                            { it: 'Prego', ar: 'عفواً', phonetic: '/ˈprɛɡo/', type: 'تعبير', example: { it: 'Prego, si accomodi.', ar: 'عفواً، تفضل.' } },
+                            { it: 'Scusa', ar: 'عذراً', phonetic: '/ˈskuza/', type: 'تعبير', example: { it: 'Scusa, non ho capito.', ar: 'عذراً، لم أفهم.' } },
+                            { it: 'Per favore', ar: 'من فضلك', phonetic: '/per faˈvore/', type: 'تعبير', example: { it: 'Un caffè, per favore.', ar: 'قهوة، من فضلك.' } },
+                            { it: 'Sì', ar: 'نعم', phonetic: '/si/', type: 'كلمة', example: { it: 'Sì, sono italiano.', ar: 'نعم، أنا إيطالي.' } },
+                            { it: 'No', ar: 'لا', phonetic: '/no/', type: 'كلمة', example: { it: 'No, grazie.', ar: 'لا، شكراً.' } }
+                        ]
+                    },
+                    numbers: {
+                        name: 'الأرقام',
+                        icon: 'hashtag',
+                        words: [
+                            { it: 'Uno', ar: 'واحد', phonetic: '/ˈuno/', type: 'رقم', example: { it: 'Ho un fratello.', ar: 'لدي أخ واحد.' } },
+                            { it: 'Due', ar: 'اثنان', phonetic: '/ˈdue/', type: 'رقم', example: { it: 'Due caffè, per favore.', ar: 'قهوتان، من فضلك.' } },
+                            { it: 'Tre', ar: 'ثلاثة', phonetic: '/tre/', type: 'رقم', example: { it: 'Tre giorni.', ar: 'ثلاثة أيام.' } },
+                            { it: 'Quattro', ar: 'أربعة', phonetic: '/ˈkwattro/', type: 'رقم', example: { it: 'Quattro persone.', ar: 'أربعة أشخاص.' } },
+                            { it: 'Cinque', ar: 'خمسة', phonetic: '/ˈtʃiŋkwe/', type: 'رقم', example: { it: 'Cinque minuti.', ar: 'خمس دقائق.' } },
+                            { it: 'Sei', ar: 'ستة', phonetic: '/ˈsɛi/', type: 'رقم', example: { it: 'Sei ore.', ar: 'ست ساعات.' } },
+                            { it: 'Sette', ar: 'سبعة', phonetic: '/ˈsɛtte/', type: 'رقم', example: { it: 'Sette giorni.', ar: 'سبعة أيام.' } },
+                            { it: 'Otto', ar: 'ثمانية', phonetic: '/ˈɔtto/', type: 'رقم', example: { it: 'Otto anni.', ar: 'ثماني سنوات.' } },
+                            { it: 'Nove', ar: 'تسعة', phonetic: '/ˈnɔve/', type: 'رقم', example: { it: 'Nove mesi.', ar: 'تسعة أشهر.' } },
+                            { it: 'Dieci', ar: 'عشرة', phonetic: '/ˈdjeːtʃi/', type: 'رقم', example: { it: 'Dieci euro.', ar: 'عشرة يورو.' } }
+                        ]
+                    },
+                    colors: {
+                        name: 'الألوان',
+                        icon: 'palette',
+                        words: [
+                            { it: 'Rosso', ar: 'أحمر', phonetic: '/ˈrosso/', type: 'صفة', example: { it: 'Il pomodoro è rosso.', ar: 'الطماطم حمراء.' } },
+                            { it: 'Blu', ar: 'أزرق', phonetic: '/blu/', type: 'صفة', example: { it: 'Il cielo è blu.', ar: 'السماء زرقاء.' } },
+                            { it: 'Verde', ar: 'أخضر', phonetic: '/ˈverde/', type: 'صفة', example: { it: "L'erba è verde.", ar: 'العشب أخضر.' } },
+                            { it: 'Giallo', ar: 'أصفر', phonetic: '/ˈdʒallo/', type: 'صفة', example: { it: 'Il sole è giallo.', ar: 'الشمس صفراء.' } },
+                            { it: 'Nero', ar: 'أسود', phonetic: '/ˈnero/', type: 'صفة', example: { it: 'Il gatto è nero.', ar: 'القط أسود.' } },
+                            { it: 'Bianco', ar: 'أبيض', phonetic: '/ˈbjaŋko/', type: 'صفة', example: { it: 'La neve è bianca.', ar: 'الثلج أبيض.' } },
+                            { it: 'Arancione', ar: 'برتقالي', phonetic: '/aranˈtʃone/', type: 'صفة', example: { it: "L'arancia è arancione.", ar: 'البرتقالة برتقالية.' } },
+                            { it: 'Rosa', ar: 'وردي', phonetic: '/ˈrɔza/', type: 'صفة', example: { it: 'Il fiore è rosa.', ar: 'الزهرة وردية.' } }
+                        ]
+                    },
+                    family: {
+                        name: 'العائلة',
+                        icon: 'users',
+                        words: [
+                            { it: 'Madre', ar: 'أم', phonetic: '/ˈmadre/', type: 'اسم', example: { it: 'Mia madre è italiana.', ar: 'أمي إيطالية.' } },
+                            { it: 'Padre', ar: 'أب', phonetic: '/ˈpadre/', type: 'اسم', example: { it: 'Mio padre lavora.', ar: 'أبي يعمل.' } },
+                            { it: 'Fratello', ar: 'أخ', phonetic: '/fraˈtɛllo/', type: 'اسم', example: { it: 'Ho un fratello.', ar: 'لدي أخ.' } },
+                            { it: 'Sorella', ar: 'أخت', phonetic: '/soˈrɛlla/', type: 'اسم', example: { it: 'Mia sorella studia.', ar: 'أختي تدرس.' } },
+                            { it: 'Figlio', ar: 'ابن', phonetic: '/ˈfiʎʎo/', type: 'اسم', example: { it: 'È mio figlio.', ar: 'هذا ابني.' } },
+                            { it: 'Figlia', ar: 'ابنة', phonetic: '/ˈfiʎʎa/', type: 'اسم', example: { it: 'È mia figlia.', ar: 'هذه ابنتي.' } },
+                            { it: 'Nonno', ar: 'جد', phonetic: '/ˈnɔnno/', type: 'اسم', example: { it: 'Mio nonno è vecchio.', ar: 'جدي كبير في السن.' } },
+                            { it: 'Nonna', ar: 'جدة', phonetic: '/ˈnɔnna/', type: 'اسم', example: { it: 'Mia nonna cucina bene.', ar: 'جدتي تطبخ جيداً.' } }
+                        ]
+                    },
+                    food: {
+                        name: 'الطعام',
+                        icon: 'utensils',
+                        words: [
+                            { it: 'Pane', ar: 'خبز', phonetic: '/ˈpane/', type: 'اسم', example: { it: 'Voglio del pane.', ar: 'أريد خبزاً.' } },
+                            { it: 'Acqua', ar: 'ماء', phonetic: '/ˈakkwa/', type: 'اسم', example: { it: "Un bicchiere d'acqua.", ar: 'كوب ماء.' } },
+                            { it: 'Caffè', ar: 'قهوة', phonetic: '/kafˈfɛ/', type: 'اسم', example: { it: 'Un caffè, per favore.', ar: 'قهوة، من فضلك.' } },
+                            { it: 'Pizza', ar: 'بيتزا', phonetic: '/ˈpittsa/', type: 'اسم', example: { it: 'La pizza è buona.', ar: 'البيتزا لذيذة.' } },
+                            { it: 'Pasta', ar: 'معكرونة', phonetic: '/ˈpasta/', type: 'اسم', example: { it: 'Mi piace la pasta.', ar: 'أحب المعكرونة.' } },
+                            { it: 'Formaggio', ar: 'جبن', phonetic: '/forˈmaddʒo/', type: 'اسم', example: { it: 'Il formaggio italiano.', ar: 'الجبن الإيطالي.' } },
+                            { it: 'Vino', ar: 'نبيذ', phonetic: '/ˈvino/', type: 'اسم', example: { it: 'Un bicchiere di vino.', ar: 'كوب نبيذ.' } },
+                            { it: 'Frutta', ar: 'فاكهة', phonetic: '/ˈfrutta/', type: 'اسم', example: { it: 'Mi piace la frutta.', ar: 'أحب الفاكهة.' } }
+                        ]
+                    }
+                },
+                a2: {},
+                b1: {},
+                b2: {}
+            }
+        };
+
+        // ==================== حالة التطبيق ====================
+        let appState = {
+            currentLevel: 'a1',
+            darkMode: false,
+            soundEnabled: true,
+            dailyGoal: 50,
+            xp: 0,
+            streak: 0,
+            userLevel: 1,
+            dailyXP: 0,
+            lastStudyDate: null,
+            likedWords: [],
+            wordOfDay: null,
+            wordOfDayDate: null,
+            wodCollapsed: false,
+            quizzesDone: 0,
+            // نظام SRS للبطاقات
+            srsData: {}, // { "wordId": { box: 1, nextReview: timestamp, reviews: 0 } }
+            // إعدادات القاموس
+            dictFilter: 'all',
+            dictSort: 'alpha-asc',
+            dictView: 'list'
+        };
+
+        // ==================== متغيرات الجلسة ====================
+        let currentDetailWord = null;
+        let flashcardDeck = [];
+        let flashcardIndex = 0;
+        let flashcardFlipped = false;
+        let sessionStats = { correct: 0, wrong: 0, mastered: 0 };
+
+        // ==================== تهيئة التطبيق ====================
+        function initApp() {
+            loadState();
+            if (appState.darkMode) document.body.classList.add('dark-mode');
+            updateLevelTabsUI(appState.currentLevel);
+            initWordOfDay();
+            updateUI();
+            updateSRSCounts();
+            renderDictionary();
+            renderFlashcardCategories();
+            renderAlphabetJump();
+            document.getElementById('loadingOverlay').classList.add('hide');
+        }
+
+        function loadState() {
+            try {
+                const saved = localStorage.getItem(CONFIG.STATE_KEY);
+                if (saved) appState = { ...appState, ...JSON.parse(saved) };
+            } catch (e) {}
+            checkStreak();
+        }
+
+        function saveState() {
+            try {
+                localStorage.setItem(CONFIG.STATE_KEY, JSON.stringify(appState));
+            } catch (e) {}
+        }
+
+        // ==================== نظام SRS للبطاقات التعليمية ====================
+        
+        function getWordId(word, level, category) {
+            return `${level}_${category}_${word.it}`;
+        }
+
+        function getSRSData(wordId) {
+            if (!appState.srsData[wordId]) {
+                appState.srsData[wordId] = {
+                    box: 1,
+                    nextReview: Date.now(),
+                    reviews: 0,
+                    lastReview: null
+                };
+            }
+            return appState.srsData[wordId];
+        }
+
+        function updateSRSCounts() {
+            const counts = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, due: 0, new: 0, difficult: 0, all: 0 };
+            const now = Date.now();
+            
+            getAllWords().forEach(word => {
+                const wordId = getWordId(word, word.level, word.categoryId);
+                const srs = appState.srsData[wordId];
+                
+                counts.all++;
+                
+                if (!srs) {
+                    counts.new++;
+                    counts[1]++;
+                } else {
+                    counts[srs.box]++;
+                    if (srs.nextReview <= now) counts.due++;
+                    if (srs.box <= 2) counts.difficult++;
+                }
+            });
+            
+            document.getElementById('box1Count').textContent = counts[1];
+            document.getElementById('box2Count').textContent = counts[2];
+            document.getElementById('box3Count').textContent = counts[3];
+            document.getElementById('box4Count').textContent = counts[4];
+            document.getElementById('box5Count').textContent = counts[5];
+            document.getElementById('dueCardsCount').textContent = counts.due + ' كلمة';
+            document.getElementById('newCardsCount').textContent = counts.new + ' كلمة';
+            document.getElementById('difficultCardsCount').textContent = counts.difficult + ' كلمة';
+            document.getElementById('allCardsCount').textContent = counts.all + ' كلمة';
+            document.getElementById('totalCardsCount').textContent = counts.all + ' كلمة';
+        }
+
+        function startSRSSession(mode) {
+            const now = Date.now();
+            let words = [];
+            
+            if (typeof mode === 'number') {
+                // صندوق معين
+                words = getAllWords().filter(word => {
+                    const wordId = getWordId(word, word.level, word.categoryId);
+                    const srs = appState.srsData[wordId];
+                    return srs ? srs.box === mode : mode === 1;
+                });
+            } else {
+                switch(mode) {
+                    case 'due':
+                        words = getAllWords().filter(word => {
+                            const wordId = getWordId(word, word.level, word.categoryId);
+                            const srs = appState.srsData[wordId];
+                            return srs ? srs.nextReview <= now : true;
+                        });
+                        break;
+                    case 'new':
+                        words = getAllWords().filter(word => {
+                            const wordId = getWordId(word, word.level, word.categoryId);
+                            return !appState.srsData[wordId];
+                        });
+                        break;
+                    case 'difficult':
+                        words = getAllWords().filter(word => {
+                            const wordId = getWordId(word, word.level, word.categoryId);
+                            const srs = appState.srsData[wordId];
+                            return srs && srs.box <= 2;
+                        });
+                        break;
+                    case 'all':
+                        words = getAllWords();
+                        break;
+                }
+            }
+            
+            if (words.length === 0) {
+                showToast('لا توجد كلمات للدراسة', 'info');
+                return;
+            }
+            
+            // خلط الكلمات
+            flashcardDeck = words.sort(() => Math.random() - 0.5).slice(0, 20);
+            flashcardIndex = 0;
+            flashcardFlipped = false;
+            sessionStats = { correct: 0, wrong: 0, mastered: 0 };
+            
+            document.getElementById('flashcardStudyTitle').textContent = `دراسة البطاقات`;
+            showFlashcardStudyPage();
+            displayFlashcard();
+        }
+
+        function startCategorySession(categoryId) {
+            const level = appState.currentLevel;
+            const category = DATABASE.words[level]?.[categoryId];
+            
+            if (!category || !category.words.length) {
+                showToast('لا توجد كلمات في هذه الفئة', 'warning');
+                return;
+            }
+            
+            flashcardDeck = category.words.map(w => ({
+                ...w,
+                level: level,
+                categoryId: categoryId,
+                category: category.name
+            })).sort(() => Math.random() - 0.5);
+            
+            flashcardIndex = 0;
+            flashcardFlipped = false;
+            sessionStats = { correct: 0, wrong: 0, mastered: 0 };
+            
+            document.getElementById('flashcardStudyTitle').textContent = category.name;
+            showFlashcardStudyPage();
+            displayFlashcard();
+        }
+
+        function showFlashcardStudyPage() {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('flashcardStudyPage').classList.add('active');
+            document.getElementById('flashcardContainer').style.display = 'block';
+            document.getElementById('studyComplete').style.display = 'none';
+            document.getElementById('srsRatingContainer').style.display = 'none';
+        }
+
+        function displayFlashcard() {
+            if (flashcardIndex >= flashcardDeck.length) {
+                showStudyComplete();
+                return;
+            }
+            
+            const word = flashcardDeck[flashcardIndex];
+            const wordId = getWordId(word, word.level, word.categoryId);
+            const srs = getSRSData(wordId);
+            
+            // تحديث العرض
+            document.getElementById('flashcardWord').textContent = word.it;
+            document.getElementById('flashcardPhonetic').textContent = word.phonetic || '';
+            document.getElementById('flashcardType').textContent = word.type || 'كلمة';
+            document.getElementById('flashcardTranslation').textContent = word.ar;
+            
+            // المستوى
+            const level = word.level || appState.currentLevel;
+            document.getElementById('flashcardLevel').textContent = level.toUpperCase();
+            document.getElementById('flashcardLevel').className = `flashcard-level ${level}`;
+            document.getElementById('flashcardLevelBack').textContent = level.toUpperCase();
+            document.getElementById('flashcardLevelBack').className = `flashcard-level ${level}`;
+            
+            // الصندوق
+            document.getElementById('flashcardBox').textContent = srs.box;
+            document.getElementById('flashcardBoxBack').textContent = srs.box;
+            
+            // المثال
+            if (word.example) {
+                document.getElementById('flashcardExample').style.display = 'block';
+                document.getElementById('flashcardExampleIt').textContent = word.example.it;
+                document.getElementById('flashcardExampleAr').textContent = word.example.ar;
+            } else {
+                document.getElementById('flashcardExample').style.display = 'none';
+            }
+            
+            // المفضلة
+            updateFlashcardLikeBtn();
+            
+            // التقدم
+            document.getElementById('flashcardProgress').textContent = `${flashcardIndex + 1}/${flashcardDeck.length}`;
+            document.getElementById('sessionRemaining').textContent = flashcardDeck.length - flashcardIndex - 1;
+            document.getElementById('sessionCorrect').textContent = sessionStats.correct;
+            document.getElementById('sessionWrong').textContent = sessionStats.wrong;
+            document.getElementById('sessionMastered').textContent = sessionStats.mastered;
+            
+            // إعادة تعيين البطاقة
+            flashcardFlipped = false;
+            document.getElementById('flashcard').classList.remove('flipped');
+            document.getElementById('srsRatingContainer').style.display = 'none';
+            
+            // تحديث أوقات المراجعة القادمة
+            updateNextReviewTimes(srs.box);
+        }
+
+        function updateNextReviewTimes(currentBox) {
+            const intervals = ['الآن', '1 يوم', '3 أيام', '7 أيام', '14 يوم'];
+            const goodNext = intervals[Math.min(currentBox, 4)];
+            const easyNext = intervals[Math.min(currentBox + 1, 4)];
+            
+            document.getElementById('goodNextReview').textContent = goodNext;
+            document.getElementById('easyNextReview').textContent = easyNext;
+        }
+
+        function flipFlashcard() {
+            flashcardFlipped = !flashcardFlipped;
+            document.getElementById('flashcard').classList.toggle('flipped', flashcardFlipped);
+            
+            if (flashcardFlipped) {
+                document.getElementById('srsRatingContainer').style.display = 'block';
+            }
+        }
+
+        function rateFlashcard(rating) {
+            const word = flashcardDeck[flashcardIndex];
+            const wordId = getWordId(word, word.level, word.categoryId);
+            const srs = getSRSData(wordId);
+            
+            let xpGain = 0;
+            
+            switch(rating) {
+                case 0: // أعد - العودة للصندوق 1
+                    srs.box = 1;
+                    srs.nextReview = Date.now();
+                    sessionStats.wrong++;
+                    xpGain = 1;
+                    break;
+                case 1: // صعب - البقاء في نفس الصندوق
+                    srs.nextReview = Date.now() + (24 * 60 * 60 * 1000);
+                    sessionStats.wrong++;
+                    xpGain = 2;
+                    break;
+                case 2: // جيد - الانتقال للصندوق التالي
+                    srs.box = Math.min(srs.box + 1, 5);
+                    srs.nextReview = Date.now() + (CONFIG.SRS_INTERVALS[srs.box] * 24 * 60 * 60 * 1000);
+                    sessionStats.correct++;
+                    xpGain = 5;
+                    break;
+                case 3: // سهل - الانتقال صندوقين
+                    srs.box = Math.min(srs.box + 2, 5);
+                    srs.nextReview = Date.now() + (CONFIG.SRS_INTERVALS[srs.box] * 24 * 60 * 60 * 1000);
+                    sessionStats.correct++;
+                    if (srs.box === 5) sessionStats.mastered++;
+                    xpGain = 10;
+                    break;
+            }
+            
+            srs.reviews++;
+            srs.lastReview = Date.now();
+            appState.srsData[wordId] = srs;
+            
+            addXP(xpGain);
+            saveState();
+            
+            // الانتقال للبطاقة التالية
+            flashcardIndex++;
+            displayFlashcard();
+        }
+
+        function speakFlashcard() {
+            if (flashcardDeck.length > 0 && flashcardIndex < flashcardDeck.length) {
+                speak(flashcardDeck[flashcardIndex].it);
+            }
+        }
+
+        function toggleFlashcardLike() {
+            if (flashcardDeck.length === 0 || flashcardIndex >= flashcardDeck.length) return;
+            const word = flashcardDeck[flashcardIndex];
+            toggleLikeWord(word);
+            updateFlashcardLikeBtn();
+        }
+
+        function updateFlashcardLikeBtn() {
+            if (flashcardDeck.length === 0 || flashcardIndex >= flashcardDeck.length) return;
+            const word = flashcardDeck[flashcardIndex];
+            const isLiked = appState.likedWords.some(w => w.it === word.it);
+            const btn = document.getElementById('flashcardLikeBtn');
+            btn.classList.toggle('liked', isLiked);
+            btn.innerHTML = `<i class="${isLiked ? 'fas' : 'far'} fa-heart"></i>`;
+        }
+
+        function showStudyComplete() {
+            document.getElementById('flashcardContainer').style.display = 'none';
+            document.getElementById('srsRatingContainer').style.display = 'none';
+            document.getElementById('studyComplete').style.display = 'block';
+            
+            const totalXP = sessionStats.correct * 5 + sessionStats.wrong * 2;
+            document.getElementById('completeCorrect').textContent = sessionStats.correct;
+            document.getElementById('completeWrong').textContent = sessionStats.wrong;
+            document.getElementById('completeXP').textContent = '+' + totalXP;
+            
+            updateSRSCounts();
+        }
+
+        function exitFlashcardStudy() {
+            openSection('flashcards');
+            updateSRSCounts();
+        }
+
+        function renderFlashcardCategories() {
+            const container = document.getElementById('flashcardCategoryList');
+            const level = appState.currentLevel;
+            const levelData = DATABASE.words[level] || {};
+            
+            container.innerHTML = Object.entries(levelData).map(([catId, cat]) => `
+                <div class="category-item" onclick="startCategorySession('${catId}')">
+                    <div class="category-icon" style="background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white;">
+                        <i class="fas fa-${cat.icon || 'folder'}"></i>
+                    </div>
+                    <div class="category-info">
+                        <div class="category-name">${cat.name}</div>
+                        <div class="category-meta">${cat.words?.length || 0} كلمة</div>
+                    </div>
+                    <i class="fas fa-chevron-left category-arrow"></i>
+                </div>
+            `).join('');
+        }
+
+        // ==================== القاموس المحسّن ====================
+        
+        function getAllWords() {
+            const words = [];
+            Object.entries(DATABASE.words).forEach(([level, categories]) => {
+                Object.entries(categories).forEach(([catId, cat]) => {
+                    if (cat.words) {
+                        cat.words.forEach(word => {
+                            words.push({
+                                ...word,
+                                level: level,
+                                categoryId: catId,
+                                category: cat.name
+                            });
+                        });
+                    }
+                });
+            });
+            return words;
+        }
+
+        function renderDictionary() {
+            const container = document.getElementById('dictionaryContent');
+            let words = getAllWords();
+            
+            // تحديث الإحصائيات
+            updateDictionaryStats(words);
+            
+            // تطبيق الفلتر
+            words = applyDictionaryFilter(words);
+            
+            // تطبيق البحث
+            const searchQuery = document.getElementById('dictSearchInput')?.value.trim().toLowerCase();
+            if (searchQuery) {
+                words = words.filter(w => 
+                    w.it.toLowerCase().includes(searchQuery) || 
+                    w.ar.includes(searchQuery)
+                );
+            }
+            
+            // تطبيق الترتيب
+            words = applyDictionarySort(words);
+            
+            // تحديث العدد الكلي
+            document.getElementById('dictTotalWords').textContent = words.length;
+            
+            if (words.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-search"></i>
+                        <p>لا توجد نتائج</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = words.map(word => {
+                const isLiked = appState.likedWords.some(w => w.it === word.it);
+                return `
+                    <div class="dict-word-card" id="dict-${escapeId(word.it)}">
+                        <div class="dict-word-main" onclick="openWordDetail('${escapeQuotes(word.it)}', '${word.level}', '${word.categoryId}')">
+                            <div class="dict-word-level ${word.level}">${word.level.toUpperCase()}</div>
+                            <div class="dict-word-content">
+                                <div class="dict-word-italian">${word.it}</div>
+                                <div class="dict-word-arabic">${word.ar}</div>
+                            </div>
+                            <div class="dict-word-actions">
+                                <button class="dict-word-btn speak" onclick="event.stopPropagation(); speak('${escapeQuotes(word.it)}')">
+                                    <i class="fas fa-volume-up"></i>
+                                </button>
+                                <button class="dict-word-btn like ${isLiked ? 'liked' : ''}" onclick="event.stopPropagation(); toggleDictLike('${escapeQuotes(word.it)}', '${word.level}', '${word.categoryId}')">
+                                    <i class="${isLiked ? 'fas' : 'far'} fa-heart"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateDictionaryStats(words) {
+            const counts = { a1: 0, a2: 0, b1: 0, b2: 0 };
+            words.forEach(w => counts[w.level]++);
+            
+            document.getElementById('dictA1Count').textContent = counts.a1;
+            document.getElementById('dictA2Count').textContent = counts.a2;
+            document.getElementById('dictB1Count').textContent = counts.b1;
+            document.getElementById('dictB2Count').textContent = counts.b2;
+        }
+
+        function applyDictionaryFilter(words) {
+            const filter = appState.dictFilter;
+            
+            document.querySelectorAll('.dictionary-filter-btn').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.filter === filter);
+            });
+            
+            if (filter === 'all') return words;
+            if (filter === 'favorites') {
+                return words.filter(w => appState.likedWords.some(l => l.it === w.it));
+            }
+            return words.filter(w => w.level === filter);
+        }
+
+        function applyDictionarySort(words) {
+            const sort = appState.dictSort;
+            
+            switch(sort) {
+                case 'alpha-asc':
+                    return words.sort((a, b) => a.it.localeCompare(b.it));
+                case 'alpha-desc':
+                    return words.sort((a, b) => b.it.localeCompare(a.it));
+                case 'arabic':
+                    return words.sort((a, b) => a.ar.localeCompare(b.ar, 'ar'));
+                case 'level':
+                    const levelOrder = { a1: 1, a2: 2, b1: 3, b2: 4 };
+                    return words.sort((a, b) => levelOrder[a.level] - levelOrder[b.level]);
+                default:
+                    return words;
+            }
+        }
+
+        function filterDict(filter) {
+            appState.dictFilter = filter;
+            saveState();
+            renderDictionary();
+        }
+
+        function sortDictionary() {
+            appState.dictSort = document.getElementById('dictSortSelect').value;
+            saveState();
+            renderDictionary();
+        }
+
+        function searchDictionary() {
+            const input = document.getElementById('dictSearchInput');
+            const clearBtn = document.getElementById('dictSearchClear');
+            clearBtn.classList.toggle('show', input.value.length > 0);
+            renderDictionary();
+        }
+
+        function clearDictSearch() {
+            document.getElementById('dictSearchInput').value = '';
+            document.getElementById('dictSearchClear').classList.remove('show');
+            renderDictionary();
+        }
+
+        function setDictView(view) {
+            appState.dictView = view;
+            document.getElementById('viewList').classList.toggle('active', view === 'list');
+            document.getElementById('viewGrid').classList.toggle('active', view === 'grid');
+            saveState();
+            renderDictionary();
+        }
+
+        function renderAlphabetJump() {
+            const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+            const container = document.getElementById('alphabetJump');
+            
+            container.innerHTML = alphabet.map(letter => `
+                <button class="alphabet-btn" onclick="jumpToLetter('${letter}')">${letter}</button>
+            `).join('');
+        }
+
+        function jumpToLetter(letter) {
+            const words = document.querySelectorAll('.dict-word-card');
+            for (const wordEl of words) {
+                const wordText = wordEl.querySelector('.dict-word-italian').textContent;
+                if (wordText.toUpperCase().startsWith(letter)) {
+                    wordEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    wordEl.style.animation = 'pulse 0.5s ease';
+                    setTimeout(() => wordEl.style.animation = '', 500);
+                    break;
+                }
+            }
+        }
+
+        function toggleDictLike(wordIt, level, categoryId) {
+            const levelData = DATABASE.words[level];
+            const cat = levelData?.[categoryId];
+            const word = cat?.words?.find(w => w.it === wordIt);
+            if (!word) return;
+            
+            toggleLikeWord({ ...word, level, category: cat.name, categoryId });
+            renderDictionary();
+        }
+
+        // ==================== تفاصيل الكلمة ====================
+        
+        function openWordDetail(wordIt, level, categoryId) {
+            const levelData = DATABASE.words[level];
+            const cat = levelData?.[categoryId];
+            const word = cat?.words?.find(w => w.it === wordIt);
+            if (!word) return;
+            
+            currentDetailWord = { ...word, level, category: cat.name, categoryId };
+            
+            const wordId = getWordId(currentDetailWord, level, categoryId);
+            const srs = getSRSData(wordId);
+            
+            document.getElementById('wordDetailWord').textContent = word.it;
+            document.getElementById('wordDetailPhonetic').textContent = word.phonetic || '';
+            document.getElementById('wordDetailTranslation').textContent = word.ar;
+            document.getElementById('wordDetailLevel').textContent = level.toUpperCase();
+            document.getElementById('wordDetailType').textContent = word.type || 'كلمة';
+            document.getElementById('wordDetailCategory').textContent = cat.name;
+            document.getElementById('wordDetailBox').textContent = srs.box;
+            
+            if (word.example) {
+                document.getElementById('wordDetailExampleSection').style.display = 'block';
+                document.getElementById('wordDetailExampleIt').textContent = word.example.it;
+                document.getElementById('wordDetailExampleAr').textContent = word.example.ar;
+            } else {
+                document.getElementById('wordDetailExampleSection').style.display = 'none';
+            }
+            
+            updateDetailLikeBtn();
+            
+            document.getElementById('wordDetailModal').classList.add('show');
+        }
+
+        function closeWordDetail() {
+            document.getElementById('wordDetailModal').classList.remove('show');
+            currentDetailWord = null;
+        }
+
+        function speakDetailWord() {
+            if (currentDetailWord) speak(currentDetailWord.it);
+        }
+
+        function toggleDetailWordLike() {
+            if (!currentDetailWord) return;
+            toggleLikeWord(currentDetailWord);
+            updateDetailLikeBtn();
+            renderDictionary();
+        }
+
+        function updateDetailLikeBtn() {
+            if (!currentDetailWord) return;
+            const isLiked = appState.likedWords.some(w => w.it === currentDetailWord.it);
+            const btn = document.getElementById('wordDetailLikeBtn');
+            btn.classList.toggle('liked', isLiked);
+            btn.innerHTML = `<i class="${isLiked ? 'fas' : 'far'} fa-heart"></i> مفضلة`;
+        }
+
+        function studyDetailWord() {
+            if (!currentDetailWord) return;
+            closeWordDetail();
+            flashcardDeck = [currentDetailWord];
+            flashcardIndex = 0;
+            flashcardFlipped = false;
+            sessionStats = { correct: 0, wrong: 0, mastered: 0 };
+            showFlashcardStudyPage();
+            displayFlashcard();
+        }
+
+        // ==================== المفضلة ====================
+        
+        function toggleLikeWord(word) {
+            const idx = appState.likedWords.findIndex(w => w.it === word.it);
+            if (idx === -1) {
+                appState.likedWords.push({ ...word });
+                showToast('❤️ تمت الإضافة للمفضلة', 'success');
+            } else {
+                                appState.likedWords.splice(idx, 1);
+                showToast('تمت الإزالة من المفضلة', 'info');
+            }
+            saveState();
+            updateLikedCount();
+        }
+
+        function updateLikedCount() {
+            document.getElementById('likedCount').textContent = appState.likedWords.length + ' كلمات';
+            document.getElementById('favoritesTotal').textContent = appState.likedWords.length;
+        }
+
+        function openFavorites() {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById('favoritesPage').classList.add('active');
+            renderFavorites();
+        }
+
+        function renderFavorites() {
+            const container = document.getElementById('favoritesContent');
+            
+            if (appState.likedWords.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="far fa-heart"></i>
+                        <p>لا توجد كلمات في المفضلة</p>
+                        <button class="btn-primary" onclick="navigateTo('dictionary')" style="max-width: 200px; margin: 0 auto;">
+                            <i class="fas fa-plus"></i> أضف كلمات
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = `
+                <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                    <button class="btn-primary" onclick="studyFavorites()" style="flex: 1;">
+                        <i class="fas fa-graduation-cap"></i> دراسة المفضلة
+                    </button>
+                </div>
+            ` + appState.likedWords.map((word, i) => `
+                <div class="dict-word-card">
+                    <div class="dict-word-main">
+                        <div class="dict-word-level ${word.level || 'a1'}">${(word.level || 'a1').toUpperCase()}</div>
+                        <div class="dict-word-content">
+                            <div class="dict-word-italian">${word.it}</div>
+                            <div class="dict-word-arabic">${word.ar}</div>
+                        </div>
+                        <div class="dict-word-actions">
+                            <button class="dict-word-btn speak" onclick="speak('${escapeQuotes(word.it)}')">
+                                <i class="fas fa-volume-up"></i>
+                            </button>
+                            <button class="dict-word-btn like liked" onclick="removeFavorite(${i})">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function removeFavorite(index) {
+            appState.likedWords.splice(index, 1);
+            saveState();
+            updateLikedCount();
+            renderFavorites();
+            showToast('تمت الإزالة من المفضلة', 'info');
+        }
+
+        function studyFavorites() {
+            if (appState.likedWords.length === 0) {
+                showToast('لا توجد كلمات في المفضلة', 'warning');
+                return;
+            }
+            
+            flashcardDeck = appState.likedWords.map(w => ({
+                ...w,
+                level: w.level || 'a1',
+                categoryId: w.categoryId || 'favorites',
+                category: w.category || 'المفضلة'
+            })).sort(() => Math.random() - 0.5);
+            
+            flashcardIndex = 0;
+            flashcardFlipped = false;
+            sessionStats = { correct: 0, wrong: 0, mastered: 0 };
+            
+            document.getElementById('flashcardStudyTitle').textContent = '❤️ المفضلة';
+            showFlashcardStudyPage();
+            displayFlashcard();
+        }
+
+        // ==================== كلمة اليوم ====================
+        
+        function initWordOfDay() {
+            const today = new Date().toDateString();
+            if (appState.wordOfDayDate !== today) {
+                generateWordOfDay();
+                appState.wordOfDayDate = today;
+                appState.wodCollapsed = false;
+                saveState();
+            }
+            displayWordOfDay();
+            if (appState.wodCollapsed) {
+                document.getElementById('wordOfDay')?.classList.add('collapsed');
+                document.getElementById('wodToggleIcon')?.classList.replace('fa-chevron-up', 'fa-chevron-down');
+            }
+        }
+
+        function generateWordOfDay() {
+            const allWords = getAllWords();
+            if (!allWords.length) {
+                appState.wordOfDay = { it: 'Ciao', ar: 'مرحباً', phonetic: '/ˈtʃaːo/', type: 'تحية', example: { it: 'Ciao, come stai?', ar: 'مرحباً، كيف حالك؟' } };
+                return;
+            }
+            const today = new Date();
+            const dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / 86400000);
+            appState.wordOfDay = allWords[dayOfYear % allWords.length];
+        }
+
+        function displayWordOfDay() {
+            const word = appState.wordOfDay;
+            if (!word) return;
+            document.getElementById('wodItalian').textContent = word.it;
+            document.getElementById('wodArabic').textContent = word.ar;
+            document.getElementById('wodPhonetic').textContent = word.phonetic || '';
+            document.getElementById('wodType').textContent = word.type || 'كلمة';
+            document.getElementById('wodCollapsedWord').textContent = word.it;
+            document.getElementById('wodCollapsedMeaning').textContent = word.ar;
+            if (word.example) {
+                document.getElementById('wodExampleIt').textContent = word.example.it;
+                document.getElementById('wodExampleAr').textContent = word.example.ar;
+            }
+            const today = new Date();
+            document.getElementById('wodDate').textContent = today.toLocaleDateString('ar', { weekday: 'long', day: 'numeric', month: 'long' });
+            updateWodLikeBtn();
+        }
+
+        function toggleWordOfDay(e) {
+            e?.stopPropagation();
+            const wod = document.getElementById('wordOfDay');
+            const icon = document.getElementById('wodToggleIcon');
+            wod.classList.toggle('collapsed');
+            appState.wodCollapsed = wod.classList.contains('collapsed');
+            if (appState.wodCollapsed) icon.classList.replace('fa-chevron-up', 'fa-chevron-down');
+            else icon.classList.replace('fa-chevron-down', 'fa-chevron-up');
+            saveState();
+        }
+
+        function speakWordOfDay(e) {
+            e?.stopPropagation();
+            if (appState.wordOfDay) speak(appState.wordOfDay.it);
+        }
+
+        function toggleLikeWordOfDay(e) {
+            e?.stopPropagation();
+            const word = appState.wordOfDay;
+            if (!word) return;
+            toggleLikeWord(word);
+            updateWodLikeBtn();
+        }
+
+        function updateWodLikeBtn() {
+            const word = appState.wordOfDay;
+            const btn = document.getElementById('wodLikeBtn');
+            if (!word || !btn) return;
+            const isLiked = appState.likedWords.some(w => w.it === word.it);
+            btn.innerHTML = isLiked ? '<i class="fas fa-heart"></i>' : '<i class="far fa-heart"></i>';
+            btn.classList.toggle('liked', isLiked);
+        }
+
+        // ==================== الاختبارات ====================
+        
+        let quizQuestions = [];
+        let quizIndex = 0;
+        let quizScore = 0;
+        let quizType = 'words';
+
+        function startQuiz(type) {
+            quizType = type;
+            const words = getAllWords().filter(w => w.level === appState.currentLevel);
+            
+            if (words.length < 4) {
+                showToast('لا توجد كلمات كافية للاختبار', 'warning');
+                return;
+            }
+            
+            quizQuestions = generateQuizQuestions(words, type);
+            quizIndex = 0;
+            quizScore = 0;
+            
+            showQuizPage();
+            displayQuizQuestion();
+        }
+
+        function generateQuizQuestions(words, type) {
+            let questions = [];
+            
+            words.forEach(word => {
+                if (type === 'reverse') {
+                    questions.push({
+                        question: `ما الترجمة الإيطالية لـ "${word.ar}"؟`,
+                        correct: word.it,
+                        options: [word.it, ...words.filter(w => w.it !== word.it).sort(() => Math.random() - 0.5).slice(0, 3).map(w => w.it)].sort(() => Math.random() - 0.5),
+                        audio: word.it,
+                        isItalian: true
+                    });
+                } else if (type === 'listening') {
+                    questions.push({
+                        question: 'استمع واختر الترجمة الصحيحة',
+                        correct: word.ar,
+                        options: [word.ar, ...words.filter(w => w.ar !== word.ar).sort(() => Math.random() - 0.5).slice(0, 3).map(w => w.ar)].sort(() => Math.random() - 0.5),
+                        audio: word.it,
+                        isListening: true
+                    });
+                } else {
+                    questions.push({
+                        question: `ما معنى "${word.it}"؟`,
+                        correct: word.ar,
+                        options: [word.ar, ...words.filter(w => w.ar !== word.ar).sort(() => Math.random() - 0.5).slice(0, 3).map(w => w.ar)].sort(() => Math.random() - 0.5),
+                        audio: word.it
+                    });
+                }
+            });
+            
+            return questions.sort(() => Math.random() - 0.5).slice(0, 10);
+        }
+
+        function showQuizPage() {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            
+            // إنشاء صفحة الاختبار ديناميكياً
+            let quizPage = document.getElementById('quizGamePage');
+            if (!quizPage) {
+                quizPage = document.createElement('div');
+                quizPage.id = 'quizGamePage';
+                quizPage.className = 'page';
+                document.getElementById('mainContent').appendChild(quizPage);
+            }
+            
+            quizPage.innerHTML = `
+                <div class="page-header">
+                    <button class="page-back" onclick="exitQuiz()"><i class="fas fa-arrow-right"></i></button>
+                    <div>
+                        <div class="page-title">الاختبار</div>
+                        <div class="page-subtitle"><span id="quizProgress">1/10</span></div>
+                    </div>
+                </div>
+                <div id="quizContent"></div>
+            `;
+            
+            quizPage.classList.add('active');
+        }
+
+        function displayQuizQuestion() {
+            if (quizIndex >= quizQuestions.length) {
+                showQuizResult();
+                return;
+            }
+            
+            const q = quizQuestions[quizIndex];
+            document.getElementById('quizProgress').textContent = `${quizIndex + 1}/${quizQuestions.length}`;
+            
+            let html = `
+                <div style="background: var(--card-bg); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow);">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <div style="font-size: 18px; font-weight: 700; margin-bottom: 10px;">${q.question}</div>
+            `;
+            
+            if (q.isListening) {
+                html += `
+                    <button onclick="speak('${escapeQuotes(q.audio)}')" style="width: 60px; height: 60px; border-radius: 50%; border: none; background: var(--primary); color: white; font-size: 24px; cursor: pointer; margin: 10px 0;">
+                        <i class="fas fa-volume-up"></i>
+                    </button>
+                    <div style="font-size: 12px; color: var(--text-secondary);">اضغط للاستماع</div>
+                `;
+            }
+            
+            html += `</div><div style="display: flex; flex-direction: column; gap: 10px;">`;
+            
+            const letters = ['أ', 'ب', 'ج', 'د'];
+            q.options.forEach((opt, i) => {
+                html += `
+                    <div class="quiz-option-item" onclick="selectQuizAnswer(this, '${escapeQuotes(opt)}')" style="padding: 15px; border: 2px solid var(--border); border-radius: var(--radius-sm); display: flex; align-items: center; gap: 12px; cursor: pointer; transition: all 0.2s;">
+                        <div style="width: 30px; height: 30px; border-radius: 50%; background: var(--light); display: flex; align-items: center; justify-content: center; font-weight: 700;">${letters[i]}</div>
+                        <span ${q.isItalian ? 'style="direction: ltr;"' : ''}>${opt}</span>
+                        ${q.isItalian ? `<button onclick="event.stopPropagation(); speak('${escapeQuotes(opt)}')" style="margin-right: auto; width: 32px; height: 32px; border-radius: 50%; border: none; background: var(--primary); color: white; cursor: pointer;"><i class="fas fa-volume-up"></i></button>` : ''}
+                    </div>
+                `;
+            });
+            
+            html += `</div></div>`;
+            
+            document.getElementById('quizContent').innerHTML = html;
+            
+            if (q.isListening) {
+                setTimeout(() => speak(q.audio), 500);
+            }
+        }
+
+        function selectQuizAnswer(el, answer) {
+            const q = quizQuestions[quizIndex];
+            const allOptions = document.querySelectorAll('.quiz-option-item');
+            
+            allOptions.forEach(opt => {
+                opt.style.pointerEvents = 'none';
+                const optText = opt.querySelector('span').textContent;
+                if (optText === q.correct) {
+                    opt.style.borderColor = 'var(--success)';
+                    opt.style.background = 'rgba(34, 197, 94, 0.1)';
+                }
+            });
+            
+            if (answer === q.correct) {
+                el.style.borderColor = 'var(--success)';
+                el.style.background = 'rgba(34, 197, 94, 0.1)';
+                quizScore++;
+                addXP(5);
+                showToast('✓ صحيح!', 'success');
+            } else {
+                el.style.borderColor = 'var(--danger)';
+                el.style.background = 'rgba(239, 68, 68, 0.1)';
+                showToast('✗ خطأ!', 'error');
+            }
+            
+            setTimeout(() => {
+                quizIndex++;
+                displayQuizQuestion();
+            }, 1500);
+        }
+
+        function showQuizResult() {
+            const percent = Math.round((quizScore / quizQuestions.length) * 100);
+            let icon = '💪', title = 'حاول مجدداً!';
+            if (percent >= 90) { icon = '🏆'; title = 'ممتاز!'; }
+            else if (percent >= 70) { icon = '🎉'; title = 'جيد جداً!'; }
+            else if (percent >= 50) { icon = '👍'; title = 'جيد!'; }
+            
+            appState.quizzesDone++;
+            saveState();
+            
+            document.getElementById('quizContent').innerHTML = `
+                <div style="text-align: center; padding: 30px 20px;">
+                    <div style="font-size: 60px; margin-bottom: 15px;">${icon}</div>
+                    <div style="font-size: 24px; font-weight: 800; margin-bottom: 10px;">${title}</div>
+                    <div style="font-size: 18px; color: var(--text-secondary); margin-bottom: 20px;">${quizScore}/${quizQuestions.length} (${percent}%)</div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px;">
+                        <div style="background: var(--light); padding: 15px; border-radius: var(--radius-sm);">
+                            <div style="font-size: 24px; font-weight: 800; color: var(--success);">${quizScore}</div>
+                            <div style="font-size: 11px; color: var(--text-secondary);">صحيح</div>
+                        </div>
+                        <div style="background: var(--light); padding: 15px; border-radius: var(--radius-sm);">
+                            <div style="font-size: 24px; font-weight: 800; color: var(--danger);">${quizQuestions.length - quizScore}</div>
+                            <div style="font-size: 11px; color: var(--text-secondary);">خطأ</div>
+                        </div>
+                        <div style="background: var(--light); padding: 15px; border-radius: var(--radius-sm);">
+                            <div style="font-size: 24px; font-weight: 800; color: var(--accent);">+${quizScore * 5}</div>
+                            <div style="font-size: 11px; color: var(--text-secondary);">XP</div>
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="startQuiz('${quizType}')" style="margin-bottom: 10px;">
+                        <i class="fas fa-redo"></i> إعادة الاختبار
+                    </button>
+                    <button class="btn-secondary" onclick="goHome()">
+                        <i class="fas fa-home"></i> الرئيسية
+                    </button>
+                </div>
+            `;
+        }
+
+        function exitQuiz() {
+            if (confirm('هل تريد الخروج من الاختبار؟')) {
+                goHome();
+            }
+        }
+
+        // ==================== التنقل ====================
+        
+        function navigateTo(page) {
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.querySelector(`.nav-item[data-page="${page}"]`)?.classList.add('active');
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            
+            switch(page) {
+                case 'home':
+                    document.getElementById('homePage').classList.add('active');
+                    break;
+                case 'dictionary':
+                    document.getElementById('dictionaryPage').classList.add('active');
+                    renderDictionary();
+                    break;
+                case 'profile':
+                    document.getElementById('profilePage').classList.add('active');
+                    updateProfile();
+                    break;
+                case 'flashcards':
+                    openSection('flashcards');
+                    break;
+            }
+            
+            document.getElementById('mainContent').scrollTop = 0;
+        }
+
+        function openSection(section) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            
+            switch(section) {
+                case 'flashcards':
+                    document.getElementById('flashcardsPage').classList.add('active');
+                    document.querySelector('.nav-item[data-page="flashcards"]')?.classList.add('active');
+                    updateSRSCounts();
+                    renderFlashcardCategories();
+                    break;
+                case 'words':
+                    document.getElementById('wordsPage').classList.add('active');
+                    renderWordCategories();
+                    break;
+                case 'quiz':
+                    document.getElementById('quizPage').classList.add('active');
+                    break;
+            }
+            
+            document.getElementById('mainContent').scrollTop = 0;
+        }
+
+        function goHome() {
+            navigateTo('home');
+        }
+
+        function renderWordCategories() {
+            const container = document.getElementById('wordsCategoryList');
+            const level = appState.currentLevel;
+            const levelData = DATABASE.words[level] || {};
+            
+            container.innerHTML = Object.entries(levelData).map(([catId, cat]) => `
+                <div class="category-item" onclick="startCategorySession('${catId}')">
+                    <div class="category-icon" style="background: linear-gradient(135deg, var(--a1-color), #4ADE80); color: white;">
+                        <i class="fas fa-${cat.icon || 'folder'}"></i>
+                    </div>
+                    <div class="category-info">
+                        <div class="category-name">${cat.name}</div>
+                        <div class="category-meta">${cat.words?.length || 0} كلمة</div>
+                    </div>
+                    <i class="fas fa-chevron-left category-arrow"></i>
+                </div>
+            `).join('');
+        }
+
+        // ==================== المستويات ====================
+        
+        function selectLevel(level) {
+            if (appState.currentLevel === level) return;
+            appState.currentLevel = level;
+            saveState();
+            updateLevelTabsUI(level);
+            updateUI();
+            updateSRSCounts();
+            renderFlashcardCategories();
+            showToast(`تم التبديل للمستوى ${level.toUpperCase()}`, 'success');
+        }
+
+        function updateLevelTabsUI(level) {
+            document.querySelectorAll('.level-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelector(`.level-tab[data-level="${level}"]`)?.classList.add('active');
+            document.querySelectorAll('.current-level-text').forEach(el => {
+                el.textContent = level.toUpperCase();
+            });
+            document.getElementById('currentLevelDisplay').textContent = level.toUpperCase();
+            document.getElementById('levelProgressBar').className = `progress-bar-fill ${level}`;
+        }
+
+        // ==================== XP والتقدم ====================
+        
+        function addXP(amount) {
+            appState.xp += amount;
+            appState.dailyXP += amount;
+            
+            const newLevel = Math.floor(appState.xp / 100) + 1;
+            if (newLevel > appState.userLevel) {
+                appState.userLevel = newLevel;
+                showToast(`🎉 وصلت للمستوى ${newLevel}!`, 'success');
+            }
+            
+            recordStudy();
+            saveState();
+            updateUI();
+        }
+
+        function checkStreak() {
+            const today = new Date().toDateString();
+            const yesterday = new Date(Date.now() - 86400000).toDateString();
+            
+            if (appState.lastStudyDate !== today) {
+                appState.dailyXP = 0;
+            }
+            
+            if (appState.lastStudyDate && appState.lastStudyDate !== today && appState.lastStudyDate !== yesterday) {
+                appState.streak = 0;
+            }
+        }
+
+        function recordStudy() {
+            const today = new Date().toDateString();
+            
+            if (appState.lastStudyDate !== today) {
+                const yesterday = new Date(Date.now() - 86400000).toDateString();
+                appState.streak = (appState.lastStudyDate === yesterday || !appState.lastStudyDate) ? appState.streak + 1 : 1;
+                appState.lastStudyDate = today;
+            }
+            
+            saveState();
+        }
+
+        function updateUI() {
+            document.getElementById('streakCount').textContent = appState.streak;
+            document.getElementById('xpCount').textContent = appState.xp;
+            document.getElementById('userLevel').textContent = appState.userLevel;
+            document.getElementById('dailyXP').textContent = appState.dailyXP;
+            document.getElementById('dailyTarget').textContent = appState.dailyGoal;
+            document.getElementById('dailyGoalFill').style.width = Math.min((appState.dailyXP / appState.dailyGoal) * 100, 100) + '%';
+            
+            // تحديث إحصائيات الكلمات
+            const allWords = getAllWords();
+            const levelWords = allWords.filter(w => w.level === appState.currentLevel);
+            document.getElementById('wordsCount').textContent = levelWords.length + ' كلمة';
+            
+            // حساب الكلمات المتعلمة
+            let learnedCount = 0;
+            let masteredCount = 0;
+            Object.values(appState.srsData).forEach(srs => {
+                if (srs.reviews > 0) learnedCount++;
+                if (srs.box >= 4) masteredCount++;
+            });
+            
+            document.getElementById('wordsLearned').textContent = learnedCount;
+            document.getElementById('quizzesDone').textContent = appState.quizzesDone;
+            
+            // تحديث التقدم
+            const progress = levelWords.length > 0 ? Math.round((learnedCount / levelWords.length) * 100) : 0;
+            document.getElementById('levelProgress').textContent = progress + '%';
+            document.getElementById('levelProgressBar').style.width = progress + '%';
+            
+            updateLikedCount();
+        }
+
+        function updateProfile() {
+            document.getElementById('profileLevel').textContent = appState.userLevel;
+            document.getElementById('profileXP').textContent = appState.xp;
+            
+            const xpCurrent = appState.xp % 100;
+            document.getElementById('profileProgressFill').style.width = xpCurrent + '%';
+            document.getElementById('profileXPNext').textContent = 100 - xpCurrent;
+            
+            let learnedCount = 0;
+            let masteredCount = 0;
+            Object.values(appState.srsData).forEach(srs => {
+                if (srs.reviews > 0) learnedCount++;
+                if (srs.box >= 4) masteredCount++;
+            });
+            
+            document.getElementById('totalWords').textContent = learnedCount;
+            document.getElementById('totalQuizzes').textContent = appState.quizzesDone;
+            document.getElementById('currentStreak').textContent = appState.streak;
+            document.getElementById('masteredWords').textContent = masteredCount;
+        }
+
+        // ==================== الإعدادات ====================
+        
+        function openSettings() {
+            document.getElementById('modalOverlay').classList.add('show');
+            document.getElementById('settingsModal').classList.add('show');
+            document.getElementById('darkModeToggle').classList.toggle('active', appState.darkMode);
+            document.getElementById('soundToggle').classList.toggle('active', appState.soundEnabled);
+            document.getElementById('dailyGoalDisplay').textContent = appState.dailyGoal + ' XP';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('show');
+            document.getElementById('settingsModal').classList.remove('show');
+        }
+
+        function toggleDarkMode() {
+            appState.darkMode = !appState.darkMode;
+            document.body.classList.toggle('dark-mode', appState.darkMode);
+            document.getElementById('darkModeToggle').classList.toggle('active', appState.darkMode);
+            saveState();
+        }
+
+        function toggleSound() {
+            appState.soundEnabled = !appState.soundEnabled;
+            document.getElementById('soundToggle').classList.toggle('active', appState.soundEnabled);
+            saveState();
+            showToast(appState.soundEnabled ? '🔊 الصوت مفعّل' : '🔇 الصوت متوقف', 'info');
+        }
+
+        function setDailyGoal() {
+            const goals = [30, 50, 100, 150, 200];
+            const idx = goals.indexOf(appState.dailyGoal);
+            appState.dailyGoal = goals[(idx + 1) % goals.length];
+            document.getElementById('dailyGoalDisplay').textContent = appState.dailyGoal + ' XP';
+            document.getElementById('dailyTarget').textContent = appState.dailyGoal;
+            saveState();
+            updateUI();
+            showToast(`🎯 الهدف: ${appState.dailyGoal} XP`, 'success');
+        }
+
+        function resetProgress() {
+            if (confirm('⚠️ هل أنت متأكد؟ سيتم حذف جميع بياناتك!')) {
+                localStorage.removeItem(CONFIG.STATE_KEY);
+                location.reload();
+            }
+        }
+
+        // ==================== الأدوات المساعدة ====================
+        
+        function speak(text, rate = 0.8) {
+            if (appState.soundEnabled && 'speechSynthesis' in window) {
+                speechSynthesis.cancel();
+                const u = new SpeechSynthesisUtterance(text);
+                u.lang = 'it-IT';
+                u.rate = rate;
+                speechSynthesis.speak(u);
+            }
+        }
+
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            document.getElementById('toastMessage').textContent = message;
+            toast.className = `toast ${type}`;
+            const icons = { success: 'fa-check-circle', error: 'fa-times-circle', warning: 'fa-exclamation-triangle', info: 'fa-info-circle' };
+            toast.querySelector('i').className = `fas ${icons[type] || icons.info}`;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        function escapeQuotes(str) {
+            if (!str) return '';
+            return str.replace(/'/g, "\\'").replace(/"/g, '\\"');
+        }
+
+        function escapeId(str) {
+            if (!str) return '';
+            return str.replace(/[^a-zA-Z0-9]/g, '_');
+        }
+
+        // ==================== أحداث النقر ====================
+        
+        document.getElementById('modalOverlay')?.addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        document.getElementById('wordDetailModal')?.addEventListener('click', function(e) {
+            if (e.target === this) closeWordDetail();
+        });
+
+        // ==================== الكشف عن الاتصال ====================
+        
+        function updateOnlineStatus() {
+            const banner = document.getElementById('offlineBanner');
+            if (navigator.onLine) banner?.classList.remove('show');
+            else banner?.classList.add('show');
+        }
+
+        window.addEventListener('online', () => { updateOnlineStatus(); showToast('🌐 تم استعادة الاتصال', 'success'); });
+        window.addEventListener('offline', () => { updateOnlineStatus(); showToast('📴 أنت غير متصل', 'warning'); });
+
+        // ==================== بدء التطبيق ====================
+        
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initApp);
+        } else {
+            initApp();
+        }
+    </script>
+</body>
+</html>
