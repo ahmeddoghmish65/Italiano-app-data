@@ -1,0 +1,1849 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Italiano - تعلم الإيطالية</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* ============================================
+           🎨 CSS Variables - نظام الألوان والمتغيرات
+           ============================================ */
+        :root {
+            /* Primary Colors - ألوان العلم الإيطالي */
+            --italian-green: #009246;
+            --italian-white: #F4F5F0;
+            --italian-red: #CE2B37;
+            
+            /* App Colors */
+            --primary: #009246;
+            --primary-light: #E8F5E9;
+            --primary-dark: #007A3D;
+            
+            --secondary: #2196F3;
+            --secondary-light: #E3F2FD;
+            
+            --accent: #FF9800;
+            --accent-light: #FFF3E0;
+            
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --error: #F44336;
+            
+            /* Neutrals */
+            --bg-primary: #FAFBFC;
+            --bg-secondary: #FFFFFF;
+            --bg-card: #FFFFFF;
+            
+            --text-primary: #1A1A2E;
+            --text-secondary: #64748B;
+            --text-muted: #94A3B8;
+            
+            --border-light: #E2E8F0;
+            --border-medium: #CBD5E1;
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1);
+            --shadow-card: 0 2px 8px rgba(0,0,0,0.08);
+            --shadow-card-hover: 0 8px 25px rgba(0,0,0,0.15);
+            
+            /* Spacing */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-2xl: 48px;
+            
+            /* Border Radius */
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 24px;
+            --radius-full: 50%;
+            
+            /* Typography */
+            --font-ar: 'Cairo', sans-serif;
+            --font-en: 'Poppins', sans-serif;
+            
+            /* Transitions */
+            --transition-fast: 0.15s ease;
+            --transition-normal: 0.3s ease;
+            --transition-slow: 0.5s ease;
+            
+            /* Layout */
+            --header-height: 60px;
+            --bottom-nav-height: 70px;
+            --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        /* ============================================
+           🔄 Reset & Base Styles
+           ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: var(--font-ar);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            padding-bottom: calc(var(--bottom-nav-height) + var(--safe-area-bottom) + 20px);
+        }
+
+        /* ============================================
+           📱 Header - الشريط العلوي
+           ============================================ */
+        .app-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 var(--space-md);
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            background: rgba(255,255,255,0.95);
+        }
+
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .header-logo img {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+        }
+
+        .header-logo-placeholder {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, var(--italian-green), var(--italian-red));
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .header-stats {
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .stat-item.streak {
+            color: var(--accent);
+        }
+
+        .stat-item.xp {
+            color: var(--secondary);
+        }
+
+        .stat-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* ============================================
+           📄 Main Content Area
+           ============================================ */
+        .main-content {
+            padding-top: calc(var(--header-height) + var(--space-md));
+            padding-left: var(--space-md);
+            padding-right: var(--space-md);
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        /* ============================================
+           🎯 Daily Goal Card
+           ============================================ */
+        .daily-goal-card {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            color: white;
+            margin-bottom: var(--space-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .daily-goal-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .goal-title {
+            font-size: 14px;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .goal-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 10px;
+            border-radius: var(--radius-full);
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .goal-progress {
+            margin-bottom: var(--space-sm);
+        }
+
+        .progress-bar-bg {
+            height: 8px;
+            background: rgba(255,255,255,0.3);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: white;
+            border-radius: var(--radius-full);
+            transition: width var(--transition-slow);
+            position: relative;
+        }
+
+        .progress-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .goal-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            opacity: 0.9;
+        }
+
+        /* ============================================
+           📊 Quick Stats Section
+           ============================================ */
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .quick-stat-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            text-align: center;
+            box-shadow: var(--shadow-card);
+            transition: all var(--transition-normal);
+        }
+
+        .quick-stat-card:active {
+            transform: scale(0.98);
+        }
+
+        .quick-stat-icon {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto var(--space-sm);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quick-stat-icon.words {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .quick-stat-icon.lessons {
+            background: var(--secondary-light);
+            color: var(--secondary);
+        }
+
+        .quick-stat-icon.streak {
+            background: var(--accent-light);
+            color: var(--accent);
+        }
+
+        .quick-stat-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 2px;
+        }
+
+        .quick-stat-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           📚 Section Headers
+           ============================================ */
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .section-link {
+            font-size: 14px;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* ============================================
+           🎓 Level Cards - كروت المستويات
+           ============================================ */
+        .levels-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .level-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-card);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .level-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .level-card:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+
+        .level-card.locked {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .level-card.locked::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.5);
+        }
+
+        .level-badge {
+            position: absolute;
+            top: var(--space-sm);
+            left: var(--space-sm);
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            color: white;
+        }
+
+        .level-badge.a1 { background: linear-gradient(135deg, #4CAF50, #2E7D32); }
+        .level-badge.a2 { background: linear-gradient(135deg, #2196F3, #1565C0); }
+        .level-badge.b1 { background: linear-gradient(135deg, #9C27B0, #6A1B9A); }
+        .level-badge.b2 { background: linear-gradient(135deg, #FF5722, #D84315); }
+
+        .level-content {
+            margin-top: 50px;
+        }
+
+        .level-name {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .level-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-md);
+        }
+
+        .level-progress {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+        }
+
+        .level-progress-bar {
+            flex: 1;
+            height: 6px;
+            background: var(--border-light);
+            border-radius: var(--radius-full);
+            overflow: hidden;
+        }
+
+        .level-progress-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: var(--radius-full);
+            transition: width var(--transition-slow);
+        }
+
+        .level-progress-text {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            min-width: 36px;
+            text-align: left;
+        }
+
+        .level-lock-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            color: var(--text-muted);
+        }
+
+        /* ============================================
+           📖 Lesson Cards - كروت الدروس
+           ============================================ */
+        .lessons-list {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .lesson-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            box-shadow: var(--shadow-card);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            text-decoration: none;
+            color: inherit;
+            border: 2px solid transparent;
+        }
+
+        .lesson-card:hover {
+            border-color: var(--primary-light);
+            box-shadow: var(--shadow-card-hover);
+        }
+
+        .lesson-card:active {
+            transform: scale(0.98);
+        }
+
+        .lesson-card.completed {
+            border-color: var(--success);
+            background: linear-gradient(to right, rgba(76, 175, 80, 0.05), transparent);
+        }
+
+        .lesson-card.current {
+            border-color: var(--primary);
+            background: linear-gradient(to right, var(--primary-light), transparent);
+        }
+
+        .lesson-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .lesson-icon.grammar { background: #E3F2FD; }
+        .lesson-icon.vocab { background: #E8F5E9; }
+        .lesson-icon.dialog { background: #FFF3E0; }
+        .lesson-icon.exercise { background: #F3E5F5; }
+
+        .lesson-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .lesson-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 2px;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .lesson-meta {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .lesson-meta-item {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .lesson-status {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .lesson-status.completed {
+            background: var(--success);
+            color: white;
+        }
+
+        .lesson-status.current {
+            background: var(--primary);
+            color: white;
+        }
+
+        .lesson-status.locked {
+            background: var(--border-light);
+            color: var(--text-muted);
+        }
+
+        /* ============================================
+           🔤 Word Cards - كروت الكلمات
+           ============================================ */
+        .words-section {
+            margin-bottom: var(--space-xl);
+        }
+
+        .word-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-md);
+            box-shadow: var(--shadow-card);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .word-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+        }
+
+        .word-italian {
+            font-family: var(--font-en);
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        .word-pronunciation {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: var(--space-sm);
+            font-style: italic;
+        }
+
+        .word-arabic {
+            font-size: 18px;
+            color: var(--text-primary);
+            margin-bottom: var(--space-md);
+        }
+
+        .word-example {
+            background: var(--bg-primary);
+            border-radius: var(--radius-sm);
+            padding: var(--space-md);
+            margin-bottom: var(--space-md);
+        }
+
+        .word-example-it {
+            font-family: var(--font-en);
+            font-size: 14px;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .word-example-ar {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .word-actions {
+            display: flex;
+            gap: var(--space-sm);
+        }
+
+        .word-action-btn {
+            flex: 1;
+            padding: var(--space-sm) var(--space-md);
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all var(--transition-normal);
+        }
+
+        .word-action-btn.primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .word-action-btn.primary:active {
+            background: var(--primary-dark);
+        }
+
+        .word-action-btn.secondary {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+        }
+
+        .word-action-btn.secondary:active {
+            background: var(--border-light);
+        }
+
+        /* ============================================
+           🏆 Achievement Badges
+           ============================================ */
+        .achievements-scroll {
+            display: flex;
+            gap: var(--space-md);
+            overflow-x: auto;
+            padding-bottom: var(--space-md);
+            margin-bottom: var(--space-lg);
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .achievements-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .achievement-badge {
+            flex-shrink: 0;
+            width: 80px;
+            text-align: center;
+        }
+
+        .badge-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto var(--space-sm);
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            position: relative;
+        }
+
+        .badge-icon.earned {
+            background: linear-gradient(135deg, #FFD700, #FFA000);
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.4);
+        }
+
+        .badge-icon.locked {
+            background: var(--border-light);
+            filter: grayscale(1);
+            opacity: 0.5;
+        }
+
+        .badge-name {
+            font-size: 11px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* ============================================
+           📍 Bottom Navigation
+           ============================================ */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: calc(var(--bottom-nav-height) + var(--safe-area-bottom));
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            padding-top: var(--space-sm);
+            padding-bottom: var(--safe-area-bottom);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: var(--space-sm);
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all var(--transition-fast);
+            position: relative;
+            min-width: 64px;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            top: -9px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 32px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 0 0 4px 4px;
+        }
+
+        .nav-item:active {
+            transform: scale(0.95);
+        }
+
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .nav-label {
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        /* ============================================
+           🔘 Buttons
+           ============================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+            padding: var(--space-md) var(--space-lg);
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: var(--font-ar);
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-medium);
+        }
+
+        .btn-secondary:active {
+            background: var(--border-light);
+        }
+
+        .btn-full {
+            width: 100%;
+        }
+
+        .btn-lg {
+            padding: var(--space-md) var(--space-xl);
+            font-size: 16px;
+        }
+
+        /* ============================================
+           🎴 Flashcard Style
+           ============================================ */
+        .flashcard-container {
+            perspective: 1000px;
+            margin-bottom: var(--space-xl);
+        }
+
+        .flashcard {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            padding: var(--space-2xl) var(--space-lg);
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+            cursor: pointer;
+            transition: transform var(--transition-normal);
+            position: relative;
+        }
+
+        .flashcard:active {
+            transform: scale(0.98);
+        }
+
+        .flashcard-word {
+            font-family: var(--font-en);
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: var(--space-sm);
+        }
+
+        .flashcard-hint {
+            font-size: 14px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .flashcard-actions {
+            display: flex;
+            gap: var(--space-md);
+            margin-top: var(--space-lg);
+            width: 100%;
+        }
+
+        .flashcard-btn {
+            flex: 1;
+            padding: var(--space-md);
+            border: none;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            transition: all var(--transition-normal);
+        }
+
+        .flashcard-btn.wrong {
+            background: #FFEBEE;
+            color: var(--error);
+        }
+
+        .flashcard-btn.hard {
+            background: #FFF3E0;
+            color: var(--accent);
+        }
+
+        .flashcard-btn.easy {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .flashcard-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* ============================================
+           📋 Quiz / Exercise Styles
+           ============================================ */
+        .quiz-container {
+            margin-bottom: var(--space-xl);
+        }
+
+        .quiz-progress {
+            display: flex;
+            gap: 4px;
+            margin-bottom: var(--space-lg);
+        }
+
+        .quiz-progress-dot {
+            flex: 1;
+            height: 4px;
+            background: var(--border-light);
+            border-radius: var(--radius-full);
+        }
+
+        .quiz-progress-dot.completed {
+            background: var(--success);
+        }
+
+        .quiz-progress-dot.current {
+            background: var(--primary);
+        }
+
+        .quiz-question {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            margin-bottom: var(--space-lg);
+            box-shadow: var(--shadow-card);
+        }
+
+        .quiz-question-number {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: var(--space-sm);
+        }
+
+        .quiz-question-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: var(--space-sm);
+        }
+
+        .quiz-option {
+            background: var(--bg-card);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: var(--space-md);
+            cursor: pointer;
+            transition: all var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: var(--space-md);
+        }
+
+        .quiz-option:active {
+            transform: scale(0.98);
+        }
+
+        .quiz-option:hover {
+            border-color: var(--primary-light);
+        }
+
+        .quiz-option.selected {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--success);
+            background: rgba(76, 175, 80, 0.1);
+        }
+
+        .quiz-option.wrong {
+            border-color: var(--error);
+            background: rgba(244, 67, 54, 0.1);
+        }
+
+        .quiz-option-letter {
+            width: 32px;
+            height: 32px;
+            border-radius: var(--radius-full);
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .quiz-option.selected .quiz-option-letter {
+            background: var(--primary);
+            color: white;
+        }
+
+        .quiz-option-text {
+            font-size: 15px;
+            color: var(--text-primary);
+        }
+
+        /* ============================================
+           📊 Statistics Page
+           ============================================ */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            box-shadow: var(--shadow-card);
+        }
+
+        .stat-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-md);
+        }
+
+        .stat-card-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .stat-card-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           🔔 Toast Notifications
+           ============================================ */
+        .toast {
+            position: fixed;
+            bottom: calc(var(--bottom-nav-height) + var(--space-lg));
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--text-primary);
+            color: white;
+            padding: var(--space-md) var(--space-lg);
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            box-shadow: var(--shadow-xl);
+            z-index: 2000;
+            opacity: 0;
+            transition: all var(--transition-normal);
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success {
+            background: var(--success);
+        }
+
+        .toast.error {
+            background: var(--error);
+        }
+
+        /* ============================================
+           🎨 Empty State
+           ============================================ */
+        .empty-state {
+            text-align: center;
+            padding: var(--space-2xl) var(--space-lg);
+        }
+
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: var(--space-md);
+            opacity: 0.5;
+        }
+
+        .empty-state-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: var(--space-sm);
+            color: var(--text-primary);
+        }
+
+        .empty-state-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-lg);
+        }
+
+        /* ============================================
+           📱 Responsive & Utilities
+           ============================================ */
+        .hide {
+            display: none !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-0 { margin-bottom: 0; }
+        .mb-sm { margin-bottom: var(--space-sm); }
+        .mb-md { margin-bottom: var(--space-md); }
+        .mb-lg { margin-bottom: var(--space-lg); }
+        .mb-xl { margin-bottom: var(--space-xl); }
+
+        /* Skeleton Loading */
+        .skeleton {
+            background: linear-gradient(90deg, var(--border-light) 25%, var(--bg-primary) 50%, var(--border-light) 75%);
+            background-size: 200% 100%;
+            animation: skeleton-loading 1.5s infinite;
+            border-radius: var(--radius-sm);
+        }
+
+        @keyframes skeleton-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        /* Ripple Effect */
+        .ripple {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ripple::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+        }
+
+        .ripple:active::after {
+            width: 200px;
+            height: 200px;
+            opacity: 1;
+            transition: width 0.3s, height 0.3s, opacity 0.3s;
+        }
+        
+        /* Page container for different sections */
+        .page {
+            display: none;
+        }
+        
+        .page.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================
+         📱 Header
+         ============================================ -->
+    <header class="app-header">
+        <div class="header-logo">
+            <div class="header-logo-placeholder">🇮🇹</div>
+            <span class="header-title">Italiano</span>
+        </div>
+        <div class="header-stats">
+            <div class="stat-item streak">
+                <span>🔥</span>
+                <span>7</span>
+            </div>
+            <div class="stat-item xp">
+                <span>⭐</span>
+                <span>1,250</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============================================
+         📄 Main Content
+         ============================================ -->
+    <main class="main-content">
+        
+        <!-- ======== HOME PAGE ======== -->
+        <div class="page active" id="page-home">
+            
+            <!-- Daily Goal Card -->
+            <div class="daily-goal-card">
+                <div class="goal-header">
+                    <span class="goal-title">🎯 هدف اليوم</span>
+                    <span class="goal-badge">يوم 7</span>
+                </div>
+                <div class="goal-progress">
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar-fill" style="width: 65%;"></div>
+                    </div>
+                </div>
+                <div class="goal-stats">
+                    <span>13 / 20 كلمة</span>
+                    <span>65% مكتمل</span>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                <div class="quick-stat-card">
+                    <div class="quick-stat-icon words">
+                        <i data-lucide="book-text" width="20" height="20"></i>
+                    </div>
+                    <div class="quick-stat-value">342</div>
+                    <div class="quick-stat-label">كلمة</div>
+                </div>
+                <div class="quick-stat-card">
+                    <div class="quick-stat-icon lessons">
+                        <i data-lucide="graduation-cap" width="20" height="20"></i>
+                    </div>
+                    <div class="quick-stat-value">24</div>
+                    <div class="quick-stat-label">درس</div>
+                </div>
+                <div class="quick-stat-card">
+                    <div class="quick-stat-icon streak">
+                        <i data-lucide="flame" width="20" height="20"></i>
+                    </div>
+                    <div class="quick-stat-value">7</div>
+                    <div class="quick-stat-label">يوم متتالي</div>
+                </div>
+            </div>
+
+            <!-- Achievements Section -->
+            <div class="section-header">
+                <h2 class="section-title">🏆 الإنجازات</h2>
+                <a href="#" class="section-link">
+                    عرض الكل
+                    <i data-lucide="chevron-left" width="16" height="16"></i>
+                </a>
+            </div>
+            <div class="achievements-scroll">
+                <div class="achievement-badge">
+                    <div class="badge-icon earned">🌟</div>
+                    <div class="badge-name">البداية</div>
+                </div>
+                <div class="achievement-badge">
+                    <div class="badge-icon earned">📚</div>
+                    <div class="badge-name">100 كلمة</div>
+                </div>
+                <div class="achievement-badge">
+                    <div class="badge-icon earned">🔥</div>
+                    <div class="badge-name">أسبوع</div>
+                </div>
+                <div class="achievement-badge">
+                    <div class="badge-icon locked">🎯</div>
+                    <div class="badge-name">300 كلمة</div>
+                </div>
+                <div class="achievement-badge">
+                    <div class="badge-icon locked">💎</div>
+                    <div class="badge-name">شهر كامل</div>
+                </div>
+            </div>
+
+            <!-- Levels Section -->
+            <div class="section-header">
+                <h2 class="section-title">📚 المستويات</h2>
+            </div>
+            <div class="levels-grid">
+                <a href="#" class="level-card" onclick="showPage('page-lessons')">
+                    <div class="level-badge a1">A1</div>
+                    <div class="level-content">
+                        <div class="level-name">مبتدئ</div>
+                        <div class="level-desc">الأساسيات والتعارف</div>
+                        <div class="level-progress">
+                            <div class="level-progress-bar">
+                                <div class="level-progress-fill" style="width: 75%;"></div>
+                            </div>
+                            <span class="level-progress-text">75%</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="level-card">
+                    <div class="level-badge a2">A2</div>
+                    <div class="level-content">
+                        <div class="level-name">ما قبل متوسط</div>
+                        <div class="level-desc">محادثات يومية</div>
+                        <div class="level-progress">
+                            <div class="level-progress-bar">
+                                <div class="level-progress-fill" style="width: 30%;"></div>
+                            </div>
+                            <span class="level-progress-text">30%</span>
+                        </div>
+                    </div>
+                </a>
+                <a href="#" class="level-card locked">
+                    <div class="level-badge b1">B1</div>
+                    <div class="level-content">
+                        <div class="level-name">متوسط</div>
+                        <div class="level-desc">مواضيع متقدمة</div>
+                        <div class="level-progress">
+                            <div class="level-progress-bar">
+                                <div class="level-progress-fill" style="width: 0%;"></div>
+                            </div>
+                            <span class="level-progress-text">0%</span>
+                        </div>
+                    </div>
+                    <i data-lucide="lock" class="level-lock-icon" width="24" height="24"></i>
+                </a>
+                <a href="#" class="level-card locked">
+                    <div class="level-badge b2">B2</div>
+                    <div class="level-content">
+                        <div class="level-name">فوق المتوسط</div>
+                        <div class="level-desc">طلاقة عالية</div>
+                        <div class="level-progress">
+                            <div class="level-progress-bar">
+                                <div class="level-progress-fill" style="width: 0%;"></div>
+                            </div>
+                            <span class="level-progress-text">0%</span>
+                        </div>
+                    </div>
+                    <i data-lucide="lock" class="level-lock-icon" width="24" height="24"></i>
+                </a>
+            </div>
+
+            <!-- Continue Learning -->
+            <div class="section-header">
+                <h2 class="section-title">🚀 أكمل التعلم</h2>
+            </div>
+            <div class="lessons-list">
+                <a href="#" class="lesson-card current">
+                    <div class="lesson-icon vocab">📝</div>
+                    <div class="lesson-info">
+                        <div class="lesson-title">أفعال الحركة</div>
+                        <div class="lesson-meta">
+                            <span class="lesson-meta-item">
+                                <i data-lucide="book-open" width="12" height="12"></i>
+                                15 كلمة
+                            </span>
+                            <span class="lesson-meta-item">
+                                <i data-lucide="clock" width="12" height="12"></i>
+                                10 دقائق
+                            </span>
+                        </div>
+                    </div>
+                    <div class="lesson-status current">
+                        <i data-lucide="play" width="16" height="16"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- ======== LESSONS PAGE ======== -->
+        <div class="page" id="page-lessons">
+            <div class="section-header">
+                <h2 class="section-title">📖 دروس المستوى A1</h2>
+            </div>
+            <div class="lessons-list">
+                <a href="#" class="lesson-card completed">
+                    <div class="lesson-icon vocab">👋</div>
+                    <div class="lesson-info">
+                        <div class="lesson-title">التحيات والتعارف</div>
+                        <div class="lesson-meta">
+                            <span class="lesson-meta-item">
+                                <i data-lucide="book-open" width="12" height="12"></i>
+                                20 كلمة
+                            </span>
+                            <span class="lesson-meta-item">
+                                <i data-lucide="clock" width="12" height="12"></i>
+                                15 دقيقة
+                            </span>
+                        </div>
+                    </div>
+                    <div class="lesson-status completed">
+                        <i data-lucide="check" width="16" height="16"></i>
+                    </div>
+                </a>
+                <a href="#" class="lesson-card completed">
+                    <div class="lesson-icon grammar">📐</div>
+                    <div class="lesson-info">
+                        <div class="lesson-title">الأفعال الأساسية - essere</div>
+                        <div class="lesson-meta">
+                            <span class="lesson-meta-item">
+                                <i data-lucide="book-open" width="12" height="12"></i>
+                                12 كلمة
+                            </span>
+                            <span class="lesson-meta-item">
+                                <i data-lucide="clock" width="12" height="12"></i>
+                                20 دقيقة
+                            </span>
+                        </div>
+                    </div>
+                    <div class="lesson-status completed">
+                        <i data-lucide="check" width="16" height="16"></i>
+                    </div>
+                </a>
+                <a href="#" class="lesson-card current" onclick="showPage('page-words')">
+                    <div class="lesson-icon vocab">📝</div>
+                    <div class="lesson-info">
+                        <div class="lesson-title">أفعال الحركة</div>
+                        <div class="lesson-meta">
+                            <span class="lesson-meta-item">
+                                <i data-lucide="book-open" width="12" height="12"></i>
+                                15 كلمة
+                            </span>
+                            <span class="lesson-meta-item">
+                                <i data-lucide="clock" width="12" height="12"></i>
+                                10 دقائق
+                            </span>
+                        </div>
+                    </div>
+                    <div class="lesson-status current">
+                        <i data-lucide="play" width="16" height="16"></i>
+                    </div>
+                </a>
+                <a href="#" class="lesson-card">
+                    <div class="lesson-icon dialog">💬</div>
+                    <div class="lesson-info">
+                        <div class="lesson-title">في المطعم</div>
+                        <div class="lesson-meta">
+                            <span class="lesson-meta-item">
+                                <i data-lucide="book-open" width="12" height="12"></i>
+                                18 كلمة
+                            </span>
+                            <span class="lesson-meta-item">
+                                <i data-lucide="clock" width="12" height="12"></i>
+                                15 دقيقة
+                            </span>
+                        </div>
+                    </div>
+                    <div class="lesson-status locked">
+                        <i data-lucide="lock" width="16" height="16"></i>
+                    </div>
+                </a>
+                <a href="#" class="lesson-card">
+                    <div class="lesson-icon exercise">🎯</div>
+                    <div class="lesson-info">
+                        <div class="lesson-title">تمارين مراجعة</div>
+                        <div class="lesson-meta">
+                            <span class="lesson-meta-item">
+                                <i data-lucide="help-circle" width="12" height="12"></i>
+                                10 أسئلة
+                            </span>
+                            <span class="lesson-meta-item">
+                                <i data-lucide="clock" width="12" height="12"></i>
+                                5 دقائق
+                            </span>
+                        </div>
+                    </div>
+                    <div class="lesson-status locked">
+                        <i data-lucide="lock" width="16" height="16"></i>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- ======== WORDS PAGE ======== -->
+        <div class="page" id="page-words">
+            <div class="section-header mb-md">
+                <h2 class="section-title">📝 أفعال الحركة</h2>
+                <span class="goal-badge" style="background: var(--primary-light); color: var(--primary);">3/15</span>
+            </div>
+            
+            <!-- Flashcard Mode -->
+            <div class="flashcard-container">
+                <div class="flashcard" onclick="this.classList.toggle('flipped')">
+                    <div class="flashcard-word">Andare</div>
+                    <div class="flashcard-hint">
+                        <i data-lucide="hand-metal" width="16" height="16"></i>
+                        اضغط لرؤية الترجمة
+                    </div>
+                </div>
+                <div class="flashcard-actions">
+                    <button class="flashcard-btn wrong">
+                        <span>❌</span>
+                        <span>لم أعرفها</span>
+                    </button>
+                    <button class="flashcard-btn hard">
+                        <span>🤔</span>
+                        <span>صعبة</span>
+                    </button>
+                    <button class="flashcard-btn easy">
+                        <span>✅</span>
+                        <span>سهلة</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Word Cards List -->
+            <div class="words-section">
+                <div class="word-card">
+                    <div class="word-italian">Andare</div>
+                    <div class="word-pronunciation">/anˈdare/</div>
+                    <div class="word-arabic">يذهب</div>
+                    <div class="word-example">
+                        <div class="word-example-it">"Vado a scuola ogni giorno."</div>
+                        <div class="word-example-ar">أذهب إلى المدرسة كل يوم</div>
+                    </div>
+                    <div class="word-actions">
+                        <button class="word-action-btn secondary">
+                            <i data-lucide="volume-2" width="16" height="16"></i>
+                            استمع
+                        </button>
+                        <button class="word-action-btn primary">
+                            <i data-lucide="check" width="16" height="16"></i>
+                            تم حفظها
+                        </button>
+                    </div>
+                </div>
+
+                <div class="word-card">
+                    <div class="word-italian">Venire</div>
+                    <div class="word-pronunciation">/veˈnire/</div>
+                    <div class="word-arabic">يأتي</div>
+                    <div class="word-example">
+                        <div class="word-example-it">"Viene alla festa stasera?"</div>
+                        <div class="word-example-ar">هل ستأتي للحفلة الليلة؟</div>
+                    </div>
+                    <div class="word-actions">
+                        <button class="word-action-btn secondary">
+                            <i data-lucide="volume-2" width="16" height="16"></i>
+                            استمع
+                        </button>
+                        <button class="word-action-btn primary">
+                            <i data-lucide="check" width="16" height="16"></i>
+                            تم حفظها
+                        </button>
+                    </div>
+                </div>
+
+                <div class="word-card">
+                    <div class="word-italian">Correre</div>
+                    <div class="word-pronunciation">/ˈkorrere/</div>
+                    <div class="word-arabic">يركض</div>
+                    <div class="word-example">
+                        <div class="word-example-it">"Mi piace correre al parco."</div>
+                        <div class="word-example-ar">أحب الركض في الحديقة</div>
+                    </div>
+                    <div class="word-actions">
+                        <button class="word-action-btn secondary">
+                            <i data-lucide="volume-2" width="16" height="16"></i>
+                            استمع
+                        </button>
+                        <button class="word-action-btn primary">
+                            <i data-lucide="check" width="16" height="16"></i>
+                            تم حفظها
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======== QUIZ PAGE ======== -->
+        <div class="page" id="page-quiz">
+            <div class="quiz-container">
+                <div class="quiz-progress">
+                    <div class="quiz-progress-dot completed"></div>
+                    <div class="quiz-progress-dot completed"></div>
+                    <div class="quiz-progress-dot current"></div>
+                    <div class="quiz-progress-dot"></div>
+                    <div class="quiz-progress-dot"></div>
+                </div>
+
+                <div class="quiz-question">
+                    <div class="quiz-question-number">السؤال 3 من 5</div>
+                    <div class="quiz-question-text">ما معنى كلمة "Andare"؟</div>
+                </div>
+
+                <div class="quiz-options">
+                    <div class="quiz-option" onclick="selectOption(this)">
+                        <span class="quiz-option-letter">أ</span>
+                        <span class="quiz-option-text">يأكل</span>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this)">
+                        <span class="quiz-option-letter">ب</span>
+                        <span class="quiz-option-text">يذهب</span>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this)">
+                        <span class="quiz-option-letter">ج</span>
+                        <span class="quiz-option-text">ينام</span>
+                    </div>
+                    <div class="quiz-option" onclick="selectOption(this)">
+                        <span class="quiz-option-letter">د</span>
+                        <span class="quiz-option-text">يشرب</span>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary btn-full btn-lg" style="margin-top: var(--space-lg);">
+                    تحقق من الإجابة
+                </button>
+            </div>
+        </div>
+
+        <!-- ======== PROFILE PAGE ======== -->
+        <div class="page" id="page-profile">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-icon" style="background: var(--primary-light); color: var(--primary);">
+                        <i data-lucide="book-text" width="24" height="24"></i>
+                    </div>
+                    <div class="stat-card-value">342</div>
+                    <div class="stat-card-label">كلمة محفوظة</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon" style="background: var(--secondary-light); color: var(--secondary);">
+                        <i data-lucide="graduation-cap" width="24" height="24"></i>
+                    </div>
+                    <div class="stat-card-value">24</div>
+                    <div class="stat-card-label">درس مكتمل</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon" style="background: var(--accent-light); color: var(--accent);">
+                        <i data-lucide="flame" width="24" height="24"></i>
+                    </div>
+                    <div class="stat-card-value">7</div>
+                    <div class="stat-card-label">أيام متتالية</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon" style="background: #F3E5F5; color: #9C27B0;">
+                        <i data-lucide="star" width="24" height="24"></i>
+                    </div>
+                    <div class="stat-card-value">1,250</div>
+                    <div class="stat-card-label">نقاط XP</div>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <h2 class="section-title">⚙️ الإعدادات</h2>
+            </div>
+            <div class="lessons-list">
+                <a href="#" class="lesson-card">
+                    <div class="lesson-icon" style="background: #E3F2FD;">🎯</div>
+                    <div class="lesson-info">
+                        <div class="lesson-title">الهدف اليومي</div>
+                        <div class="lesson-meta">
+                            <span>20 كلمة / يوم</span>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-left" width="20" height="20" style="color: var(--text-muted);"></i>
+                </a>
+                <a href="#" class="lesson-card">
+                    <div class="lesson-icon" style="background: #FFF3E0;">🔔</div>
+                    <div class="lesson-info">
+                        <div class="lesson-title">التذكيرات</div>
+                        <div class="lesson-meta">
+                            <span>مفعّلة - 8:00 صباحاً</span>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-left" width="20" height="20" style="color: var(--text-muted);"></i>
+                </a>
+                <a href="#" class="lesson-card">
+                    <div class="lesson-icon" style="background: #E8F5E9;">🌙</div>
+                    <div class="lesson-info">
+                        <div class="lesson-title">الوضع الليلي</div>
+                        <div class="lesson-meta">
+                            <span>غير مفعّل</span>
+                        </div>
+                    </div>
+                    <i data-lucide="chevron-left" width="20" height="20" style="color: var(--text-muted);"></i>
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ============================================
+         📍 Bottom Navigation
+         ============================================ -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active" onclick="showPage('page-home', this)">
+            <i data-lucide="home" class="nav-icon"></i>
+            <span class="nav-label">الرئيسية</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showPage('page-lessons', this)">
+            <i data-lucide="book-open" class="nav-icon"></i>
+            <span class="nav-label">الدروس</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showPage('page-words', this)">
+            <i data-lucide="languages" class="nav-icon"></i>
+            <span class="nav-label">الكلمات</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showPage('page-quiz', this)">
+            <i data-lucide="trophy" class="nav-icon"></i>
+            <span class="nav-label">التمارين</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showPage('page-profile', this)">
+            <i data-lucide="user" class="nav-icon"></i>
+            <span class="nav-label">حسابي</span>
+        </a>
+    </nav>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i data-lucide="check-circle" width="20" height="20"></i>
+        <span>تم حفظ الكلمة بنجاح!</span>
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Page Navigation
+        function showPage(pageId, navItem) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update nav items
+            if (navItem) {
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                navItem.classList.add('active');
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+
+        // Quiz Option Selection
+        function selectOption(element) {
+            document.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            element.classList.add('selected');
+        }
+
+        // Show Toast
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            toast.querySelector('span').textContent = message;
+            toast.className = `toast ${type} show`;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Add ripple effect to buttons
+        document.querySelectorAll('.btn, .lesson-card, .level-card').forEach(el => {
+            el.classList.add('ripple');
+        });
+
+        // Simulate progress animation on load
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.querySelectorAll('.progress-bar-fill, .level-progress-fill').forEach(bar => {
+                    const width = bar.style.width;
+                    bar.style.width = '0%';
+                    setTimeout(() => {
+                        bar.style.width = width;
+                    }, 100);
+                });
+            }, 300);
+        });
+    </script>
+
+</body>
+</html>
