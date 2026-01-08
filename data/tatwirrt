@@ -1,0 +1,2986 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Italiano - تعلم الإيطالية</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #009246;
+            --primary-light: #E8F5E9;
+            --primary-dark: #007A3D;
+            --secondary: #2196F3;
+            --secondary-light: #E3F2FD;
+            --accent: #FF9800;
+            --accent-light: #FFF3E0;
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --error: #F44336;
+            --bg-primary: #F5F7FA;
+            --bg-secondary: #FFFFFF;
+            --bg-card: #FFFFFF;
+            --text-primary: #1A1A2E;
+            --text-secondary: #64748B;
+            --text-muted: #94A3B8;
+            --border-light: #E2E8F0;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1);
+            --shadow-card: 0 2px 8px rgba(0,0,0,0.08);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 16px;
+            --radius-xl: 20px;
+            --header-height: 60px;
+            --bottom-nav-height: 65px;
+            --font-ar: 'Cairo', sans-serif;
+            --font-en: 'Poppins', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: var(--font-ar);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding-bottom: calc(var(--bottom-nav-height) + 20px);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            z-index: 1000;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #009246 33%, #fff 33%, #fff 66%, #CE2B37 66%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .app-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 12px;
+        }
+
+        .header-stat {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .streak-stat { color: var(--accent); }
+        .xp-stat { color: var(--secondary); }
+
+        /* Main Content */
+        .main {
+            padding: calc(var(--header-height) + 16px) 16px 16px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        /* Pages */
+        .page { display: none; }
+        .page.active { display: block; }
+
+        /* Daily Goal Card */
+        .goal-card {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: var(--radius-xl);
+            padding: 20px;
+            color: white;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .goal-card::after {
+            content: '🇮🇹';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            font-size: 100px;
+            opacity: 0.1;
+        }
+
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .goal-title { font-size: 14px; opacity: 0.9; }
+        
+        .goal-day {
+            background: rgba(255,255,255,0.2);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .goal-progress-bar {
+            height: 10px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+            margin-bottom: 10px;
+            overflow: hidden;
+        }
+
+        .goal-progress-fill {
+            height: 100%;
+            background: white;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .goal-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+        }
+
+        /* Quick Stats */
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .stat-box {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: 16px 12px;
+            text-align: center;
+            box-shadow: var(--shadow-card);
+        }
+
+        .stat-icon {
+            width: 44px;
+            height: 44px;
+            margin: 0 auto 8px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .stat-icon.words { background: var(--primary-light); }
+        .stat-icon.lessons { background: var(--secondary-light); }
+        .stat-icon.streak { background: var(--accent-light); }
+
+        .stat-value {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        /* Section */
+        .section {
+            margin-bottom: 24px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+
+        .section-link {
+            color: var(--primary);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        /* Levels Grid */
+        .levels-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .level-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            box-shadow: var(--shadow-card);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .level-card:active {
+            transform: scale(0.98);
+        }
+
+        .level-card.locked {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        .level-badge {
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 15px;
+            color: white;
+            margin-bottom: 12px;
+        }
+
+        .level-badge.a1 { background: linear-gradient(135deg, #4CAF50, #2E7D32); }
+        .level-badge.a2 { background: linear-gradient(135deg, #2196F3, #1565C0); }
+        .level-badge.b1 { background: linear-gradient(135deg, #9C27B0, #6A1B9A); }
+        .level-badge.b2 { background: linear-gradient(135deg, #FF5722, #D84315); }
+
+        .level-name {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .level-desc {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+        }
+
+        .level-progress {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .level-progress-bar {
+            flex: 1;
+            height: 6px;
+            background: var(--border-light);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .level-progress-fill {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 6px;
+        }
+
+        .level-progress-text {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }
+
+        .lock-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 28px;
+            z-index: 5;
+        }
+
+        /* Lessons List */
+        .lessons-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .lesson-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 14px;
+            box-shadow: var(--shadow-card);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .lesson-card:active {
+            transform: scale(0.98);
+        }
+
+        .lesson-card.completed {
+            border-color: var(--success);
+            background: linear-gradient(to right, rgba(76,175,80,0.05), transparent);
+        }
+
+        .lesson-card.current {
+            border-color: var(--primary);
+            background: linear-gradient(to right, var(--primary-light), transparent);
+        }
+
+        .lesson-card.locked {
+            opacity: 0.5;
+        }
+
+        .lesson-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .lesson-icon.vocab { background: #E8F5E9; }
+        .lesson-icon.grammar { background: #E3F2FD; }
+        .lesson-icon.dialog { background: #FFF3E0; }
+        .lesson-icon.exercise { background: #F3E5F5; }
+
+        .lesson-info { flex: 1; }
+
+        .lesson-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .lesson-meta {
+            font-size: 12px;
+            color: var(--text-secondary);
+            display: flex;
+            gap: 12px;
+        }
+
+        .lesson-status {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .lesson-status.completed { background: var(--success); color: white; }
+        .lesson-status.current { background: var(--primary); color: white; }
+        .lesson-status.locked { background: var(--border-light); color: var(--text-muted); }
+
+        /* Words Page */
+        .words-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .words-count {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .view-toggle {
+            display: flex;
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
+            padding: 4px;
+            gap: 4px;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .view-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            border-radius: 6px;
+            font-family: var(--font-ar);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .view-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Flashcard */
+        .flashcard-container {
+            perspective: 1000px;
+            margin-bottom: 20px;
+        }
+
+        .flashcard {
+            width: 100%;
+            min-height: 220px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: var(--radius-xl);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .flashcard-front {
+            background: var(--bg-card);
+        }
+
+        .flashcard-back {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .flashcard-word {
+            font-family: var(--font-en);
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+
+        .flashcard-pronunciation {
+            font-size: 16px;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-bottom: 16px;
+        }
+
+        .flashcard-hint {
+            font-size: 14px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .flashcard-arabic {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .flashcard-example {
+            text-align: center;
+            font-size: 16px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .flashcard-counter {
+            text-align: center;
+            margin-bottom: 12px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .flashcard-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .fc-btn {
+            flex: 1;
+            padding: 14px 10px;
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: var(--font-ar);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            transition: transform 0.2s;
+        }
+
+        .fc-btn:active { transform: scale(0.95); }
+
+        .fc-btn.wrong { background: #FFEBEE; color: var(--error); }
+        .fc-btn.hard { background: #FFF3E0; color: var(--accent); }
+        .fc-btn.good { background: #E3F2FD; color: var(--secondary); }
+        .fc-btn.easy { background: var(--primary-light); color: var(--primary); }
+
+        /* Word Cards List */
+        .word-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .word-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 16px;
+            box-shadow: var(--shadow-card);
+            border-right: 4px solid var(--primary);
+        }
+
+        .word-card.learned {
+            border-right-color: var(--success);
+        }
+
+        .word-main {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .word-italian {
+            font-family: var(--font-en);
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .word-audio-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: var(--primary-light);
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .word-audio-btn:active {
+            transform: scale(0.9);
+            background: var(--primary);
+        }
+
+        .word-pronunciation {
+            font-size: 13px;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-bottom: 6px;
+        }
+
+        .word-arabic {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .word-example {
+            background: var(--bg-primary);
+            border-radius: var(--radius-sm);
+            padding: 12px;
+            margin-bottom: 12px;
+        }
+
+        .word-example-it {
+            font-family: var(--font-en);
+            font-size: 14px;
+            margin-bottom: 4px;
+            color: var(--text-primary);
+        }
+
+        .word-example-ar {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .word-actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .word-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-ar);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .word-btn:active { transform: scale(0.95); }
+
+        .word-btn.primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .word-btn.secondary {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-light);
+        }
+
+        .word-btn.learned {
+            background: var(--success);
+            color: white;
+        }
+
+        /* Quiz Page */
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .quiz-close {
+            width: 36px;
+            height: 36px;
+            border: none;
+            background: var(--bg-card);
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .quiz-score {
+            background: var(--accent-light);
+            color: var(--accent);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .quiz-progress {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-dot {
+            flex: 1;
+            height: 5px;
+            background: var(--border-light);
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .quiz-dot.done { background: var(--success); }
+        .quiz-dot.current { background: var(--primary); }
+        .quiz-dot.wrong { background: var(--error); }
+
+        .quiz-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            padding: 24px;
+            box-shadow: var(--shadow-card);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .quiz-type {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .quiz-question {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: var(--font-en);
+            margin-bottom: 8px;
+        }
+
+        .quiz-question-ar {
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .quiz-hint {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 8px;
+        }
+
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-option {
+            background: var(--bg-card);
+            border: 2px solid var(--border-light);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-align: right;
+        }
+
+        .quiz-option:active { transform: scale(0.98); }
+
+        .quiz-option.selected {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+
+        .quiz-option.correct {
+            border-color: var(--success);
+            background: rgba(76,175,80,0.1);
+        }
+
+        .quiz-option.wrong {
+            border-color: var(--error);
+            background: rgba(244,67,54,0.1);
+        }
+
+        .quiz-option-letter {
+            width: 32px;
+            height: 32px;
+            background: var(--bg-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            flex-shrink: 0;
+        }
+
+        .quiz-option.selected .quiz-option-letter {
+            background: var(--primary);
+            color: white;
+        }
+
+        .quiz-option.correct .quiz-option-letter {
+            background: var(--success);
+            color: white;
+        }
+
+        .quiz-option.wrong .quiz-option-letter {
+            background: var(--error);
+            color: white;
+        }
+
+        .quiz-option-text {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .quiz-btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: var(--font-ar);
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .quiz-btn:active { transform: scale(0.98); }
+
+        .quiz-btn.primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .quiz-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Quiz Result */
+        .quiz-result {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .result-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .result-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .result-subtitle {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+        }
+
+        .result-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .result-stat {
+            text-align: center;
+        }
+
+        .result-stat-value {
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .result-stat-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        /* Profile Page */
+        .profile-header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin: 0 auto 12px;
+        }
+
+        .profile-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .profile-level {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: 20px 16px;
+            box-shadow: var(--shadow-card);
+            text-align: center;
+        }
+
+        .stat-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin: 0 auto 10px;
+        }
+
+        .stat-card-value {
+            font-size: 26px;
+            font-weight: 700;
+        }
+
+        .stat-card-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* Achievements */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .achievement {
+            text-align: center;
+        }
+
+        .achievement-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            margin: 0 auto 6px;
+            position: relative;
+        }
+
+        .achievement-icon.earned {
+            background: linear-gradient(135deg, #FFD700, #FFA000);
+            box-shadow: 0 4px 12px rgba(255,193,7,0.4);
+        }
+
+        .achievement-icon.locked {
+            background: var(--border-light);
+            filter: grayscale(1);
+            opacity: 0.4;
+        }
+
+        .achievement-name {
+            font-size: 10px;
+            color: var(--text-secondary);
+        }
+
+        /* Settings */
+        .settings-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .setting-item {
+            background: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .setting-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .setting-info { flex: 1; }
+
+        .setting-title {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .setting-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .setting-arrow {
+            color: var(--text-muted);
+            font-size: 18px;
+        }
+
+        /* Toggle Switch */
+        .toggle {
+            width: 50px;
+            height: 28px;
+            background: var(--border-light);
+            border-radius: 28px;
+            position: relative;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .toggle.active {
+            background: var(--primary);
+        }
+
+        .toggle::after {
+            content: '';
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 22px;
+            height: 22px;
+            background: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .toggle.active::after {
+            transform: translateX(22px);
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: var(--bottom-nav-height);
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-light);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 16px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-item.active::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 0 0 4px 4px;
+        }
+
+        .nav-icon { font-size: 22px; }
+        .nav-label { font-size: 11px; font-weight: 500; }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: calc(var(--bottom-nav-height) + 20px);
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--text-primary);
+            color: white;
+            padding: 14px 24px;
+            border-radius: var(--radius-md);
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: var(--shadow-xl);
+            z-index: 2000;
+            opacity: 0;
+            transition: all 0.3s;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        .toast.success { background: var(--success); }
+        .toast.error { background: var(--error); }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 3000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--bg-card);
+            border-radius: var(--radius-xl);
+            padding: 24px;
+            width: 100%;
+            max-width: 340px;
+            text-align: center;
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .modal-icon {
+            font-size: 60px;
+            margin-bottom: 16px;
+        }
+
+        .modal-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .modal-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .modal-btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: var(--font-ar);
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .modal-btn.primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .modal-btn.secondary {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        /* Categories tabs */
+        .categories-tabs {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .categories-tabs::-webkit-scrollbar { display: none; }
+
+        .category-tab {
+            padding: 10px 18px;
+            background: var(--bg-card);
+            border: 2px solid var(--border-light);
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .category-tab.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* Back Button */
+        .back-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 0;
+            margin-bottom: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 48px 24px;
+        }
+
+        .empty-icon {
+            font-size: 64px;
+            margin-bottom: 16px;
+            opacity: 0.5;
+        }
+
+        .empty-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .empty-text {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-right">
+            <div class="logo"></div>
+            <span class="app-title">Italiano</span>
+        </div>
+        <div class="header-stats">
+            <div class="header-stat streak-stat">
+                <span>🔥</span>
+                <span id="header-streak">0</span>
+            </div>
+            <div class="header-stat xp-stat">
+                <span>⭐</span>
+                <span id="header-xp">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+
+        <!-- ================== HOME PAGE ================== -->
+        <div class="page active" id="page-home">
+            <!-- Daily Goal -->
+            <div class="goal-card">
+                <div class="goal-header">
+                    <span class="goal-title">🎯 هدف اليوم</span>
+                    <span class="goal-day" id="goal-day">يوم 1</span>
+                </div>
+                <div class="goal-progress-bar">
+                    <div class="goal-progress-fill" id="goal-progress" style="width: 0%"></div>
+                </div>
+                <div class="goal-stats">
+                    <span id="goal-count">0 / 10 كلمة</span>
+                    <span id="goal-percent">0%</span>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="quick-stats">
+                <div class="stat-box">
+                    <div class="stat-icon words">📚</div>
+                    <div class="stat-value" id="stat-words">0</div>
+                    <div class="stat-label">كلمة</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon lessons">📖</div>
+                    <div class="stat-value" id="stat-lessons">0</div>
+                    <div class="stat-label">درس</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-icon streak">🔥</div>
+                    <div class="stat-value" id="stat-streak">0</div>
+                    <div class="stat-label">يوم متتالي</div>
+                </div>
+            </div>
+
+            <!-- Levels -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">📚 المستويات</h2>
+                </div>
+                <div class="levels-grid" id="levels-grid">
+                    <!-- Levels will be rendered here -->
+                </div>
+            </div>
+
+            <!-- Continue Learning -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">🚀 أكمل التعلم</h2>
+                </div>
+                <div id="continue-lesson">
+                    <!-- Current lesson will be shown here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ================== LESSONS PAGE ================== -->
+        <div class="page" id="page-lessons">
+            <button class="back-btn" onclick="showPage('page-home')">
+                <span>→</span>
+                <span>رجوع</span>
+            </button>
+            <div class="section-header">
+                <h2 class="section-title" id="lessons-title">الدروس</h2>
+            </div>
+            <div class="lessons-list" id="lessons-list">
+                <!-- Lessons will be rendered here -->
+            </div>
+        </div>
+
+        <!-- ================== WORDS PAGE ================== -->
+        <div class="page" id="page-words">
+            <div class="words-header">
+                <h2 class="section-title" id="words-title">الكلمات</h2>
+                <span class="words-count" id="words-count">0 كلمة</span>
+            </div>
+
+            <!-- Categories -->
+            <div class="categories-tabs" id="word-categories">
+                <!-- Categories will be rendered here -->
+            </div>
+
+            <!-- View Toggle -->
+            <div class="view-toggle">
+                <button class="view-btn active" id="btn-flashcard" onclick="setWordView('flashcard')">🎴 بطاقات</button>
+                <button class="view-btn" id="btn-list" onclick="setWordView('list')">📋 قائمة</button>
+            </div>
+
+            <!-- Flashcard View -->
+            <div id="flashcard-view">
+                <div class="flashcard-counter" id="flashcard-counter">1 / 10</div>
+                <div class="flashcard-container">
+                    <div class="flashcard" id="flashcard" onclick="flipCard()">
+                        <div class="flashcard-face flashcard-front">
+                            <div class="flashcard-word" id="fc-word">Ciao</div>
+                            <div class="flashcard-pronunciation" id="fc-pronunciation">/ˈtʃao/</div>
+                            <div class="flashcard-hint">👆 اضغط لرؤية الترجمة</div>
+                        </div>
+                        <div class="flashcard-face flashcard-back">
+                            <div class="flashcard-arabic" id="fc-arabic">مرحبا</div>
+                            <div class="flashcard-example" id="fc-example">
+                                "Ciao, come stai?"<br>مرحبا، كيف حالك؟
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flashcard-actions">
+                    <button class="fc-btn wrong" onclick="rateWord(1)">
+                        <span>❌</span>
+                        <span>لم أعرف</span>
+                    </button>
+                    <button class="fc-btn hard" onclick="rateWord(2)">
+                        <span>🤔</span>
+                        <span>صعبة</span>
+                    </button>
+                    <button class="fc-btn good" onclick="rateWord(3)">
+                        <span>😊</span>
+                        <span>جيدة</span>
+                    </button>
+                    <button class="fc-btn easy" onclick="rateWord(4)">
+                        <span>✅</span>
+                        <span>سهلة</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- List View -->
+            <div id="list-view" style="display: none;">
+                <div class="word-cards" id="words-list">
+                    <!-- Words will be rendered here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ================== QUIZ PAGE ================== -->
+        <div class="page" id="page-quiz">
+            <div id="quiz-container">
+                <div class="quiz-header">
+                    <button class="quiz-close" onclick="exitQuiz()">✕</button>
+                    <div class="quiz-score" id="quiz-score">⭐ 0</div>
+                </div>
+                <div class="quiz-progress" id="quiz-progress">
+                    <!-- Progress dots -->
+                </div>
+                <div class="quiz-card">
+                    <div class="quiz-type" id="quiz-type">ترجم هذه الكلمة</div>
+                    <div class="quiz-question" id="quiz-question">Buongiorno</div>
+                    <div class="quiz-hint" id="quiz-hint"></div>
+                </div>
+                <div class="quiz-options" id="quiz-options">
+                    <!-- Options will be rendered here -->
+                </div>
+                <button class="quiz-btn primary" id="quiz-btn" onclick="checkAnswer()" disabled>تحقق</button>
+            </div>
+
+            <!-- Quiz Result -->
+            <div id="quiz-result" style="display: none;">
+                <div class="quiz-result">
+                    <div class="result-icon" id="result-icon">🎉</div>
+                    <div class="result-title" id="result-title">أحسنت!</div>
+                    <div class="result-subtitle" id="result-subtitle">لقد أكملت التمرين</div>
+                    <div class="result-stats">
+                        <div class="result-stat">
+                            <div class="result-stat-value" id="result-correct">0</div>
+                            <div class="result-stat-label">إجابة صحيحة</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="result-stat-value" id="result-xp">+0</div>
+                            <div class="result-stat-label">نقاط XP</div>
+                        </div>
+                    </div>
+                    <button class="quiz-btn primary" onclick="restartQuiz()">تمرين جديد</button>
+                    <button class="quiz-btn secondary" style="margin-top: 10px;" onclick="showPage('page-home')">العودة للرئيسية</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ================== PROFILE PAGE ================== -->
+        <div class="page" id="page-profile">
+            <div class="profile-header">
+                <div class="profile-avatar">👤</div>
+                <div class="profile-name">متعلم الإيطالية</div>
+                <div class="profile-level">المستوى: <span id="profile-level">A1 مبتدئ</span></div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-icon" style="background: var(--primary-light);">📚</div>
+                    <div class="stat-card-value" id="profile-words">0</div>
+                    <div class="stat-card-label">كلمة محفوظة</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon" style="background: var(--secondary-light);">📖</div>
+                    <div class="stat-card-value" id="profile-lessons">0</div>
+                    <div class="stat-card-label">درس مكتمل</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon" style="background: var(--accent-light);">🔥</div>
+                    <div class="stat-card-value" id="profile-streak">0</div>
+                    <div class="stat-card-label">أيام متتالية</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-card-icon" style="background: #F3E5F5;">⭐</div>
+                    <div class="stat-card-value" id="profile-xp">0</div>
+                    <div class="stat-card-label">نقاط XP</div>
+                </div>
+            </div>
+
+            <!-- Achievements -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">🏆 الإنجازات</h2>
+                </div>
+                <div class="achievements-grid" id="achievements-grid">
+                    <!-- Achievements will be rendered here -->
+                </div>
+            </div>
+
+            <!-- Settings -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title">⚙️ الإعدادات</h2>
+                </div>
+                <div class="settings-list">
+                    <div class="setting-item">
+                        <div class="setting-icon" style="background: #E3F2FD;">🎯</div>
+                        <div class="setting-info">
+                            <div class="setting-title">الهدف اليومي</div>
+                            <div class="setting-desc" id="daily-goal-setting">10 كلمات / يوم</div>
+                        </div>
+                        <select id="goal-select" onchange="changeDailyGoal(this.value)" style="padding: 8px; border-radius: 8px; border: 1px solid var(--border-light);">
+                            <option value="5">5</option>
+                            <option value="10" selected>10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-icon" style="background: #FFF3E0;">🔔</div>
+                        <div class="setting-info">
+                            <div class="setting-title">التذكيرات</div>
+                            <div class="setting-desc">تذكير يومي للتعلم</div>
+                        </div>
+                        <div class="toggle" id="notification-toggle" onclick="toggleNotification()"></div>
+                    </div>
+                    <div class="setting-item" onclick="resetProgress()">
+                        <div class="setting-icon" style="background: #FFEBEE;">🗑️</div>
+                        <div class="setting-info">
+                            <div class="setting-title">إعادة تعيين التقدم</div>
+                            <div class="setting-desc">حذف جميع البيانات والبدء من جديد</div>
+                        </div>
+                        <span class="setting-arrow">←</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active" onclick="showPage('page-home', this)" data-page="page-home">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">الرئيسية</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showPage('page-words', this)" data-page="page-words">
+            <span class="nav-icon">📝</span>
+            <span class="nav-label">الكلمات</span>
+        </a>
+        <a href="#" class="nav-item" onclick="startQuiz(); showPage('page-quiz', this)" data-page="page-quiz">
+            <span class="nav-icon">🎯</span>
+            <span class="nav-label">تمارين</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showPage('page-profile', this)" data-page="page-profile">
+            <span class="nav-icon">👤</span>
+            <span class="nav-label">حسابي</span>
+        </a>
+    </nav>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <span id="toast-icon">✓</span>
+        <span id="toast-message">تم بنجاح</span>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal">
+            <div class="modal-icon" id="modal-icon">🎉</div>
+            <div class="modal-title" id="modal-title">تهانينا!</div>
+            <div class="modal-text" id="modal-text">لقد حققت إنجازاً جديداً</div>
+            <button class="modal-btn primary" onclick="closeModal()">حسناً</button>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // 📊 DATA - قاعدة البيانات
+        // ============================================
+
+        const APP_DATA = {
+            levels: [
+                {
+                    id: 'a1',
+                    name: 'A1 - مبتدئ',
+                    description: 'الأساسيات والتعارف',
+                    color: 'a1',
+                    lessons: [
+                        { id: 'a1-1', title: 'التحيات والتعارف', icon: '👋', type: 'vocab', words: 15, time: 10 },
+                        { id: 'a1-2', title: 'الأرقام من 1-20', icon: '🔢', type: 'vocab', words: 20, time: 12 },
+                        { id: 'a1-3', title: 'أيام الأسبوع', icon: '📅', type: 'vocab', words: 10, time: 8 },
+                        { id: 'a1-4', title: 'الألوان', icon: '🎨', type: 'vocab', words: 12, time: 8 },
+                        { id: 'a1-5', title: 'العائلة', icon: '👨‍👩‍👧‍👦', type: 'vocab', words: 15, time: 10 },
+                        { id: 'a1-6', title: 'الطعام والشراب', icon: '🍕', type: 'vocab', words: 20, time: 12 },
+                        { id: 'a1-7', title: 'فعل essere', icon: '📐', type: 'grammar', words: 10, time: 15 },
+                        { id: 'a1-8', title: 'فعل avere', icon: '📐', type: 'grammar', words: 10, time: 15 },
+                    ]
+                },
+                {
+                    id: 'a2',
+                    name: 'A2 - ما قبل متوسط',
+                    description: 'محادثات يومية',
+                    color: 'a2',
+                    lessons: [
+                        { id: 'a2-1', title: 'في المطعم', icon: '🍽️', type: 'dialog', words: 18, time: 12 },
+                        { id: 'a2-2', title: 'التسوق', icon: '🛒', type: 'vocab', words: 20, time: 12 },
+                        { id: 'a2-3', title: 'الاتجاهات', icon: '🧭', type: 'vocab', words: 15, time: 10 },
+                        { id: 'a2-4', title: 'الطقس', icon: '⛅', type: 'vocab', words: 12, time: 8 },
+                        { id: 'a2-5', title: 'المشاعر', icon: '😊', type: 'vocab', words: 15, time: 10 },
+                        { id: 'a2-6', title: 'الماضي البسيط', icon: '📐', type: 'grammar', words: 12, time: 18 },
+                    ]
+                },
+                {
+                    id: 'b1',
+                    name: 'B1 - متوسط',
+                    description: 'مواضيع متقدمة',
+                    color: 'b1',
+                    lessons: [
+                        { id: 'b1-1', title: 'العمل والمهن', icon: '💼', type: 'vocab', words: 25, time: 15 },
+                        { id: 'b1-2', title: 'السفر', icon: '✈️', type: 'vocab', words: 22, time: 14 },
+                        { id: 'b1-3', title: 'الصحة', icon: '🏥', type: 'vocab', words: 20, time: 12 },
+                        { id: 'b1-4', title: 'المستقبل', icon: '📐', type: 'grammar', words: 15, time: 20 },
+                    ]
+                },
+                {
+                    id: 'b2',
+                    name: 'B2 - فوق المتوسط',
+                    description: 'طلاقة عالية',
+                    color: 'b2',
+                    lessons: [
+                        { id: 'b2-1', title: 'الأخبار والإعلام', icon: '📰', type: 'vocab', words: 30, time: 18 },
+                        { id: 'b2-2', title: 'الثقافة الإيطالية', icon: '🏛️', type: 'vocab', words: 25, time: 15 },
+                        { id: 'b2-3', title: 'Congiuntivo', icon: '📐', type: 'grammar', words: 18, time: 25 },
+                    ]
+                }
+            ],
+
+            words: {
+                'a1-1': [
+                    { it: 'Ciao', ar: 'مرحبا', pron: '/ˈtʃao/', ex_it: 'Ciao, come stai?', ex_ar: 'مرحبا، كيف حالك؟' },
+                    { it: 'Buongiorno', ar: 'صباح الخير', pron: '/ˌbwɔnˈdʒorno/', ex_it: 'Buongiorno signora!', ex_ar: 'صباح الخير سيدتي!' },
+                    { it: 'Buonasera', ar: 'مساء الخير', pron: '/ˌbwɔnaˈsera/', ex_it: 'Buonasera a tutti!', ex_ar: 'مساء الخير للجميع!' },
+                    { it: 'Buonanotte', ar: 'تصبح على خير', pron: '/ˌbwɔnaˈnɔtte/', ex_it: 'Buonanotte, dormi bene!', ex_ar: 'تصبح على خير، نم جيداً!' },
+                    { it: 'Arrivederci', ar: 'إلى اللقاء', pron: '/arriˈvedertʃi/', ex_it: 'Arrivederci, a domani!', ex_ar: 'إلى اللقاء، نراك غداً!' },
+                    { it: 'Grazie', ar: 'شكراً', pron: '/ˈɡrattsje/', ex_it: 'Grazie mille!', ex_ar: 'شكراً جزيلاً!' },
+                    { it: 'Prego', ar: 'عفواً', pron: '/ˈprɛɡo/', ex_it: 'Prego, non c\'è problema.', ex_ar: 'عفواً، لا مشكلة.' },
+                    { it: 'Scusa', ar: 'عذراً (غير رسمي)', pron: '/ˈskuza/', ex_it: 'Scusa, dov\'è il bagno?', ex_ar: 'عذراً، أين الحمام؟' },
+                    { it: 'Mi scusi', ar: 'عذراً (رسمي)', pron: '/mi ˈskuzi/', ex_it: 'Mi scusi, può aiutarmi?', ex_ar: 'عذراً، هل يمكنك مساعدتي؟' },
+                    { it: 'Per favore', ar: 'من فضلك', pron: '/per faˈvore/', ex_it: 'Un caffè, per favore.', ex_ar: 'قهوة، من فضلك.' },
+                    { it: 'Sì', ar: 'نعم', pron: '/si/', ex_it: 'Sì, sono italiano.', ex_ar: 'نعم، أنا إيطالي.' },
+                    { it: 'No', ar: 'لا', pron: '/nɔ/', ex_it: 'No, grazie.', ex_ar: 'لا، شكراً.' },
+                    { it: 'Come ti chiami?', ar: 'ما اسمك؟', pron: '/ˈkome ti ˈkjami/', ex_it: 'Ciao! Come ti chiami?', ex_ar: 'مرحبا! ما اسمك؟' },
+                    { it: 'Mi chiamo', ar: 'اسمي', pron: '/mi ˈkjamo/', ex_it: 'Mi chiamo Marco.', ex_ar: 'اسمي ماركو.' },
+                    { it: 'Piacere', ar: 'تشرفت', pron: '/pjaˈtʃere/', ex_it: 'Piacere di conoscerti!', ex_ar: 'تشرفت بمعرفتك!' },
+                ],
+                'a1-2': [
+                    { it: 'Uno', ar: 'واحد', pron: '/ˈuno/', ex_it: 'Ho uno zaino.', ex_ar: 'لدي حقيبة واحدة.' },
+                    { it: 'Due', ar: 'اثنان', pron: '/ˈdue/', ex_it: 'Due caffè, per favore.', ex_ar: 'قهوتان، من فضلك.' },
+                    { it: 'Tre', ar: 'ثلاثة', pron: '/tre/', ex_it: 'Ho tre fratelli.', ex_ar: 'لدي ثلاثة إخوة.' },
+                    { it: 'Quattro', ar: 'أربعة', pron: '/ˈkwattro/', ex_it: 'Sono le quattro.', ex_ar: 'الساعة الرابعة.' },
+                    { it: 'Cinque', ar: 'خمسة', pron: '/ˈtʃiŋkwe/', ex_it: 'Cinque minuti.', ex_ar: 'خمس دقائق.' },
+                    { it: 'Sei', ar: 'ستة', pron: '/sɛi/', ex_it: 'Ho sei anni.', ex_ar: 'عمري ست سنوات.' },
+                    { it: 'Sette', ar: 'سبعة', pron: '/ˈsɛtte/', ex_it: 'Sette giorni.', ex_ar: 'سبعة أيام.' },
+                    { it: 'Otto', ar: 'ثمانية', pron: '/ˈɔtto/', ex_it: 'Sono le otto.', ex_ar: 'الساعة الثامنة.' },
+                    { it: 'Nove', ar: 'تسعة', pron: '/ˈnɔve/', ex_it: 'Nove euro.', ex_ar: 'تسعة يورو.' },
+                    { it: 'Dieci', ar: 'عشرة', pron: '/ˈdjɛtʃi/', ex_it: 'Dieci studenti.', ex_ar: 'عشرة طلاب.' },
+                    { it: 'Undici', ar: 'أحد عشر', pron: '/ˈunditʃi/', ex_it: 'Undici persone.', ex_ar: 'أحد عشر شخصاً.' },
+                    { it: 'Dodici', ar: 'اثنا عشر', pron: '/ˈdoditʃi/', ex_it: 'Dodici mesi.', ex_ar: 'اثنا عشر شهراً.' },
+                    { it: 'Tredici', ar: 'ثلاثة عشر', pron: '/ˈtreditʃi/', ex_it: 'Tredici anni.', ex_ar: 'ثلاثة عشر سنة.' },
+                    { it: 'Quattordici', ar: 'أربعة عشر', pron: '/kwatˈtorditʃi/', ex_it: 'Quattordici giorni.', ex_ar: 'أربعة عشر يوماً.' },
+                    { it: 'Quindici', ar: 'خمسة عشر', pron: '/ˈkwinditʃi/', ex_it: 'Quindici minuti.', ex_ar: 'خمس عشرة دقيقة.' },
+                    { it: 'Sedici', ar: 'ستة عشر', pron: '/ˈseditʃi/', ex_it: 'Sedici studenti.', ex_ar: 'ستة عشر طالباً.' },
+                    { it: 'Diciassette', ar: 'سبعة عشر', pron: '/ditʃasˈsɛtte/', ex_it: 'Diciassette euro.', ex_ar: 'سبعة عشر يورو.' },
+                    { it: 'Diciotto', ar: 'ثمانية عشر', pron: '/diˈtʃɔtto/', ex_it: 'Ho diciotto anni.', ex_ar: 'عمري ثمانية عشر.' },
+                    { it: 'Diciannove', ar: 'تسعة عشر', pron: '/ditʃanˈnɔve/', ex_it: 'Diciannove persone.', ex_ar: 'تسعة عشر شخصاً.' },
+                    { it: 'Venti', ar: 'عشرون', pron: '/ˈventi/', ex_it: 'Venti euro.', ex_ar: 'عشرون يورو.' },
+                ],
+                'a1-3': [
+                    { it: 'Lunedì', ar: 'الإثنين', pron: '/luneˈdi/', ex_it: 'Lunedì vado a scuola.', ex_ar: 'الإثنين أذهب للمدرسة.' },
+                    { it: 'Martedì', ar: 'الثلاثاء', pron: '/marteˈdi/', ex_it: 'Martedì ho lezione.', ex_ar: 'الثلاثاء لدي درس.' },
+                    { it: 'Mercoledì', ar: 'الأربعاء', pron: '/merkoˈledi/', ex_it: 'Mercoledì lavoro.', ex_ar: 'الأربعاء أعمل.' },
+                    { it: 'Giovedì', ar: 'الخميس', pron: '/dʒoveˈdi/', ex_it: 'Giovedì è il mio giorno libero.', ex_ar: 'الخميس يومي الحر.' },
+                    { it: 'Venerdì', ar: 'الجمعة', pron: '/venerˈdi/', ex_it: 'Venerdì andiamo al cinema.', ex_ar: 'الجمعة نذهب للسينما.' },
+                    { it: 'Sabato', ar: 'السبت', pron: '/ˈsabato/', ex_it: 'Sabato faccio sport.', ex_ar: 'السبت أمارس الرياضة.' },
+                    { it: 'Domenica', ar: 'الأحد', pron: '/doˈmenika/', ex_it: 'Domenica riposo.', ex_ar: 'الأحد أستريح.' },
+                    { it: 'Oggi', ar: 'اليوم', pron: '/ˈɔddʒi/', ex_it: 'Oggi è lunedì.', ex_ar: 'اليوم هو الإثنين.' },
+                    { it: 'Domani', ar: 'غداً', pron: '/doˈmani/', ex_it: 'A domani!', ex_ar: 'إلى الغد!' },
+                    { it: 'Ieri', ar: 'أمس', pron: '/ˈjɛri/', ex_it: 'Ieri ho studiato.', ex_ar: 'أمس درست.' },
+                ],
+                'a1-4': [
+                    { it: 'Rosso', ar: 'أحمر', pron: '/ˈrosso/', ex_it: 'Il pomodoro è rosso.', ex_ar: 'الطماطم حمراء.' },
+                    { it: 'Blu', ar: 'أزرق', pron: '/blu/', ex_it: 'Il cielo è blu.', ex_ar: 'السماء زرقاء.' },
+                    { it: 'Verde', ar: 'أخضر', pron: '/ˈverde/', ex_it: 'L\'erba è verde.', ex_ar: 'العشب أخضر.' },
+                    { it: 'Giallo', ar: 'أصفر', pron: '/ˈdʒallo/', ex_it: 'Il sole è giallo.', ex_ar: 'الشمس صفراء.' },
+                    { it: 'Bianco', ar: 'أبيض', pron: '/ˈbjaŋko/', ex_it: 'La neve è bianca.', ex_ar: 'الثلج أبيض.' },
+                    { it: 'Nero', ar: 'أسود', pron: '/ˈnero/', ex_it: 'Il gatto è nero.', ex_ar: 'القط أسود.' },
+                    { it: 'Arancione', ar: 'برتقالي', pron: '/aranˈtʃone/', ex_it: 'L\'arancia è arancione.', ex_ar: 'البرتقالة برتقالية.' },
+                    { it: 'Rosa', ar: 'وردي', pron: '/ˈrɔza/', ex_it: 'Il fiore è rosa.', ex_ar: 'الزهرة وردية.' },
+                    { it: 'Marrone', ar: 'بني', pron: '/marˈrone/', ex_it: 'Il cioccolato è marrone.', ex_ar: 'الشوكولاتة بنية.' },
+                    { it: 'Grigio', ar: 'رمادي', pron: '/ˈɡridʒo/', ex_it: 'L\'elefante è grigio.', ex_ar: 'الفيل رمادي.' },
+                    { it: 'Viola', ar: 'بنفسجي', pron: '/ˈvjɔla/', ex_it: 'L\'uva è viola.', ex_ar: 'العنب بنفسجي.' },
+                    { it: 'Azzurro', ar: 'أزرق فاتح', pron: '/adˈdzurro/', ex_it: 'Il mare è azzurro.', ex_ar: 'البحر أزرق فاتح.' },
+                ],
+                'a1-5': [
+                    { it: 'Madre', ar: 'أم', pron: '/ˈmadre/', ex_it: 'Mia madre cucina bene.', ex_ar: 'أمي تطبخ جيداً.' },
+                    { it: 'Padre', ar: 'أب', pron: '/ˈpadre/', ex_it: 'Mio padre lavora.', ex_ar: 'أبي يعمل.' },
+                    { it: 'Fratello', ar: 'أخ', pron: '/fraˈtɛllo/', ex_it: 'Ho un fratello.', ex_ar: 'لدي أخ.' },
+                    { it: 'Sorella', ar: 'أخت', pron: '/soˈrɛlla/', ex_it: 'Mia sorella studia.', ex_ar: 'أختي تدرس.' },
+                    { it: 'Nonno', ar: 'جد', pron: '/ˈnɔnno/', ex_it: 'Mio nonno è anziano.', ex_ar: 'جدي كبير في السن.' },
+                    { it: 'Nonna', ar: 'جدة', pron: '/ˈnɔnna/', ex_it: 'Mia nonna fa dolci.', ex_ar: 'جدتي تصنع الحلويات.' },
+                    { it: 'Zio', ar: 'عم/خال', pron: '/ˈtsio/', ex_it: 'Mio zio vive a Roma.', ex_ar: 'عمي يعيش في روما.' },
+                    { it: 'Zia', ar: 'عمة/خالة', pron: '/ˈtsia/', ex_it: 'Mia zia è simpatica.', ex_ar: 'عمتي لطيفة.' },
+                    { it: 'Cugino', ar: 'ابن عم/خال', pron: '/kuˈdʒino/', ex_it: 'Mio cugino ha 20 anni.', ex_ar: 'ابن عمي عمره 20 سنة.' },
+                    { it: 'Cugina', ar: 'بنت عم/خال', pron: '/kuˈdʒina/', ex_it: 'Mia cugina è bella.', ex_ar: 'بنت عمي جميلة.' },
+                    { it: 'Figlio', ar: 'ابن', pron: '/ˈfiʎʎo/', ex_it: 'Mio figlio va a scuola.', ex_ar: 'ابني يذهب للمدرسة.' },
+                    { it: 'Figlia', ar: 'ابنة', pron: '/ˈfiʎʎa/', ex_it: 'Mia figlia ha 5 anni.', ex_ar: 'ابنتي عمرها 5 سنوات.' },
+                    { it: 'Marito', ar: 'زوج', pron: '/maˈrito/', ex_it: 'Mio marito lavora.', ex_ar: 'زوجي يعمل.' },
+                    { it: 'Moglie', ar: 'زوجة', pron: '/ˈmɔʎʎe/', ex_it: 'Mia moglie cucina.', ex_ar: 'زوجتي تطبخ.' },
+                    { it: 'Famiglia', ar: 'عائلة', pron: '/faˈmiʎʎa/', ex_it: 'La mia famiglia è grande.', ex_ar: 'عائلتي كبيرة.' },
+                ],
+                'a1-6': [
+                    { it: 'Acqua', ar: 'ماء', pron: '/ˈakkwa/', ex_it: 'Vorrei dell\'acqua.', ex_ar: 'أريد ماء.' },
+                    { it: 'Pane', ar: 'خبز', pron: '/ˈpane/', ex_it: 'Il pane è fresco.', ex_ar: 'الخبز طازج.' },
+                    { it: 'Pasta', ar: 'معكرونة', pron: '/ˈpasta/', ex_it: 'Mangio la pasta.', ex_ar: 'آكل المعكرونة.' },
+                    { it: 'Pizza', ar: 'بيتزا', pron: '/ˈpittsa/', ex_it: 'La pizza è buona.', ex_ar: 'البيتزا لذيذة.' },
+                    { it: 'Caffè', ar: 'قهوة', pron: '/kafˈfɛ/', ex_it: 'Un caffè, per favore.', ex_ar: 'قهوة، من فضلك.' },
+                    { it: 'Latte', ar: 'حليب', pron: '/ˈlatte/', ex_it: 'Bevo il latte.', ex_ar: 'أشرب الحليب.' },
+                    { it: 'Vino', ar: 'نبيذ', pron: '/ˈvino/', ex_it: 'Un bicchiere di vino.', ex_ar: 'كأس من النبيذ.' },
+                    { it: 'Carne', ar: 'لحم', pron: '/ˈkarne/', ex_it: 'La carne è cotta.', ex_ar: 'اللحم مطبوخ.' },
+                    { it: 'Pesce', ar: 'سمك', pron: '/ˈpeʃʃe/', ex_it: 'Mi piace il pesce.', ex_ar: 'أحب السمك.' },
+                    { it: 'Formaggio', ar: 'جبن', pron: '/forˈmaddʒo/', ex_it: 'Il formaggio italiano.', ex_ar: 'الجبن الإيطالي.' },
+                    { it: 'Frutta', ar: 'فواكه', pron: '/ˈfrutta/', ex_it: 'Mangio la frutta.', ex_ar: 'آكل الفواكه.' },
+                    { it: 'Verdura', ar: 'خضروات', pron: '/verˈdura/', ex_it: 'La verdura è sana.', ex_ar: 'الخضروات صحية.' },
+                    { it: 'Gelato', ar: 'آيس كريم', pron: '/dʒeˈlato/', ex_it: 'Il gelato è freddo.', ex_ar: 'الآيس كريم بارد.' },
+                    { it: 'Dolce', ar: 'حلوى', pron: '/ˈdoltʃe/', ex_it: 'Questo dolce è buono.', ex_ar: 'هذه الحلوى لذيذة.' },
+                    { it: 'Uovo', ar: 'بيضة', pron: '/ˈwɔvo/', ex_it: 'Mangio un uovo.', ex_ar: 'آكل بيضة.' },
+                    { it: 'Riso', ar: 'أرز', pron: '/ˈrizo/', ex_it: 'Il riso è bianco.', ex_ar: 'الأرز أبيض.' },
+                    { it: 'Zucchero', ar: 'سكر', pron: '/ˈtsukkero/', ex_it: 'Vuoi lo zucchero?', ex_ar: 'هل تريد السكر؟' },
+                    { it: 'Sale', ar: 'ملح', pron: '/ˈsale/', ex_it: 'Passa il sale.', ex_ar: 'مرر الملح.' },
+                    { it: 'Olio', ar: 'زيت', pron: '/ˈɔljo/', ex_it: 'L\'olio d\'oliva.', ex_ar: 'زيت الزيتون.' },
+                    { it: 'Birra', ar: 'بيرة', pron: '/ˈbirra/', ex_it: 'Una birra fredda.', ex_ar: 'بيرة باردة.' },
+                ],
+                'a1-7': [
+                    { it: 'Io sono', ar: 'أنا أكون', pron: '/io ˈsono/', ex_it: 'Io sono italiano.', ex_ar: 'أنا إيطالي.' },
+                    { it: 'Tu sei', ar: 'أنت تكون', pron: '/tu sɛi/', ex_it: 'Tu sei bravo.', ex_ar: 'أنت ماهر.' },
+                    { it: 'Lui è', ar: 'هو يكون', pron: '/lui ɛ/', ex_it: 'Lui è alto.', ex_ar: 'هو طويل.' },
+                    { it: 'Lei è', ar: 'هي تكون', pron: '/lei ɛ/', ex_it: 'Lei è bella.', ex_ar: 'هي جميلة.' },
+                    { it: 'Noi siamo', ar: 'نحن نكون', pron: '/noi ˈsjamo/', ex_it: 'Noi siamo amici.', ex_ar: 'نحن أصدقاء.' },
+                    { it: 'Voi siete', ar: 'أنتم تكونون', pron: '/voi ˈsjɛte/', ex_it: 'Voi siete studenti.', ex_ar: 'أنتم طلاب.' },
+                    { it: 'Loro sono', ar: 'هم يكونون', pron: '/ˈloro ˈsono/', ex_it: 'Loro sono italiani.', ex_ar: 'هم إيطاليون.' },
+                    { it: 'Essere felice', ar: 'أن تكون سعيداً', pron: '/ˈɛssere feˈlitʃe/', ex_it: 'Sono molto felice.', ex_ar: 'أنا سعيد جداً.' },
+                    { it: 'Essere stanco', ar: 'أن تكون متعباً', pron: '/ˈɛssere ˈstaŋko/', ex_it: 'Sei stanco?', ex_ar: 'هل أنت متعب؟' },
+                    { it: 'Essere pronto', ar: 'أن تكون جاهزاً', pron: '/ˈɛssere ˈpronto/', ex_it: 'Siamo pronti.', ex_ar: 'نحن جاهزون.' },
+                ],
+                'a1-8': [
+                    { it: 'Io ho', ar: 'أنا أملك', pron: '/io ɔ/', ex_it: 'Io ho un cane.', ex_ar: 'أنا أملك كلباً.' },
+                    { it: 'Tu hai', ar: 'أنت تملك', pron: '/tu ai/', ex_it: 'Tu hai una macchina.', ex_ar: 'أنت تملك سيارة.' },
+                    { it: 'Lui ha', ar: 'هو يملك', pron: '/lui a/', ex_it: 'Lui ha fame.', ex_ar: 'هو جائع.' },
+                    { it: 'Lei ha', ar: 'هي تملك', pron: '/lei a/', ex_it: 'Lei ha sete.', ex_ar: 'هي عطشانة.' },
+                    { it: 'Noi abbiamo', ar: 'نحن نملك', pron: '/noi abˈbjamo/', ex_it: 'Noi abbiamo tempo.', ex_ar: 'لدينا وقت.' },
+                    { it: 'Voi avete', ar: 'أنتم تملكون', pron: '/voi aˈvete/', ex_it: 'Voi avete ragione.', ex_ar: 'أنتم على حق.' },
+                    { it: 'Loro hanno', ar: 'هم يملكون', pron: '/ˈloro ˈanno/', ex_it: 'Loro hanno figli.', ex_ar: 'لديهم أطفال.' },
+                    { it: 'Avere fame', ar: 'أن تكون جائعاً', pron: '/aˈvere ˈfame/', ex_it: 'Ho molta fame.', ex_ar: 'أنا جائع جداً.' },
+                    { it: 'Avere sete', ar: 'أن تكون عطشاناً', pron: '/aˈvere ˈsete/', ex_it: 'Hai sete?', ex_ar: 'هل أنت عطشان؟' },
+                    { it: 'Avere sonno', ar: 'أن تكون نعساناً', pron: '/aˈvere ˈsonno/', ex_it: 'Ho sonno.', ex_ar: 'أنا نعسان.' },
+                ],
+                'a2-1': [
+                    { it: 'Il menu', ar: 'القائمة', pron: '/il meˈnu/', ex_it: 'Posso vedere il menu?', ex_ar: 'هل يمكنني رؤية القائمة؟' },
+                    { it: 'Il conto', ar: 'الحساب', pron: '/il ˈkonto/', ex_it: 'Il conto, per favore.', ex_ar: 'الحساب، من فضلك.' },
+                    { it: 'Cameriere', ar: 'نادل', pron: '/kameˈrjɛre/', ex_it: 'Cameriere!', ex_ar: 'أيها النادل!' },
+                    { it: 'Prenotare', ar: 'يحجز', pron: '/prenoˈtare/', ex_it: 'Vorrei prenotare un tavolo.', ex_ar: 'أريد حجز طاولة.' },
+                    { it: 'Ordinare', ar: 'يطلب', pron: '/ordiˈnare/', ex_it: 'Posso ordinare?', ex_ar: 'هل يمكنني الطلب؟' },
+                    { it: 'Antipasto', ar: 'مقبلات', pron: '/antiˈpasto/', ex_it: 'Come antipasto, prendo...', ex_ar: 'كمقبلات، آخذ...' },
+                    { it: 'Primo piatto', ar: 'الطبق الأول', pron: '/ˈprimo ˈpjatto/', ex_it: 'Il primo piatto è pasta.', ex_ar: 'الطبق الأول معكرونة.' },
+                    { it: 'Secondo piatto', ar: 'الطبق الثاني', pron: '/seˈkondo ˈpjatto/', ex_it: 'Come secondo, carne.', ex_ar: 'كطبق ثاني، لحم.' },
+                    { it: 'Contorno', ar: 'طبق جانبي', pron: '/konˈtorno/', ex_it: 'Con contorno di verdure.', ex_ar: 'مع طبق جانبي من الخضار.' },
+                    { it: 'Dessert', ar: 'حلوى', pron: '/deˈsɛrt/', ex_it: 'Cosa c\'è come dessert?', ex_ar: 'ماذا يوجد كحلوى؟' },
+                    { it: 'Buon appetito', ar: 'بالهناء والشفاء', pron: '/bwɔn appeˈtito/', ex_it: 'Buon appetito a tutti!', ex_ar: 'بالهناء والشفاء للجميع!' },
+                    { it: 'Delizioso', ar: 'لذيذ', pron: '/deliˈtsjoso/', ex_it: 'È delizioso!', ex_ar: 'إنه لذيذ!' },
+                    { it: 'Piccante', ar: 'حار', pron: '/pikˈkante/', ex_it: 'È troppo piccante.', ex_ar: 'إنه حار جداً.' },
+                    { it: 'La mancia', ar: 'البقشيش', pron: '/la ˈmantʃa/', ex_it: 'Lascio la mancia.', ex_ar: 'أترك البقشيش.' },
+                    { it: 'Tavolo', ar: 'طاولة', pron: '/ˈtavolo/', ex_it: 'Un tavolo per due.', ex_ar: 'طاولة لشخصين.' },
+                    { it: 'Bicchiere', ar: 'كأس', pron: '/bikˈkjɛre/', ex_it: 'Un bicchiere d\'acqua.', ex_ar: 'كأس ماء.' },
+                    { it: 'Forchetta', ar: 'شوكة', pron: '/forˈketta/', ex_it: 'Mi serve una forchetta.', ex_ar: 'أحتاج شوكة.' },
+                    { it: 'Coltello', ar: 'سكين', pron: '/kolˈtɛllo/', ex_it: 'Dov\'è il coltello?', ex_ar: 'أين السكين؟' },
+                ],
+                'a2-2': [
+                    { it: 'Comprare', ar: 'يشتري', pron: '/komˈprare/', ex_it: 'Voglio comprare questo.', ex_ar: 'أريد شراء هذا.' },
+                    { it: 'Vendere', ar: 'يبيع', pron: '/ˈvɛndere/', ex_it: 'Vendono frutta fresca.', ex_ar: 'يبيعون فواكه طازجة.' },
+                    { it: 'Pagare', ar: 'يدفع', pron: '/paˈɡare/', ex_it: 'Posso pagare con carta?', ex_ar: 'هل يمكنني الدفع بالبطاقة؟' },
+                    { it: 'Costare', ar: 'يكلف', pron: '/kosˈtare/', ex_it: 'Quanto costa?', ex_ar: 'كم يكلف؟' },
+                    { it: 'Negozio', ar: 'متجر', pron: '/neˈɡɔttsjo/', ex_it: 'Il negozio è aperto.', ex_ar: 'المتجر مفتوح.' },
+                    { it: 'Supermercato', ar: 'سوبر ماركت', pron: '/supermerˈkato/', ex_it: 'Vado al supermercato.', ex_ar: 'أذهب للسوبر ماركت.' },
+                    { it: 'Mercato', ar: 'سوق', pron: '/merˈkato/', ex_it: 'Il mercato è grande.', ex_ar: 'السوق كبير.' },
+                    { it: 'Saldi', ar: 'تخفيضات', pron: '/ˈsaldi/', ex_it: 'Ci sono i saldi.', ex_ar: 'هناك تخفيضات.' },
+                    { it: 'Sconto', ar: 'خصم', pron: '/ˈskonto/', ex_it: 'C\'è uno sconto?', ex_ar: 'هل يوجد خصم؟' },
+                    { it: 'Caro', ar: 'غالي', pron: '/ˈkaro/', ex_it: 'È troppo caro.', ex_ar: 'إنه غالي جداً.' },
+                    { it: 'Economico', ar: 'رخيص', pron: '/ekoˈnɔmiko/', ex_it: 'Questo è economico.', ex_ar: 'هذا رخيص.' },
+                    { it: 'Taglia', ar: 'مقاس', pron: '/ˈtaʎʎa/', ex_it: 'Che taglia porti?', ex_ar: 'ما مقاسك؟' },
+                    { it: 'Provare', ar: 'يجرب', pron: '/proˈvare/', ex_it: 'Posso provarlo?', ex_ar: 'هل يمكنني تجربته؟' },
+                    { it: 'Camerino', ar: 'غرفة القياس', pron: '/kameˈrino/', ex_it: 'Dov\'è il camerino?', ex_ar: 'أين غرفة القياس؟' },
+                    { it: 'Scontrino', ar: 'فاتورة', pron: '/skonˈtrino/', ex_it: 'Ecco lo scontrino.', ex_ar: 'ها هي الفاتورة.' },
+                    { it: 'Contanti', ar: 'نقداً', pron: '/konˈtanti/', ex_it: 'Pago in contanti.', ex_ar: 'أدفع نقداً.' },
+                    { it: 'Carta di credito', ar: 'بطاقة ائتمان', pron: '/ˈkarta di ˈkrɛdito/', ex_it: 'Accettate carte?', ex_ar: 'هل تقبلون البطاقات؟' },
+                    { it: 'Borsa', ar: 'حقيبة', pron: '/ˈborsa/', ex_it: 'Bella borsa!', ex_ar: 'حقيبة جميلة!' },
+                    { it: 'Scarpe', ar: 'أحذية', pron: '/ˈskarpe/', ex_it: 'Queste scarpe sono comode.', ex_ar: 'هذه الأحذية مريحة.' },
+                    { it: 'Vestito', ar: 'فستان', pron: '/vesˈtito/', ex_it: 'Mi piace questo vestito.', ex_ar: 'يعجبني هذا الفستان.' },
+                ],
+                'a2-3': [
+                    { it: 'Destra', ar: 'يمين', pron: '/ˈdestra/', ex_it: 'Gira a destra.', ex_ar: 'اتجه يميناً.' },
+                    { it: 'Sinistra', ar: 'يسار', pron: '/siˈnistra/', ex_it: 'Gira a sinistra.', ex_ar: 'اتجه يساراً.' },
+                    { it: 'Dritto', ar: 'مستقيم', pron: '/ˈdritto/', ex_it: 'Vai sempre dritto.', ex_ar: 'امشِ مستقيماً.' },
+                    { it: 'Vicino', ar: 'قريب', pron: '/viˈtʃino/', ex_it: 'È molto vicino.', ex_ar: 'إنه قريب جداً.' },
+                    { it: 'Lontano', ar: 'بعيد', pron: '/lonˈtano/', ex_it: 'È troppo lontano.', ex_ar: 'إنه بعيد جداً.' },
+                    { it: 'Davanti', ar: 'أمام', pron: '/daˈvanti/', ex_it: 'È davanti a te.', ex_ar: 'إنه أمامك.' },
+                    { it: 'Dietro', ar: 'خلف', pron: '/ˈdjɛtro/', ex_it: 'È dietro l\'angolo.', ex_ar: 'إنه خلف الزاوية.' },
+                    { it: 'Accanto', ar: 'بجانب', pron: '/akˈkanto/', ex_it: 'Accanto alla farmacia.', ex_ar: 'بجانب الصيدلية.' },
+                    { it: 'Incrocio', ar: 'تقاطع', pron: '/inˈkrotʃo/', ex_it: 'Al prossimo incrocio.', ex_ar: 'عند التقاطع التالي.' },
+                    { it: 'Semaforo', ar: 'إشارة مرور', pron: '/seˈmaforo/', ex_it: 'Dopo il semaforo.', ex_ar: 'بعد إشارة المرور.' },
+                    { it: 'Strada', ar: 'شارع', pron: '/ˈstrada/', ex_it: 'Che strada prendo?', ex_ar: 'أي شارع آخذ؟' },
+                    { it: 'Piazza', ar: 'ساحة', pron: '/ˈpjattsa/', ex_it: 'La piazza centrale.', ex_ar: 'الساحة المركزية.' },
+                    { it: 'Ponte', ar: 'جسر', pron: '/ˈponte/', ex_it: 'Attraversa il ponte.', ex_ar: 'اعبر الجسر.' },
+                    { it: 'Chiesa', ar: 'كنيسة', pron: '/ˈkjɛza/', ex_it: 'Vicino alla chiesa.', ex_ar: 'بالقرب من الكنيسة.' },
+                    { it: 'Fermata', ar: 'محطة', pron: '/ferˈmata/', ex_it: 'La fermata del bus.', ex_ar: 'محطة الحافلة.' },
+                ],
+                'a2-4': [
+                    { it: 'Sole', ar: 'شمس', pron: '/ˈsole/', ex_it: 'C\'è il sole oggi.', ex_ar: 'هناك شمس اليوم.' },
+                    { it: 'Pioggia', ar: 'مطر', pron: '/ˈpjɔddʒa/', ex_it: 'Piove, c\'è pioggia.', ex_ar: 'إنها تمطر.' },
+                    { it: 'Neve', ar: 'ثلج', pron: '/ˈneve/', ex_it: 'Nevica, c\'è neve.', ex_ar: 'إنها تثلج.' },
+                    { it: 'Vento', ar: 'رياح', pron: '/ˈvento/', ex_it: 'C\'è molto vento.', ex_ar: 'هناك رياح كثيرة.' },
+                    { it: 'Nuvola', ar: 'غيمة', pron: '/ˈnuvola/', ex_it: 'Il cielo è nuvoloso.', ex_ar: 'السماء غائمة.' },
+                    { it: 'Caldo', ar: 'حار', pron: '/ˈkaldo/', ex_it: 'Fa molto caldo.', ex_ar: 'الجو حار جداً.' },
+                    { it: 'Freddo', ar: 'بارد', pron: '/ˈfreddo/', ex_it: 'Fa freddo oggi.', ex_ar: 'الجو بارد اليوم.' },
+                    { it: 'Temperatura', ar: 'درجة حرارة', pron: '/temperaˈtura/', ex_it: 'La temperatura è alta.', ex_ar: 'درجة الحرارة مرتفعة.' },
+                    { it: 'Temporale', ar: 'عاصفة', pron: '/tempoˈrale/', ex_it: 'C\'è un temporale.', ex_ar: 'هناك عاصفة.' },
+                    { it: 'Sereno', ar: 'صافٍ', pron: '/seˈreno/', ex_it: 'Il cielo è sereno.', ex_ar: 'السماء صافية.' },
+                    { it: 'Umido', ar: 'رطب', pron: '/ˈumido/', ex_it: 'È molto umido.', ex_ar: 'الجو رطب جداً.' },
+                    { it: 'Nebbia', ar: 'ضباب', pron: '/ˈnebbja/', ex_it: 'C\'è nebbia stamattina.', ex_ar: 'هناك ضباب هذا الصباح.' },
+                ],
+                'a2-5': [
+                    { it: 'Felice', ar: 'سعيد', pron: '/feˈlitʃe/', ex_it: 'Sono molto felice.', ex_ar: 'أنا سعيد جداً.' },
+                    { it: 'Triste', ar: 'حزين', pron: '/ˈtriste/', ex_it: 'Perché sei triste?', ex_ar: 'لماذا أنت حزين؟' },
+                    { it: 'Arrabbiato', ar: 'غاضب', pron: '/arrabˈbjato/', ex_it: 'È arrabbiato con me.', ex_ar: 'هو غاضب مني.' },
+                    { it: 'Stanco', ar: 'متعب', pron: '/ˈstaŋko/', ex_it: 'Sono stanco morto.', ex_ar: 'أنا متعب جداً.' },
+                    { it: 'Preoccupato', ar: 'قلق', pron: '/preɔkkuˈpato/', ex_it: 'Sono preoccupato.', ex_ar: 'أنا قلق.' },
+                    { it: 'Sorpreso', ar: 'متفاجئ', pron: '/sorˈpreso/', ex_it: 'Sono sorpreso!', ex_ar: 'أنا متفاجئ!' },
+                    { it: 'Spaventato', ar: 'خائف', pron: '/spavenˈtato/', ex_it: 'Ho paura, sono spaventato.', ex_ar: 'أنا خائف.' },
+                    { it: 'Emozionato', ar: 'متحمس', pron: '/emotsjoˈnato/', ex_it: 'Sono emozionato!', ex_ar: 'أنا متحمس!' },
+                    { it: 'Annoiato', ar: 'ملل', pron: '/annoˈjato/', ex_it: 'Mi sento annoiato.', ex_ar: 'أشعر بالملل.' },
+                    { it: 'Nervoso', ar: 'عصبي', pron: '/nerˈvoso/', ex_it: 'Sono un po\' nervoso.', ex_ar: 'أنا عصبي قليلاً.' },
+                    { it: 'Rilassato', ar: 'مسترخي', pron: '/rilasˈsato/', ex_it: 'Mi sento rilassato.', ex_ar: 'أشعر بالاسترخاء.' },
+                    { it: 'Confuso', ar: 'مرتبك', pron: '/konˈfuzo/', ex_it: 'Sono confuso.', ex_ar: 'أنا مرتبك.' },
+                    { it: 'Contento', ar: 'راضٍ', pron: '/konˈtento/', ex_it: 'Sono contento di te.', ex_ar: 'أنا راضٍ عنك.' },
+                    { it: 'Innamorato', ar: 'واقع في الحب', pron: '/innamoˈrato/', ex_it: 'Sono innamorato.', ex_ar: 'أنا واقع في الحب.' },
+                    { it: 'Geloso', ar: 'غيور', pron: '/dʒeˈlozo/', ex_it: 'Non essere geloso.', ex_ar: 'لا تكن غيوراً.' },
+                ],
+                'a2-6': [
+                    { it: 'Ho mangiato', ar: 'أكلت', pron: '/ɔ manˈdʒato/', ex_it: 'Ho mangiato la pizza.', ex_ar: 'أكلت البيتزا.' },
+                    { it: 'Sono andato', ar: 'ذهبت', pron: '/ˈsono anˈdato/', ex_it: 'Sono andato a Roma.', ex_ar: 'ذهبت إلى روما.' },
+                    { it: 'Ho visto', ar: 'رأيت', pron: '/ɔ ˈvisto/', ex_it: 'Ho visto un film.', ex_ar: 'رأيت فيلماً.' },
+                    { it: 'Ho fatto', ar: 'فعلت', pron: '/ɔ ˈfatto/', ex_it: 'Ho fatto i compiti.', ex_ar: 'فعلت الواجبات.' },
+                    { it: 'Sono stato', ar: 'كنت', pron: '/ˈsono ˈstato/', ex_it: 'Sono stato in Italia.', ex_ar: 'كنت في إيطاليا.' },
+                    { it: 'Ho detto', ar: 'قلت', pron: '/ɔ ˈdetto/', ex_it: 'Ho detto la verità.', ex_ar: 'قلت الحقيقة.' },
+                    { it: 'Ho scritto', ar: 'كتبت', pron: '/ɔ ˈskritto/', ex_it: 'Ho scritto una lettera.', ex_ar: 'كتبت رسالة.' },
+                    { it: 'Sono venuto', ar: 'جئت', pron: '/ˈsono veˈnuto/', ex_it: 'Sono venuto a trovarti.', ex_ar: 'جئت لزيارتك.' },
+                    { it: 'Ho preso', ar: 'أخذت', pron: '/ɔ ˈprezo/', ex_it: 'Ho preso il treno.', ex_ar: 'أخذت القطار.' },
+                    { it: 'Ho capito', ar: 'فهمت', pron: '/ɔ kaˈpito/', ex_it: 'Ho capito tutto.', ex_ar: 'فهمت كل شيء.' },
+                    { it: 'Sono uscito', ar: 'خرجت', pron: '/ˈsono uˈʃito/', ex_it: 'Sono uscito ieri sera.', ex_ar: 'خرجت البارحة مساءً.' },
+                    { it: 'Ho dormito', ar: 'نمت', pron: '/ɔ dorˈmito/', ex_it: 'Ho dormito bene.', ex_ar: 'نمت جيداً.' },
+                ]
+            },
+
+            achievements: [
+                { id: 'first_word', name: 'أول كلمة', icon: '🌟', desc: 'تعلم أول كلمة', condition: (s) => s.wordsLearned >= 1 },
+                { id: 'ten_words', name: '10 كلمات', icon: '📚', desc: 'تعلم 10 كلمات', condition: (s) => s.wordsLearned >= 10 },
+                { id: 'fifty_words', name: '50 كلمة', icon: '🎓', desc: 'تعلم 50 كلمة', condition: (s) => s.wordsLearned >= 50 },
+                { id: 'hundred_words', name: '100 كلمة', icon: '🏆', desc: 'تعلم 100 كلمة', condition: (s) => s.wordsLearned >= 100 },
+                { id: 'first_lesson', name: 'أول درس', icon: '📖', desc: 'أكمل أول درس', condition: (s) => s.lessonsCompleted >= 1 },
+                { id: 'five_lessons', name: '5 دروس', icon: '📝', desc: 'أكمل 5 دروس', condition: (s) => s.lessonsCompleted >= 5 },
+                { id: 'streak_3', name: '3 أيام', icon: '🔥', desc: '3 أيام متتالية', condition: (s) => s.streak >= 3 },
+                { id: 'streak_7', name: 'أسبوع', icon: '💪', desc: 'أسبوع متتالي', condition: (s) => s.streak >= 7 },
+                { id: 'streak_30', name: 'شهر', icon: '💎', desc: 'شهر متتالي', condition: (s) => s.streak >= 30 },
+                { id: 'quiz_master', name: 'محترف', icon: '🎯', desc: 'أجب 50 إجابة صحيحة', condition: (s) => s.correctAnswers >= 50 },
+                { id: 'xp_500', name: '500 XP', icon: '⭐', desc: 'اجمع 500 نقطة', condition: (s) => s.xp >= 500 },
+                { id: 'xp_1000', name: '1000 XP', icon: '🌙', desc: 'اجمع 1000 نقطة', condition: (s) => s.xp >= 1000 },
+            ]
+        };
+
+        // ============================================
+        // 💾 STATE MANAGEMENT
+        // ============================================
+
+        let state = {
+            // User Progress
+            xp: 0,
+            streak: 0,
+            lastStudyDate: null,
+            dailyGoal: 10,
+            todayWords: 0,
+            
+            // Learning Progress
+            wordsLearned: 0,
+            lessonsCompleted: 0,
+            correctAnswers: 0,
+            
+            // Word States: { lessonId: { wordIndex: { level: 0-4, nextReview: date } } }
+            wordProgress: {},
+            
+            // Lesson States: { lessonId: 'locked' | 'available' | 'completed' }
+            lessonProgress: {},
+            
+            // Achievements earned
+            achievements: [],
+            
+            // Settings
+            notifications: false,
+            
+            // Current session
+            currentLesson: null,
+            currentLevel: null,
+            currentWordIndex: 0,
+            currentCategory: 'all',
+            wordView: 'flashcard',
+            
+            // Quiz state
+            quizQuestions: [],
+            quizCurrentIndex: 0,
+            quizScore: 0,
+            quizAnswers: [],
+            selectedOption: null
+        };
+
+        // Load state from localStorage
+        function loadState() {
+            const saved = localStorage.getItem('italiano_app_state');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                state = { ...state, ...parsed };
+            }
+            
+            // Initialize lesson progress
+            initializeLessonProgress();
+            
+            // Check streak
+            checkStreak();
+        }
+
+        // Save state to localStorage
+        function saveState() {
+            localStorage.setItem('italiano_app_state', JSON.stringify(state));
+        }
+
+        // Initialize lesson progress
+        function initializeLessonProgress() {
+            APP_DATA.levels.forEach((level, levelIndex) => {
+                level.lessons.forEach((lesson, lessonIndex) => {
+                    if (!state.lessonProgress[lesson.id]) {
+                        if (levelIndex === 0 && lessonIndex === 0) {
+                            state.lessonProgress[lesson.id] = 'available';
+                        } else {
+                            state.lessonProgress[lesson.id] = 'locked';
+                        }
+                    }
+                });
+            });
+            saveState();
+        }
+
+        // Check and update streak
+        function checkStreak() {
+            const today = new Date().toDateString();
+            const lastStudy = state.lastStudyDate;
+            
+            if (!lastStudy) {
+                state.streak = 0;
+            } else if (lastStudy === today) {
+                // Already studied today
+            } else {
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                
+                if (lastStudy === yesterday.toDateString()) {
+                    // Studied yesterday, streak continues
+                } else {
+                    // Streak broken
+                    state.streak = 0;
+                }
+            }
+            saveState();
+        }
+
+        // Record study activity
+        function recordStudy() {
+            const today = new Date().toDateString();
+            if (state.lastStudyDate !== today) {
+                state.streak++;
+                state.lastStudyDate = today;
+                state.todayWords = 0;
+                saveState();
+                checkAchievements();
+            }
+        }
+
+        // ============================================
+        // 🎨 UI RENDERING
+        // ============================================
+
+        // Update all stats displays
+        function updateStats() {
+            // Header
+            document.getElementById('header-streak').textContent = state.streak;
+            document.getElementById('header-xp').textContent = state.xp.toLocaleString();
+            
+            // Home page stats
+            document.getElementById('stat-words').textContent = state.wordsLearned;
+            document.getElementById('stat-lessons').textContent = state.lessonsCompleted;
+            document.getElementById('stat-streak').textContent = state.streak;
+            
+            // Daily goal
+            const goalPercent = Math.min(100, Math.round((state.todayWords / state.dailyGoal) * 100));
+            document.getElementById('goal-progress').style.width = goalPercent + '%';
+            document.getElementById('goal-count').textContent = `${state.todayWords} / ${state.dailyGoal} كلمة`;
+            document.getElementById('goal-percent').textContent = goalPercent + '%';
+            document.getElementById('goal-day').textContent = `يوم ${state.streak || 1}`;
+            
+            // Profile page
+            document.getElementById('profile-words').textContent = state.wordsLearned;
+            document.getElementById('profile-lessons').textContent = state.lessonsCompleted;
+            document.getElementById('profile-streak').textContent = state.streak;
+            document.getElementById('profile-xp').textContent = state.xp.toLocaleString();
+            document.getElementById('daily-goal-setting').textContent = `${state.dailyGoal} كلمات / يوم`;
+            document.getElementById('goal-select').value = state.dailyGoal;
+            
+            // Update level in profile
+            const levelName = state.wordsLearned >= 100 ? 'A2 ما قبل متوسط' : 'A1 مبتدئ';
+            document.getElementById('profile-level').textContent = levelName;
+        }
+
+        // Render levels grid
+        function renderLevels() {
+            const container = document.getElementById('levels-grid');
+            container.innerHTML = '';
+            
+            APP_DATA.levels.forEach((level, index) => {
+                // Calculate level progress
+                let completedLessons = 0;
+                level.lessons.forEach(lesson => {
+                    if (state.lessonProgress[lesson.id] === 'completed') {
+                        completedLessons++;
+                    }
+                });
+                const progress = Math.round((completedLessons / level.lessons.length) * 100);
+                
+                // Check if level is locked
+                const isLocked = index > 0 && getCompletedLessonsCount(APP_DATA.levels[index - 1]) < APP_DATA.levels[index - 1].lessons.length;
+                
+                const card = document.createElement('div');
+                card.className = `level-card ${isLocked ? 'locked' : ''}`;
+                card.innerHTML = `
+                    <div class="level-badge ${level.color}">${level.id.toUpperCase()}</div>
+                    <div class="level-name">${level.name}</div>
+                    <div class="level-desc">${level.description}</div>
+                    <div class="level-progress">
+                        <div class="level-progress-bar">
+                            <div class="level-progress-fill" style="width: ${progress}%"></div>
+                        </div>
+                        <span class="level-progress-text">${progress}%</span>
+                    </div>
+                    ${isLocked ? '<span class="lock-icon">🔒</span>' : ''}
+                `;
+                
+                if (!isLocked) {
+                    card.onclick = () => {
+                        state.currentLevel = level;
+                        renderLessons(level);
+                        showPage('page-lessons');
+                    };
+                }
+                
+                container.appendChild(card);
+            });
+        }
+
+        function getCompletedLessonsCount(level) {
+            let count = 0;
+            level.lessons.forEach(lesson => {
+                if (state.lessonProgress[lesson.id] === 'completed') count++;
+            });
+            return count;
+        }
+
+        // Render lessons list
+        function renderLessons(level) {
+            document.getElementById('lessons-title').textContent = `📖 دروس ${level.name}`;
+            const container = document.getElementById('lessons-list');
+            container.innerHTML = '';
+            
+            level.lessons.forEach((lesson, index) => {
+                const status = state.lessonProgress[lesson.id] || 'locked';
+                const prevLesson = index > 0 ? level.lessons[index - 1] : null;
+                
+                // Unlock logic
+                if (status === 'locked' && (!prevLesson || state.lessonProgress[prevLesson.id] === 'completed')) {
+                    state.lessonProgress[lesson.id] = 'available';
+                    saveState();
+                }
+                
+                const currentStatus = state.lessonProgress[lesson.id];
+                const iconBg = lesson.type === 'vocab' ? 'vocab' : lesson.type === 'grammar' ? 'grammar' : lesson.type === 'dialog' ? 'dialog' : 'exercise';
+                
+                const card = document.createElement('div');
+                card.className = `lesson-card ${currentStatus}`;
+                card.innerHTML = `
+                    <div class="lesson-icon ${iconBg}">${lesson.icon}</div>
+                    <div class="lesson-info">
+                        <div class="lesson-title">${lesson.title}</div>
+                        <div class="lesson-meta">
+                            <span>📝 ${lesson.words} كلمة</span>
+                            <span>⏱️ ${lesson.time} دقيقة</span>
+                        </div>
+                    </div>
+                    <div class="lesson-status ${currentStatus}">
+                        ${currentStatus === 'completed' ? '✓' : currentStatus === 'available' ? '▶' : '🔒'}
+                    </div>
+                `;
+                
+                if (currentStatus !== 'locked') {
+                    card.onclick = () => {
+                        state.currentLesson = lesson;
+                        loadLessonWords(lesson.id);
+                        showPage('page-words');
+                    };
+                }
+                
+                container.appendChild(card);
+            });
+        }
+
+        // Render continue lesson on home
+        function renderContinueLesson() {
+            const container = document.getElementById('continue-lesson');
+            
+            // Find first available or in-progress lesson
+            let currentLesson = null;
+            let currentLevel = null;
+            
+            for (const level of APP_DATA.levels) {
+                for (const lesson of level.lessons) {
+                    const status = state.lessonProgress[lesson.id];
+                    if (status === 'available') {
+                        currentLesson = lesson;
+                        currentLevel = level;
+                        break;
+                    }
+                }
+                if (currentLesson) break;
+            }
+            
+            if (!currentLesson) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">🎉</div>
+                        <div class="empty-title">أحسنت!</div>
+                        <div class="empty-text">لقد أكملت جميع الدروس المتاحة</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            const iconBg = currentLesson.type === 'vocab' ? 'vocab' : currentLesson.type === 'grammar' ? 'grammar' : 'dialog';
+            
+            container.innerHTML = `
+                <div class="lesson-card current" onclick="continueLearning()">
+                    <div class="lesson-icon ${iconBg}">${currentLesson.icon}</div>
+                    <div class="lesson-info">
+                        <div class="lesson-title">${currentLesson.title}</div>
+                        <div class="lesson-meta">
+                            <span>📝 ${currentLesson.words} كلمة</span>
+                            <span>⏱️ ${currentLesson.time} دقيقة</span>
+                        </div>
+                    </div>
+                    <div class="lesson-status current">▶</div>
+                </div>
+            `;
+            
+            // Store for quick access
+            state.currentLesson = currentLesson;
+            state.currentLevel = currentLevel;
+        }
+
+        function continueLearning() {
+            if (state.currentLesson) {
+                loadLessonWords(state.currentLesson.id);
+                showPage('page-words');
+            }
+        }
+
+        // ============================================
+        // 📝 WORDS & FLASHCARDS
+        // ============================================
+
+        let currentWords = [];
+
+        function loadLessonWords(lessonId) {
+            const words = APP_DATA.words[lessonId] || [];
+            currentWords = [...words];
+            state.currentWordIndex = 0;
+            
+            // Find lesson info
+            for (const level of APP_DATA.levels) {
+                const lesson = level.lessons.find(l => l.id === lessonId);
+                if (lesson) {
+                    state.currentLesson = lesson;
+                    break;
+                }
+            }
+            
+            renderWordCategories();
+            updateWordDisplay();
+            updateWordsCount();
+        }
+
+        function renderWordCategories() {
+            const container = document.getElementById('word-categories');
+            container.innerHTML = `
+                <div class="category-tab active" onclick="filterWords('all', this)">الكل</div>
+                <div class="category-tab" onclick="filterWords('new', this)">جديدة</div>
+                <div class="category-tab" onclick="filterWords('learning', this)">قيد التعلم</div>
+                <div class="category-tab" onclick="filterWords('learned', this)">تم حفظها</div>
+            `;
+        }
+
+        function filterWords(category, element) {
+            // Update active tab
+            document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
+            
+            state.currentCategory = category;
+            state.currentWordIndex = 0;
+            
+            updateWordDisplay();
+        }
+
+        function getFilteredWords() {
+            if (!state.currentLesson) return currentWords;
+            
+            const lessonId = state.currentLesson.id;
+            const progress = state.wordProgress[lessonId] || {};
+            
+            return currentWords.filter((word, index) => {
+                const wordState = progress[index];
+                
+                switch (state.currentCategory) {
+                    case 'new':
+                        return !wordState || wordState.level === 0;
+                    case 'learning':
+                        return wordState && wordState.level > 0 && wordState.level < 4;
+                    case 'learned':
+                        return wordState && wordState.level >= 4;
+                    default:
+                        return true;
+                }
+            });
+        }
+
+        function updateWordDisplay() {
+            const filteredWords = getFilteredWords();
+            
+            if (state.wordView === 'flashcard') {
+                renderFlashcard(filteredWords);
+            } else {
+                renderWordsList(filteredWords);
+            }
+            
+            updateWordsCount();
+        }
+
+        function renderFlashcard(words) {
+            if (words.length === 0) {
+                document.getElementById('flashcard-view').innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📭</div>
+                        <div class="empty-title">لا توجد كلمات</div>
+                        <div class="empty-text">جرب تصنيف آخر</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Reset flashcard view
+            document.getElementById('flashcard-view').innerHTML = `
+                <div class="flashcard-counter" id="flashcard-counter">1 / ${words.length}</div>
+                <div class="flashcard-container">
+                    <div class="flashcard" id="flashcard" onclick="flipCard()">
+                        <div class="flashcard-face flashcard-front">
+                            <div class="flashcard-word" id="fc-word"></div>
+                            <div class="flashcard-pronunciation" id="fc-pronunciation"></div>
+                            <div class="flashcard-hint">👆 اضغط لرؤية الترجمة</div>
+                        </div>
+                        <div class="flashcard-face flashcard-back">
+                            <div class="flashcard-arabic" id="fc-arabic"></div>
+                            <div class="flashcard-example" id="fc-example"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flashcard-actions">
+                    <button class="fc-btn wrong" onclick="rateWord(1)">
+                        <span>❌</span>
+                        <span>لم أعرف</span>
+                    </button>
+                    <button class="fc-btn hard" onclick="rateWord(2)">
+                        <span>🤔</span>
+                        <span>صعبة</span>
+                    </button>
+                    <button class="fc-btn good" onclick="rateWord(3)">
+                        <span>😊</span>
+                        <span>جيدة</span>
+                    </button>
+                    <button class="fc-btn easy" onclick="rateWord(4)">
+                        <span>✅</span>
+                        <span>سهلة</span>
+                    </button>
+                </div>
+            `;
+            
+            const word = words[state.currentWordIndex];
+            if (word) {
+                document.getElementById('fc-word').textContent = word.it;
+                document.getElementById('fc-pronunciation').textContent = word.pron;
+                document.getElementById('fc-arabic').textContent = word.ar;
+                document.getElementById('fc-example').innerHTML = `"${word.ex_it}"<br>${word.ex_ar}`;
+                document.getElementById('flashcard-counter').textContent = `${state.currentWordIndex + 1} / ${words.length}`;
+            }
+        }
+
+        function renderWordsList(words) {
+            const container = document.getElementById('words-list');
+            container.innerHTML = '';
+            
+            if (words.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📭</div>
+                        <div class="empty-title">لا توجد كلمات</div>
+                        <div class="empty-text">جرب تصنيف آخر</div>
+                    </div>
+                `;
+                return;
+            }
+            
+            words.forEach((word, index) => {
+                const lessonId = state.currentLesson?.id;
+                const progress = state.wordProgress[lessonId] || {};
+                const wordState = progress[currentWords.indexOf(word)];
+                const isLearned = wordState && wordState.level >= 4;
+                
+                const card = document.createElement('div');
+                card.className = `word-card ${isLearned ? 'learned' : ''}`;
+                card.innerHTML = `
+                    <div class="word-main">
+                        <div class="word-italian">${word.it}</div>
+                        <button class="word-audio-btn" onclick="playAudio('${word.it}')">🔊</button>
+                    </div>
+                    <div class="word-pronunciation">${word.pron}</div>
+                    <div class="word-arabic">${word.ar}</div>
+                    <div class="word-example">
+                        <div class="word-example-it">"${word.ex_it}"</div>
+                        <div class="word-example-ar">${word.ex_ar}</div>
+                    </div>
+                    <div class="word-actions">
+                        <button class="word-btn secondary" onclick="playAudio('${word.it}')">
+                            🔊 استمع
+                        </button>
+                        <button class="word-btn ${isLearned ? 'learned' : 'primary'}" onclick="markWordLearned(${currentWords.indexOf(word)})">
+                            ${isLearned ? '✓ تم الحفظ' : '📝 حفظ'}
+                        </button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function flipCard() {
+            const flashcard = document.getElementById('flashcard');
+            flashcard.classList.toggle('flipped');
+        }
+
+        function rateWord(rating) {
+            const filteredWords = getFilteredWords();
+            if (filteredWords.length === 0) return;
+            
+            const word = filteredWords[state.currentWordIndex];
+            const originalIndex = currentWords.indexOf(word);
+            const lessonId = state.currentLesson?.id;
+            
+            if (!lessonId) return;
+            
+            // Initialize progress objects
+            if (!state.wordProgress[lessonId]) {
+                state.wordProgress[lessonId] = {};
+            }
+            
+            const current = state.wordProgress[lessonId][originalIndex] || { level: 0 };
+            
+            // Update level based on rating
+            if (rating >= 3) {
+                current.level = Math.min(5, current.level + 1);
+                
+                // First time learning this word
+                if (current.level === 1) {
+                    state.wordsLearned++;
+                    state.todayWords++;
+                    state.xp += 10;
+                    recordStudy();
+                } else {
+                    state.xp += rating * 2;
+                }
+            } else {
+                current.level = Math.max(0, current.level - 1);
+            }
+            
+            state.wordProgress[lessonId][originalIndex] = current;
+            saveState();
+            
+            // Check achievements
+            checkAchievements();
+            
+            // Move to next word
+            nextWord();
+        }
+
+        function nextWord() {
+            const filteredWords = getFilteredWords();
+            
+            // Unflip card
+            const flashcard = document.getElementById('flashcard');
+            if (flashcard) flashcard.classList.remove('flipped');
+            
+            state.currentWordIndex++;
+            
+            if (state.currentWordIndex >= filteredWords.length) {
+                // Lesson completed
+                state.currentWordIndex = 0;
+                
+                if (state.currentLesson) {
+                    state.lessonProgress[state.currentLesson.id] = 'completed';
+                    state.lessonsCompleted++;
+                    state.xp += 50;
+                    saveState();
+                    
+                    showModal('🎉', 'أحسنت!', 'لقد أكملت هذا الدرس بنجاح!');
+                    checkAchievements();
+                }
+            }
+            
+            updateWordDisplay();
+            updateStats();
+        }
+
+        function markWordLearned(index) {
+            const lessonId = state.currentLesson?.id;
+            if (!lessonId) return;
+            
+            if (!state.wordProgress[lessonId]) {
+                state.wordProgress[lessonId] = {};
+            }
+            
+            const current = state.wordProgress[lessonId][index] || { level: 0 };
+            
+            if (current.level < 4) {
+                current.level = 4;
+                state.wordsLearned++;
+                state.todayWords++;
+                state.xp += 15;
+                recordStudy();
+                
+                showToast('تم حفظ الكلمة ✓', 'success');
+            }
+            
+            state.wordProgress[lessonId][index] = current;
+            saveState();
+            updateStats();
+            updateWordDisplay();
+            checkAchievements();
+        }
+
+        function setWordView(view) {
+            state.wordView = view;
+            
+            document.getElementById('btn-flashcard').classList.toggle('active', view === 'flashcard');
+            document.getElementById('btn-list').classList.toggle('active', view === 'list');
+            
+            document.getElementById('flashcard-view').style.display = view === 'flashcard' ? 'block' : 'none';
+            document.getElementById('list-view').style.display = view === 'list' ? 'block' : 'none';
+            
+            updateWordDisplay();
+        }
+
+        function updateWordsCount() {
+            const count = getFilteredWords().length;
+            document.getElementById('words-count').textContent = `${count} كلمة`;
+            
+            if (state.currentLesson) {
+                document.getElementById('words-title').textContent = state.currentLesson.title;
+            }
+        }
+
+        function playAudio(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'it-IT';
+                utterance.rate = 0.8;
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        // ============================================
+        // 🎯 QUIZ SYSTEM
+        // ============================================
+
+        function startQuiz() {
+            // Collect all learned words
+            let allWords = [];
+            
+            Object.keys(state.wordProgress).forEach(lessonId => {
+                const words = APP_DATA.words[lessonId] || [];
+                const progress = state.wordProgress[lessonId];
+                
+                words.forEach((word, index) => {
+                    if (progress[index] && progress[index].level > 0) {
+                        allWords.push(word);
+                    }
+                });
+            });
+            
+            // If not enough learned words, use first lesson words
+            if (allWords.length < 4) {
+                allWords = APP_DATA.words['a1-1'] || [];
+            }
+            
+            // Shuffle and select questions
+            allWords = shuffleArray(allWords);
+            const questionCount = Math.min(10, allWords.length);
+            
+            state.quizQuestions = [];
+            state.quizCurrentIndex = 0;
+            state.quizScore = 0;
+            state.quizAnswers = [];
+            
+            for (let i = 0; i < questionCount; i++) {
+                const word = allWords[i];
+                const questionType = Math.random() > 0.5 ? 'it-to-ar' : 'ar-to-it';
+                
+                // Generate wrong options
+                const wrongOptions = allWords
+                    .filter(w => w.it !== word.it)
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, 3);
+                
+                let options;
+                if (questionType === 'it-to-ar') {
+                    options = shuffleArray([
+                        { text: word.ar, correct: true },
+                        ...wrongOptions.map(w => ({ text: w.ar, correct: false }))
+                    ]);
+                } else {
+                    options = shuffleArray([
+                        { text: word.it, correct: true },
+                        ...wrongOptions.map(w => ({ text: w.it, correct: false }))
+                    ]);
+                }
+                
+                state.quizQuestions.push({
+                    word,
+                    type: questionType,
+                    options
+                });
+            }
+            
+            renderQuiz();
+        }
+
+        function renderQuiz() {
+            document.getElementById('quiz-container').style.display = 'block';
+            document.getElementById('quiz-result').style.display = 'none';
+            
+            const question = state.quizQuestions[state.quizCurrentIndex];
+            if (!question) {
+                showQuizResult();
+                return;
+            }
+            
+            // Render progress dots
+            const progressContainer = document.getElementById('quiz-progress');
+            progressContainer.innerHTML = state.quizQuestions.map((_, i) => {
+                let className = 'quiz-dot';
+                if (i < state.quizCurrentIndex) {
+                    className += state.quizAnswers[i] ? ' done' : ' wrong';
+                } else if (i === state.quizCurrentIndex) {
+                    className += ' current';
+                }
+                return `<div class="${className}"></div>`;
+            }).join('');
+            
+            // Render question
+            document.getElementById('quiz-score').textContent = `⭐ ${state.quizScore}`;
+            
+            if (question.type === 'it-to-ar') {
+                document.getElementById('quiz-type').textContent = 'ما معنى هذه الكلمة؟';
+                document.getElementById('quiz-question').textContent = question.word.it;
+                document.getElementById('quiz-question').style.fontFamily = 'var(--font-en)';
+            } else {
+                document.getElementById('quiz-type').textContent = 'كيف تقول هذه الكلمة بالإيطالية؟';
+                document.getElementById('quiz-question').textContent = question.word.ar;
+                document.getElementById('quiz-question').style.fontFamily = 'var(--font-ar)';
+            }
+            
+            // Render options
+            const optionsContainer = document.getElementById('quiz-options');
+            const letters = ['أ', 'ب', 'ج', 'د'];
+            
+            optionsContainer.innerHTML = question.options.map((opt, i) => `
+                <div class="quiz-option" onclick="selectQuizOption(${i})" data-index="${i}">
+                    <span class="quiz-option-letter">${letters[i]}</span>
+                    <span class="quiz-option-text">${opt.text}</span>
+                </div>
+            `).join('');
+            
+            // Reset button
+            state.selectedOption = null;
+            document.getElementById('quiz-btn').disabled = true;
+            document.getElementById('quiz-btn').textContent = 'تحقق';
+            document.getElementById('quiz-btn').onclick = checkAnswer;
+        }
+
+        function selectQuizOption(index) {
+            // Clear previous selection
+            document.querySelectorAll('.quiz-option').forEach(opt => {
+                opt.classList.remove('selected', 'correct', 'wrong');
+            });
+            
+            // Select new option
+            const option = document.querySelector(`.quiz-option[data-index="${index}"]`);
+            option.classList.add('selected');
+            
+            state.selectedOption = index;
+            document.getElementById('quiz-btn').disabled = false;
+        }
+
+        function checkAnswer() {
+            if (state.selectedOption === null) return;
+            
+            const question = state.quizQuestions[state.quizCurrentIndex];
+            const isCorrect = question.options[state.selectedOption].correct;
+            
+            // Show correct/wrong
+            document.querySelectorAll('.quiz-option').forEach((opt, i) => {
+                if (question.options[i].correct) {
+                    opt.classList.add('correct');
+                } else if (i === state.selectedOption && !isCorrect) {
+                    opt.classList.add('wrong');
+                }
+            });
+            
+            // Update score
+            if (isCorrect) {
+                state.quizScore += 10;
+                state.correctAnswers++;
+                state.xp += 5;
+            }
+            state.quizAnswers.push(isCorrect);
+            
+            saveState();
+            
+            // Update button
+            document.getElementById('quiz-btn').textContent = 'التالي';
+            document.getElementById('quiz-btn').onclick = nextQuestion;
+            document.getElementById('quiz-score').textContent = `⭐ ${state.quizScore}`;
+        }
+
+        function nextQuestion() {
+            state.quizCurrentIndex++;
+            state.selectedOption = null;
+            
+            if (state.quizCurrentIndex >= state.quizQuestions.length) {
+                showQuizResult();
+            } else {
+                renderQuiz();
+            }
+        }
+
+        function showQuizResult() {
+            document.getElementById('quiz-container').style.display = 'none';
+            document.getElementById('quiz-result').style.display = 'block';
+            
+            const correctCount = state.quizAnswers.filter(a => a).length;
+            const percentage = Math.round((correctCount / state.quizQuestions.length) * 100);
+            
+            let icon, title;
+            if (percentage >= 80) {
+                icon = '🏆';
+                title = 'ممتاز!';
+            } else if (percentage >= 60) {
+                icon = '🎉';
+                title = 'أحسنت!';
+            } else if (percentage >= 40) {
+                icon = '💪';
+                title = 'جيد!';
+            } else {
+                icon = '📚';
+                title = 'تحتاج مراجعة';
+            }
+            
+            document.getElementById('result-icon').textContent = icon;
+            document.getElementById('result-title').textContent = title;
+            document.getElementById('result-subtitle').textContent = `أجبت ${correctCount} من ${state.quizQuestions.length} بشكل صحيح`;
+            document.getElementById('result-correct').textContent = correctCount;
+            document.getElementById('result-xp').textContent = `+${state.quizScore}`;
+            
+            recordStudy();
+            checkAchievements();
+            updateStats();
+        }
+
+        function restartQuiz() {
+            startQuiz();
+        }
+
+        function exitQuiz() {
+            showPage('page-home');
+        }
+
+        // ============================================
+        // 🏆 ACHIEVEMENTS
+        // ============================================
+
+        function checkAchievements() {
+            const stats = {
+                wordsLearned: state.wordsLearned,
+                lessonsCompleted: state.lessonsCompleted,
+                streak: state.streak,
+                xp: state.xp,
+                correctAnswers: state.correctAnswers
+            };
+            
+            APP_DATA.achievements.forEach(achievement => {
+                if (!state.achievements.includes(achievement.id) && achievement.condition(stats)) {
+                    state.achievements.push(achievement.id);
+                    state.xp += 25;
+                    saveState();
+                    
+                    showModal(achievement.icon, 'إنجاز جديد!', `حصلت على: ${achievement.name}`);
+                }
+            });
+            
+            renderAchievements();
+        }
+
+        function renderAchievements() {
+            const container = document.getElementById('achievements-grid');
+            container.innerHTML = '';
+            
+            APP_DATA.achievements.forEach(achievement => {
+                const earned = state.achievements.includes(achievement.id);
+                
+                const div = document.createElement('div');
+                div.className = 'achievement';
+                div.innerHTML = `
+                    <div class="achievement-icon ${earned ? 'earned' : 'locked'}">
+                        ${achievement.icon}
+                    </div>
+                    <div class="achievement-name">${achievement.name}</div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        // ============================================
+        // ⚙️ SETTINGS
+        // ============================================
+
+        function changeDailyGoal(value) {
+            state.dailyGoal = parseInt(value);
+            saveState();
+            updateStats();
+            showToast('تم تحديث الهدف اليومي', 'success');
+        }
+
+        function toggleNotification() {
+            const toggle = document.getElementById('notification-toggle');
+            state.notifications = !state.notifications;
+            toggle.classList.toggle('active', state.notifications);
+            saveState();
+            
+            if (state.notifications) {
+                showToast('تم تفعيل التذكيرات', 'success');
+            } else {
+                showToast('تم إيقاف التذكيرات', 'success');
+            }
+        }
+
+        function resetProgress() {
+            if (confirm('هل أنت متأكد من حذف جميع بياناتك؟ لا يمكن التراجع عن هذا الإجراء.')) {
+                localStorage.removeItem('italiano_app_state');
+                location.reload();
+            }
+        }
+
+        // ============================================
+        // 🔧 UTILITIES
+        // ============================================
+
+        function shuffleArray(array) {
+            const newArray = [...array];
+            for (let i = newArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+            }
+            return newArray;
+        }
+
+        function showPage(pageId, navItem) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show selected page
+            document.getElementById(pageId).classList.add('active');
+            
+            // Update navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.dataset.page === pageId) {
+                    item.classList.add('active');
+                }
+            });
+            
+            if (navItem) {
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                navItem.classList.add('active');
+            }
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            // Page-specific actions
+            if (pageId === 'page-home') {
+                renderLevels();
+                renderContinueLesson();
+                updateStats();
+            } else if (pageId === 'page-words' && !state.currentLesson) {
+                // Load first available lesson
+                for (const level of APP_DATA.levels) {
+                    for (const lesson of level.lessons) {
+                        if (state.lessonProgress[lesson.id] !== 'locked') {
+                            loadLessonWords(lesson.id);
+                            return;
+                        }
+                    }
+                }
+            } else if (pageId === 'page-profile') {
+                renderAchievements();
+                updateStats();
+            }
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-message').textContent = message;
+            document.getElementById('toast-icon').textContent = type === 'success' ? '✓' : '✕';
+            
+            toast.className = `toast ${type} show`;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function showModal(icon, title, text) {
+            document.getElementById('modal-icon').textContent = icon;
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-text').textContent = text;
+            document.getElementById('modal-overlay').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('modal-overlay').classList.remove('show');
+        }
+
+        // ============================================
+        // 🚀 INITIALIZATION
+        // ============================================
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadState();
+            renderLevels();
+            renderContinueLesson();
+            renderAchievements();
+            updateStats();
+            
+            // Initialize notification toggle state
+            if (state.notifications) {
+                document.getElementById('notification-toggle').classList.add('active');
+            }
+            
+            console.log('🇮🇹 Italiano App initialized!');
+        });
+    </script>
+
+</body>
+</html>
