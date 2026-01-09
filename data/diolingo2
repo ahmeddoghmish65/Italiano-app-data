@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تعلم الإيطالية - A1</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #58CC02;
+            --primary-dark: #46a302;
+            --secondary: #1CB0F6;
+            --secondary-dark: #1899d6;
+            --accent: #FF9600;
+            --accent-dark: #cc7a00;
+            --danger: #FF4B4B;
+            --purple: #CE82FF;
+            --bg-body: #F7F9FC;
+            --card-bg: #FFFFFF;
+            --text-main: #3c3c3c;
+            --text-gray: #777777;
+            --border-color: #E5E5E5;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            padding-bottom: 90px;
+            padding-top: 70px;
+            overflow-x: hidden;
+        }
+
+        a { text-decoration: none; color: inherit; }
+
+        /* Header */
+        .app-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--card-bg);
+            border-bottom: 2px solid var(--border-color);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+
+        .flag-icon { font-size: 24px; margin-left: 8px; }
+        .app-title { font-weight: 800; font-size: 18px; color: var(--primary); display: flex; align-items: center; }
+        
+        .header-stats {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .streak-counter, .gems-counter, .hearts-counter {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            border: 2px solid var(--border-color);
+        }
+
+        .streak-counter { color: var(--accent); }
+        .gems-counter { color: var(--secondary); }
+        .hearts-counter { color: var(--danger); }
+
+        /* Container */
+        .container {
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: var(--secondary);
+            border-radius: 4px;
+            display: block;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--card-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 0 var(--border-color);
+            transition: all 0.1s ease;
+            position: relative;
+        }
+
+        .card:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: #E5F6FF;
+            color: var(--secondary);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+        }
+
+        .card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .card p {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        /* Progress */
+        .progress-track {
+            background: #eee;
+            height: 12px;
+            border-radius: 10px;
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        .progress-bar {
+            background: var(--primary);
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+
+        /* Buttons */
+        .btn {
+            display: block;
+            width: 100%;
+            text-align: center;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            position: relative;
+            font-family: inherit;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 0 var(--primary-dark);
+        }
+        .btn-primary:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+            box-shadow: 0 4px 0 var(--secondary-dark);
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+            box-shadow: 0 4px 0 var(--accent-dark);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--secondary);
+            border: 2px solid var(--border-color);
+            box-shadow: 0 4px 0 var(--border-color);
+            margin-top: 10px;
+        }
+        .btn-outline:active, .btn-secondary:active, .btn-accent:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+
+        .btn:disabled {
+            background: #ccc;
+            box-shadow: 0 4px 0 #999;
+            cursor: not-allowed;
+        }
+
+        /* Vocab */
+        .vocab-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .vocab-item:last-child { border-bottom: none; }
+        .it-word { font-family: 'Nunito', sans-serif; font-weight: 800; color: var(--secondary); font-size: 1.1rem; }
+        .ar-word { font-weight: 500; color: var(--text-main); }
+        .vocab-audio {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #E5F6FF;
+            color: var(--secondary);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Bottom Nav */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--card-bg);
+            border-top: 2px solid var(--border-color);
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            z-index: 100;
+        }
+
+        .nav-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 11px;
+            color: #afafaf;
+            gap: 5px;
+            font-weight: 700;
+            width: 20%;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        .nav-link i { font-size: 20px; transition: 0.2s; }
+        .nav-link.active { color: var(--secondary); }
+        .nav-link.active i { transform: translateY(-3px); }
+
+        /* Pages */
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+
+        /* Welcome Section */
+        .welcome-section {
+            margin-bottom: 25px;
+        }
+        .welcome-section h1 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+        .welcome-section p {
+            color: var(--text-gray);
+        }
+
+        /* Daily Goal */
+        .daily-goal {
+            background: linear-gradient(135deg, var(--secondary) 0%, #0099cc 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .daily-goal-icon {
+            font-size: 40px;
+        }
+        .daily-goal-text h3 {
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+        .daily-goal-text p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        /* Lesson Lock */
+        .lesson-locked {
+            opacity: 0.6;
+        }
+        .lesson-locked .btn {
+            background: #ccc;
+            box-shadow: 0 4px 0 #999;
+        }
+        .lock-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ccc;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Complete Badge */
+        .complete-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Quiz Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalIn 0.3s ease;
+        }
+        @keyframes modalIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        .modal-header {
+            padding: 20px;
+            border-bottom: 2px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-header h2 {
+            font-size: 20px;
+            font-weight: 800;
+        }
+        .modal-close {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--border-color);
+            background: white;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-body {
+            padding: 20px;
+        }
+        .modal-footer {
+            padding: 20px;
+            border-top: 2px solid var(--border-color);
+        }
+
+        /* Quiz Styles */
+        .quiz-progress {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+        .quiz-progress-dot {
+            flex: 1;
+            height: 8px;
+            background: #eee;
+            border-radius: 4px;
+        }
+        .quiz-progress-dot.completed {
+            background: var(--primary);
+        }
+        .quiz-progress-dot.current {
+            background: var(--secondary);
+        }
+        .quiz-progress-dot.wrong {
+            background: var(--danger);
+        }
+
+        .quiz-question {
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .quiz-word {
+            font-family: 'Nunito', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--secondary);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .quiz-options {
+            display: grid;
+            gap: 12px;
+        }
+        .quiz-option {
+            padding: 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: white;
+        }
+        .quiz-option:hover {
+            border-color: var(--secondary);
+            background: #f0f9ff;
+        }
+        .quiz-option.selected {
+            border-color: var(--secondary);
+            background: #E5F6FF;
+        }
+        .quiz-option.correct {
+            border-color: var(--primary);
+            background: #E5FFE5;
+            color: var(--primary-dark);
+        }
+        .quiz-option.wrong {
+            border-color: var(--danger);
+            background: #FFE5E5;
+            color: var(--danger);
+        }
+
+        /* Hearts Display */
+        .quiz-hearts {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-bottom: 20px;
+        }
+        .quiz-heart {
+            font-size: 24px;
+            color: var(--danger);
+        }
+        .quiz-heart.lost {
+            color: #ccc;
+        }
+
+        /* Result Screen */
+        .result-screen {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        .result-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        .result-title {
+            font-size: 28px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        .result-subtitle {
+            color: var(--text-gray);
+            margin-bottom: 30px;
+        }
+        .result-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .result-stat {
+            text-align: center;
+        }
+        .result-stat-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        .result-stat-label {
+            font-size: 14px;
+            color: var(--text-gray);
+        }
+
+        /* XP Animation */
+        .xp-gain {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--accent);
+            z-index: 300;
+            pointer-events: none;
+            animation: xpFloat 1s ease forwards;
+        }
+        @keyframes xpFloat {
+            0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -100%) scale(1.5); }
+        }
+
+        /* Flashcards */
+        .flashcard-container {
+            perspective: 1000px;
+            margin-bottom: 20px;
+        }
+        .flashcard {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+            cursor: pointer;
+        }
+        .flashcard.flipped {
+            transform: rotateY(180deg);
+        }
+        .flashcard-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 4px 0 var(--border-color);
+        }
+        .flashcard-front {
+            background: white;
+        }
+        .flashcard-back {
+            background: linear-gradient(135deg, var(--secondary) 0%, #0099cc 100%);
+            color: white;
+            transform: rotateY(180deg);
+        }
+        .flashcard-word {
+            font-family: 'Nunito', sans-serif;
+            font-size: 36px;
+            font-weight: 800;
+        }
+        .flashcard-hint {
+            font-size: 14px;
+            color: var(--text-gray);
+            margin-top: 10px;
+        }
+        .flashcard-back .flashcard-hint {
+            color: rgba(255,255,255,0.8);
+        }
+        .flashcard-nav {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .flashcard-nav button {
+            flex: 1;
+            padding: 14px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            font-family: inherit;
+        }
+        .flashcard-prev {
+            background: #eee;
+            color: var(--text-main);
+        }
+        .flashcard-next {
+            background: var(--primary);
+            color: white;
+        }
+        .flashcard-counter {
+            text-align: center;
+            margin-bottom: 15px;
+            color: var(--text-gray);
+            font-weight: 700;
+        }
+
+        /* Profile Page */
+        .profile-header {
+            text-align: center;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, #46a302 100%);
+            color: white;
+            border-radius: 0 0 30px 30px;
+            margin: -20px -20px 20px -20px;
+        }
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            margin: 0 auto 15px;
+            border: 4px solid rgba(255,255,255,0.3);
+        }
+        .profile-name {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+        .profile-level {
+            opacity: 0.9;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 0 var(--border-color);
+        }
+        .stat-icon {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+        .stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-gray);
+        }
+
+        /* Achievements */
+        .achievement {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 10px;
+        }
+        .achievement-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        .achievement-icon.gold { background: #FFD700; }
+        .achievement-icon.silver { background: #C0C0C0; }
+        .achievement-icon.bronze { background: #CD7F32; }
+        .achievement-icon.locked { background: #eee; color: #999; }
+        .achievement-info h4 { font-weight: 700; margin-bottom: 3px; }
+        .achievement-info p { font-size: 13px; color: var(--text-gray); }
+
+        /* Settings */
+        .settings-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .settings-item:last-child { border-bottom: none; }
+        .settings-item-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .settings-item-left i {
+            width: 40px;
+            height: 40px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-gray);
+        }
+        .toggle {
+            width: 50px;
+            height: 28px;
+            background: #ccc;
+            border-radius: 14px;
+            position: relative;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .toggle.active {
+            background: var(--primary);
+        }
+        .toggle::after {
+            content: '';
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            transition: 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .toggle.active::after {
+            left: 24px;
+        }
+
+        /* Lessons Grid */
+        .lessons-grid {
+            display: grid;
+            gap: 15px;
+        }
+        .lesson-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: 0 4px 0 var(--border-color);
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+        .lesson-item:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+        .lesson-item.locked {
+            opacity: 0.5;
+        }
+        .lesson-number {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--secondary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 18px;
+        }
+        .lesson-item.completed .lesson-number {
+            background: var(--primary);
+        }
+        .lesson-item.locked .lesson-number {
+            background: #ccc;
+        }
+        .lesson-info { flex: 1; }
+        .lesson-info h4 { font-weight: 700; margin-bottom: 3px; }
+        .lesson-info p { font-size: 13px; color: var(--text-gray); }
+        .lesson-xp {
+            background: #FFF4E5;
+            color: var(--accent);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        /* Training Options */
+        .training-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .training-option {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 25px 15px;
+            text-align: center;
+            box-shadow: 0 4px 0 var(--border-color);
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+        .training-option:active {
+            transform: translateY(4px);
+            box-shadow: none;
+        }
+        .training-option i {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        .training-option h4 {
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        .training-option p {
+            font-size: 13px;
+            color: var(--text-gray);
+        }
+        .training-option.vocab i { color: var(--secondary); }
+        .training-option.listen i { color: var(--purple); }
+        .training-option.speak i { color: var(--accent); }
+        .training-option.write i { color: var(--primary); }
+
+        /* Notification Toast */
+        .toast {
+            position: fixed;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: #333;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-weight: 700;
+            z-index: 250;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        .toast.success { background: var(--primary); }
+        .toast.error { background: var(--danger); }
+        .toast.info { background: var(--secondary); }
+
+        /* Word of the Day */
+        .word-of-day {
+            background: linear-gradient(135deg, var(--purple) 0%, #a855f7 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .word-of-day-label {
+            font-size: 12px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .word-of-day-word {
+            font-family: 'Nunito', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+        .word-of-day-translation {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        /* Loading Spinner */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #eee;
+            border-top-color: var(--secondary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Confetti Effect */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            z-index: 300;
+            pointer-events: none;
+        }
+
+        /* Audio Wave Animation */
+        .audio-wave {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            height: 30px;
+        }
+        .audio-wave span {
+            width: 4px;
+            background: var(--secondary);
+            border-radius: 2px;
+            animation: wave 0.5s ease infinite alternate;
+        }
+        .audio-wave span:nth-child(1) { height: 10px; animation-delay: 0s; }
+        .audio-wave span:nth-child(2) { height: 20px; animation-delay: 0.1s; }
+        .audio-wave span:nth-child(3) { height: 15px; animation-delay: 0.2s; }
+        .audio-wave span:nth-child(4) { height: 25px; animation-delay: 0.3s; }
+        .audio-wave span:nth-child(5) { height: 10px; animation-delay: 0.4s; }
+        @keyframes wave {
+            to { height: 30px; }
+        }
+
+        /* Level Progress */
+        .level-progress {
+            background: white;
+            border: 2px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .level-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .level-badge {
+            background: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+        }
+        .level-xp {
+            color: var(--text-gray);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="app-header">
+        <div class="app-title">
+            <span class="flag-icon">🇮🇹</span>
+            <span>Italiano Hub</span>
+        </div>
+        <div class="header-stats">
+            <div class="streak-counter">
+                <i class="fa-solid fa-fire"></i>
+                <span id="streakCount">3</span>
+            </div>
+            <div class="gems-counter">
+                <i class="fa-solid fa-gem"></i>
+                <span id="gemsCount">150</span>
+            </div>
+            <div class="hearts-counter">
+                <i class="fa-solid fa-heart"></i>
+                <span id="heartsCount">5</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        
+        <!-- Home Page -->
+        <div id="homePage" class="page active">
+            <div class="welcome-section">
+                <h1>مرحباً، أحمد 👋</h1>
+                <p>أنت في طريقك لإتقان المستوى A1!</p>
+            </div>
+
+            <!-- Daily Goal -->
+            <div class="daily-goal">
+                <div class="daily-goal-icon">🎯</div>
+                <div class="daily-goal-text">
+                    <h3>هدف اليوم: 50 XP</h3>
+                    <p>أكملت 30 XP - تبقى 20 XP</p>
+                </div>
+            </div>
+
+            <!-- Level Progress -->
+            <div class="level-progress">
+                <div class="level-info">
+                    <span class="level-badge">المستوى 5</span>
+                    <span class="level-xp">320 / 500 XP</span>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-bar" style="width: 64%;"></div>
+                </div>
+            </div>
+
+            <!-- Word of the Day -->
+            <div class="word-of-day" onclick="speakWord('Bellissimo')">
+                <div class="word-of-day-label">🌟 كلمة اليوم</div>
+                <div class="word-of-day-word">Bellissimo</div>
+                <div class="word-of-day-translation">جميل جداً</div>
+            </div>
+
+            <div class="section-title">الوحدة الأولى: البدايات</div>
+
+            <!-- Lesson 1 - Completed -->
+            <div class="card">
+                <span class="complete-badge"><i class="fa-solid fa-check"></i></span>
+                <div class="card-top">
+                    <div>
+                        <h3>التحية والتعارف</h3>
+                        <p>تعلم: Ciao, Buongiorno, Piacere</p>
+                    </div>
+                    <div class="card-icon">
+                        <i class="fa-solid fa-hand-shake"></i>
+                    </div>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-bar" style="width: 100%;"></div>
+                </div>
+                <div style="font-size:12px; color:#777; margin-bottom:10px; display:flex; justify-content:space-between;">
+                    <span>مكتمل</span>
+                    <span>100%</span>
+                </div>
+                <button class="btn btn-primary" onclick="startLesson(1)">مراجعة الدرس</button>
+            </div>
+
+            <!-- Lesson 2 - In Progress -->
+            <div class="card">
+                <div class="card-top">
+                    <div>
+                        <h3>الأرقام (1-20)</h3>
+                        <p>تعلم العد: Uno, Due, Tre...</p>
+                    </div>
+                    <div class="card-icon" style="background: #FFF4E5; color: #FF9600;">
+                        <i class="fa-solid fa-arrow-up-1-9"></i>
+                    </div>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-bar" style="width: 45%; background: #FF9600;"></div>
+                </div>
+                <div style="font-size:12px; color:#777; margin-bottom:10px; display:flex; justify-content:space-between;">
+                    <span>قيد التقدم</span>
+                    <span>45%</span>
+                </div>
+                <button class="btn btn-accent" onclick="startLesson(2)">تابِع الدرس</button>
+            </div>
+
+            <!-- Lesson 3 - Locked -->
+            <div class="card lesson-locked">
+                <span class="lock-badge"><i class="fa-solid fa-lock"></i></span>
+                <div class="card-top">
+                    <div>
+                        <h3>الألوان</h3>
+                        <p>Rosso, Blu, Verde, Giallo...</p>
+                    </div>
+                    <div class="card-icon" style="background: #eee; color: #999;">
+                        <i class="fa-solid fa-palette"></i>
+                    </div>
+                </div>
+                <div class="progress-track">
+                    <div class="progress-bar" style="width: 0%;"></div>
+                </div>
+                <button class="btn" disabled>أكمل الدرس السابق</button>
+            </div>
+
+            <div class="section-title">كلمات سريعة</div>
+
+            <div class="card">
+                <div class="vocab-item">
+                    <div>
+                        <span class="it-word">Il Ragazzo</span>
+                        <span class="ar-word"> - الولد</span>
+                    </div>
+                    <button class="vocab-audio" onclick="speakWord('Il Ragazzo')">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                </div>
+                <div class="vocab-item">
+                    <div>
+                        <span class="it-word">La Ragazza</span>
+                        <span class="ar-word"> - البنت</span>
+                    </div>
+                    <button class="vocab-audio" onclick="speakWord('La Ragazza')">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                </div>
+                <div class="vocab-item">
+                    <div>
+                        <span class="it-word">Mangiare</span>
+                        <span class="ar-word"> - يأكل</span>
+                    </div>
+                    <button class="vocab-audio" onclick="speakWord('Mangiare')">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                </div>
+                <button class="btn btn-outline" onclick="openFlashcards()">عرض كل الكلمات</button>
+            </div>
+        </div>
+
+        <!-- Lessons Page -->
+        <div id="lessonsPage" class="page">
+            <div class="section-title">جميع الدروس</div>
+            
+            <div class="lessons-grid" id="lessonsGrid">
+                <!-- Will be populated by JS -->
+            </div>
+        </div>
+
+        <!-- Training Page -->
+        <div id="trainingPage" class="page">
+            <div class="section-title">التدريب</div>
+            
+            <div class="training-options">
+                <div class="training-option vocab" onclick="startQuiz('vocab')">
+                    <i class="fa-solid fa-book-open"></i>
+                    <h4>المفردات</h4>
+                    <p>اختبر حفظك للكلمات</p>
+                </div>
+                <div class="training-option listen" onclick="startQuiz('listen')">
+                    <i class="fa-solid fa-headphones"></i>
+                    <h4>الاستماع</h4>
+                    <p>تدرب على السمع</p>
+                </div>
+                <div class="training-option speak" onclick="openFlashcards()">
+                    <i class="fa-solid fa-microphone"></i>
+                    <h4>البطاقات</h4>
+                    <p>راجع بالبطاقات</p>
+                </div>
+                <div class="training-option write" onclick="startQuiz('write')">
+                    <i class="fa-solid fa-pen"></i>
+                    <h4>الكتابة</h4>
+                    <p>تدرب على الإملاء</p>
+                </div>
+            </div>
+
+            <div class="section-title" style="margin-top: 30px;">التحديات اليومية</div>
+            
+            <div class="card">
+                <div class="card-top">
+                    <div>
+                        <h3>تحدي الـ 10 كلمات</h3>
+                        <p>أجب على 10 أسئلة بدون أخطاء</p>
+                    </div>
+                    <div class="card-icon" style="background: #FFE5E5; color: var(--danger);">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                </div>
+                <button class="btn btn-primary" onclick="startChallenge()">ابدأ التحدي</button>
+            </div>
+
+            <div class="card">
+                <div class="card-top">
+                    <div>
+                        <h3>مراجعة الأخطاء</h3>
+                        <p>راجع الكلمات التي أخطأت فيها</p>
+                    </div>
+                    <div class="card-icon" style="background: #FFF4E5; color: var(--accent);">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </div>
+                </div>
+                <button class="btn btn-accent" onclick="reviewMistakes()">مراجعة (5 كلمات)</button>
+            </div>
+        </div>
+
+        <!-- Profile Page -->
+        <div id="profilePage" class="page">
+            <div class="profile-header">
+                <div class="profile-avatar">😎</div>
+                <div class="profile-name">أحمد محمد</div>
+                <div class="profile-level">المستوى A1 - مبتدئ</div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">🔥</div>
+                    <div class="stat-value" id="profileStreak">3</div>
+                    <div class="stat-label">أيام متتالية</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-value" id="profileXP">320</div>
+                    <div class="stat-label">نقاط XP</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📚</div>
+                    <div class="stat-value" id="profileWords">45</div>
+                    <div class="stat-label">كلمة تعلمتها</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-value" id="profileLessons">3</div>
+                    <div class="stat-label">درس مكتمل</div>
+                </div>
+            </div>
+
+            <div class="section-title">الإنجازات</div>
+            
+            <div class="achievement">
+                <div class="achievement-icon gold">🏆</div>
+                <div class="achievement-info">
+                    <h4>المتعلم المثابر</h4>
+                    <p>أكمل 3 أيام متتالية</p>
+                </div>
+            </div>
+            <div class="achievement">
+                <div class="achievement-icon silver">📖</div>
+                <div class="achievement-info">
+                    <h4>محب الكلمات</h4>
+                    <p>تعلم 50 كلمة جديدة</p>
+                </div>
+            </div>
+            <div class="achievement">
+                <div class="achievement-icon locked">🎯</div>
+                <div class="achievement-info">
+                    <h4>المتفوق</h4>
+                    <p>أكمل 10 دروس بدون أخطاء</p>
+                </div>
+            </div>
+
+            <div class="section-title" style="margin-top: 25px;">الإعدادات</div>
+            
+            <div class="card">
+                <div class="settings-item">
+                    <div class="settings-item-left">
+                        <i class="fa-solid fa-bell"></i>
+                        <span>الإشعارات</span>
+                    </div>
+                    <div class="toggle active" onclick="this.classList.toggle('active')"></div>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-item-left">
+                        <i class="fa-solid fa-volume-high"></i>
+                        <span>الصوت</span>
+                    </div>
+                    <div class="toggle active" onclick="this.classList.toggle('active')"></div>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-item-left">
+                        <i class="fa-solid fa-moon"></i>
+                        <span>الوضع الليلي</span>
+                    </div>
+                    <div class="toggle" onclick="this.classList.toggle('active')"></div>
+                </div>
+                <div class="settings-item">
+                    <div class="settings-item-left">
+                        <i class="fa-solid fa-language"></i>
+                        <span>لغة التطبيق</span>
+                    </div>
+                    <span style="color: var(--text-gray);">العربية</span>
+                </div>
+            </div>
+
+            <button class="btn btn-outline" style="margin-top: 10px; color: var(--danger); border-color: var(--danger);">
+                <i class="fa-solid fa-right-from-bracket"></i> تسجيل الخروج
+            </button>
+        </div>
+    </main>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <button class="nav-link active" onclick="switchPage('home')">
+            <i class="fa-solid fa-house-chimney"></i>
+            <span>الرئيسية</span>
+        </button>
+        <button class="nav-link" onclick="switchPage('lessons')">
+            <i class="fa-solid fa-book-open"></i>
+            <span>الدروس</span>
+        </button>
+        <button class="nav-link" onclick="switchPage('training')">
+            <i class="fa-solid fa-dumbbell"></i>
+            <span>تدريب</span>
+        </button>
+        <button class="nav-link" onclick="switchPage('profile')">
+            <i class="fa-solid fa-user"></i>
+            <span>حسابي</span>
+        </button>
+    </nav>
+
+    <!-- Quiz Modal -->
+    <div class="modal-overlay" id="quizModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="quizTitle">اختبار المفردات</h2>
+                <button class="modal-close" onclick="closeQuiz()">✕</button>
+            </div>
+            <div class="modal-body" id="quizBody">
+                <!-- Quiz content will be inserted here -->
+            </div>
+            <div class="modal-footer" id="quizFooter">
+                <button class="btn btn-primary" id="quizNextBtn" onclick="nextQuestion()" disabled>التالي</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Flashcards Modal -->
+    <div class="modal-overlay" id="flashcardsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>بطاقات المفردات</h2>
+                <button class="modal-close" onclick="closeFlashcards()">✕</button>
+            </div>
+            <div class="modal-body">
+                <div class="flashcard-counter" id="flashcardCounter">1 / 10</div>
+                <div class="flashcard-container">
+                    <div class="flashcard" id="flashcard" onclick="flipCard()">
+                        <div class="flashcard-face flashcard-front">
+                            <div class="flashcard-word" id="flashcardFront">Ciao</div>
+                            <div class="flashcard-hint">اضغط للقلب</div>
+                        </div>
+                        <div class="flashcard-face flashcard-back">
+                            <div class="flashcard-word" id="flashcardBack">مرحباً</div>
+                            <div class="flashcard-hint">اضغط للقلب</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="flashcard-nav">
+                    <button class="flashcard-prev" onclick="prevFlashcard()">
+                        <i class="fa-solid fa-arrow-right"></i> السابق
+                    </button>
+                    <button class="flashcard-next" onclick="nextFlashcard()">
+                        التالي <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Modal -->
+    <div class="modal-overlay" id="resultModal">
+        <div class="modal">
+            <div class="modal-body">
+                <div class="result-screen" id="resultScreen">
+                    <!-- Result content will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ==================== بيانات التطبيق ====================
+        const appData = {
+            user: {
+                name: 'أحمد',
+                level: 5,
+                xp: 320,
+                xpToNext: 500,
+                streak: 3,
+                gems: 150,
+                hearts: 5,
+                maxHearts: 5,
+                wordsLearned: 45,
+                lessonsCompleted: 3
+            },
+            
+            lessons: [
+                { id: 1, title: 'التحية والتعارف', desc: 'Ciao, Buongiorno, Piacere', icon: 'fa-hand-shake', progress: 100, completed: true, xp: 20 },
+                { id: 2, title: 'الأرقام (1-20)', desc: 'Uno, Due, Tre...', icon: 'fa-arrow-up-1-9', progress: 45, completed: false, xp: 25 },
+                { id: 3, title: 'الألوان', desc: 'Rosso, Blu, Verde...', icon: 'fa-palette', progress: 0, completed: false, locked: true, xp: 20 },
+                { id: 4, title: 'العائلة', desc: 'Madre, Padre, Fratello...', icon: 'fa-people-roof', progress: 0, completed: false, locked: true, xp: 30 },
+                { id: 5, title: 'الطعام والشراب', desc: 'Pizza, Pasta, Caffè...', icon: 'fa-utensils', progress: 0, completed: false, locked: true, xp: 25 },
+                { id: 6, title: 'أيام الأسبوع', desc: 'Lunedì, Martedì...', icon: 'fa-calendar', progress: 0, completed: false, locked: true, xp: 20 },
+                { id: 7, title: 'الأفعال الأساسية', desc: 'Essere, Avere, Fare...', icon: 'fa-bolt', progress: 0, completed: false, locked: true, xp: 35 },
+                { id: 8, title: 'في المطعم', desc: 'Il conto, Vorrei...', icon: 'fa-bowl-food', progress: 0, completed: false, locked: true, xp: 30 },
+            ],
+            
+            vocabulary: [
+                { it: 'Ciao', ar: 'مرحباً', category: 'greetings' },
+                { it: 'Buongiorno', ar: 'صباح الخير', category: 'greetings' },
+                { it: 'Buonasera', ar: 'مساء الخير', category: 'greetings' },
+                { it: 'Arrivederci', ar: 'إلى اللقاء', category: 'greetings' },
+                { it: 'Grazie', ar: 'شكراً', category: 'greetings' },
+                { it: 'Prego', ar: 'عفواً', category: 'greetings' },
+                { it: 'Sì', ar: 'نعم', category: 'basics' },
+                { it: 'No', ar: 'لا', category: 'basics' },
+                { it: 'Per favore', ar: 'من فضلك', category: 'basics' },
+                { it: 'Scusa', ar: 'عذراً', category: 'basics' },
+                { it: 'Uno', ar: 'واحد', category: 'numbers' },
+                { it: 'Due', ar: 'اثنان', category: 'numbers' },
+                { it: 'Tre', ar: 'ثلاثة', category: 'numbers' },
+                { it: 'Quattro', ar: 'أربعة', category: 'numbers' },
+                { it: 'Cinque', ar: 'خمسة', category: 'numbers' },
+                { it: 'Il Ragazzo', ar: 'الولد', category: 'people' },
+                { it: 'La Ragazza', ar: 'البنت', category: 'people' },
+                { it: 'L\'uomo', ar: 'الرجل', category: 'people' },
+                { it: 'La Donna', ar: 'المرأة', category: 'people' },
+                { it: 'Mangiare', ar: 'يأكل', category: 'verbs' },
+                { it: 'Bere', ar: 'يشرب', category: 'verbs' },
+                { it: 'Parlare', ar: 'يتكلم', category: 'verbs' },
+                { it: 'Rosso', ar: 'أحمر', category: 'colors' },
+                { it: 'Blu', ar: 'أزرق', category: 'colors' },
+                { it: 'Verde', ar: 'أخضر', category: 'colors' },
+                { it: 'Giallo', ar: 'أصفر', category: 'colors' },
+                { it: 'Bianco', ar: 'أبيض', category: 'colors' },
+                { it: 'Nero', ar: 'أسود', category: 'colors' },
+            ],
+            
+            mistakes: []
+        };
+
+        // ==================== التنقل بين الصفحات ====================
+        function switchPage(page) {
+            // إخفاء كل الصفحات
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(n => n.classList.remove('active'));
+            
+            // إظهار الصفحة المطلوبة
+            document.getElementById(page + 'Page').classList.add('active');
+            event.currentTarget.classList.add('active');
+            
+            // تحديث المحتوى حسب الصفحة
+            if (page === 'lessons') {
+                renderLessons();
+            }
+        }
+
+        // ==================== عرض الدروس ====================
+        function renderLessons() {
+            const grid = document.getElementById('lessonsGrid');
+            grid.innerHTML = '';
+            
+            appData.lessons.forEach((lesson, index) => {
+                const item = document.createElement('div');
+                item.className = `lesson-item ${lesson.completed ? 'completed' : ''} ${lesson.locked ? 'locked' : ''}`;
+                item.onclick = () => !lesson.locked && startLesson(lesson.id);
+                
+                item.innerHTML = `
+                    <div class="lesson-number">
+                        ${lesson.locked ? '<i class="fa-solid fa-lock"></i>' : (lesson.completed ? '<i class="fa-solid fa-check"></i>' : index + 1)}
+                    </div>
+                    <div class="lesson-info">
+                        <h4>${lesson.title}</h4>
+                        <p>${lesson.desc}</p>
+                    </div>
+                    <span class="lesson-xp">+${lesson.xp} XP</span>
+                `;
+                
+                grid.appendChild(item);
+            });
+        }
+
+        // ==================== بدء الدرس ====================
+        function startLesson(lessonId) {
+            const lesson = appData.lessons.find(l => l.id === lessonId);
+            if (lesson && !lesson.locked) {
+                showToast(`بدء درس: ${lesson.title}`, 'info');
+                startQuiz('vocab');
+            }
+        }
+
+        // ==================== نظام الاختبارات ====================
+        let quizState = {
+            questions: [],
+            currentIndex: 0,
+            score: 0,
+            hearts: 5,
+            answered: false,
+            type: 'vocab'
+        };
+
+        function startQuiz(type) {
+            quizState = {
+                questions: generateQuestions(type, 5),
+                currentIndex: 0,
+                score: 0,
+                hearts: appData.user.hearts,
+                answered: false,
+                type: type
+            };
+            
+            document.getElementById('quizTitle').textContent = getQuizTitle(type);
+            document.getElementById('quizModal').classList.add('active');
+            renderQuestion();
+        }
+
+        function getQuizTitle(type) {
+            const titles = {
+                'vocab': 'اختبار المفردات',
+                'listen': 'اختبار الاستماع',
+                'write': 'اختبار الكتابة'
+            };
+            return titles[type] || 'اختبار';
+        }
+
+        function generateQuestions(type, count) {
+            const vocab = [...appData.vocabulary].sort(() => Math.random() - 0.5).slice(0, count);
+            
+            return vocab.map(word => {
+                const wrongAnswers = appData.vocabulary
+                    .filter(w => w.ar !== word.ar)
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, 3)
+                    .map(w => w.ar);
+                
+                const options = [word.ar, ...wrongAnswers].sort(() => Math.random() - 0.5);
+                
+                return {
+                    word: word.it,
+                    correct: word.ar,
+                    options: options,
+                    type: type
+                };
+            });
+        }
+
+        function renderQuestion() {
+            const q = quizState.questions[quizState.currentIndex];
+            const body = document.getElementById('quizBody');
+            
+            // Progress dots
+            let progressHTML = '<div class="quiz-progress">';
+            quizState.questions.forEach((_, i) => {
+                let dotClass = 'quiz-progress-dot';
+                if (i < quizState.currentIndex) dotClass += ' completed';
+                if (i === quizState.currentIndex) dotClass += ' current';
+                progressHTML += `<div class="${dotClass}"></div>`;
+            });
+            progressHTML += '</div>';
+            
+            // Hearts
+            let heartsHTML = '<div class="quiz-hearts">';
+            for (let i = 0; i < 5; i++) {
+                heartsHTML += `<i class="fa-solid fa-heart quiz-heart ${i >= quizState.hearts ? 'lost' : ''}"></i>`;
+            }
+            heartsHTML += '</div>';
+            
+            // Question
+            let questionHTML = `
+                ${progressHTML}
+                ${heartsHTML}
+                <div class="quiz-question">ما معنى هذه الكلمة؟</div>
+                <div class="quiz-word">${q.word}</div>
+            `;
+            
+            // Play audio for listening quiz
+            if (q.type === 'listen') {
+                speakWord(q.word);
+                questionHTML = `
+                    ${progressHTML}
+                    ${heartsHTML}
+                    <div class="quiz-question">استمع واختر الترجمة الصحيحة</div>
+                    <div style="text-align: center; margin: 20px 0;">
+                        <button class="btn btn-secondary" style="width: auto; display: inline-flex; align-items: center; gap: 10px;" onclick="speakWord('${q.word}')">
+                            <i class="fa-solid fa-volume-high"></i> استمع مرة أخرى
+                        </button>
+                    </div>
+                `;
+            }
+            
+            // Options
+            questionHTML += '<div class="quiz-options">';
+            q.options.forEach((opt, i) => {
+                questionHTML += `<div class="quiz-option" onclick="selectAnswer(${i}, '${opt}')">${opt}</div>`;
+            });
+            questionHTML += '</div>';
+            
+            body.innerHTML = questionHTML;
+            
+            // Reset button
+            quizState.answered = false;
+            document.getElementById('quizNextBtn').disabled = true;
+        }
+
+        function selectAnswer(index, answer) {
+            if (quizState.answered) return;
+            quizState.answered = true;
+            
+            const q = quizState.questions[quizState.currentIndex];
+            const options = document.querySelectorAll('.quiz-option');
+            
+            options.forEach((opt, i) => {
+                if (opt.textContent === q.correct) {
+                    opt.classList.add('correct');
+                } else if (i === index && answer !== q.correct) {
+                    opt.classList.add('wrong');
+                }
+            });
+            
+            if (answer === q.correct) {
+                quizState.score++;
+                showToast('إجابة صحيحة! 🎉', 'success');
+            } else {
+                quizState.hearts--;
+                appData.user.hearts--;
+                updateStats();
+                showToast('إجابة خاطئة 😔', 'error');
+                
+                // Save mistake
+                appData.mistakes.push(q.word);
+                
+                if (quizState.hearts <= 0) {
+                    setTimeout(() => showResult(false), 1000);
+                    return;
+                }
+            }
+            
+            document.getElementById('quizNextBtn').disabled = false;
+        }
+
+        function nextQuestion() {
+            quizState.currentIndex++;
+            
+            if (quizState.currentIndex >= quizState.questions.length) {
+                showResult(true);
+            } else {
+                renderQuestion();
+            }
+        }
+
+        function showResult(completed) {
+            closeQuiz();
+            
+            const xpEarned = quizState.score * 10;
+            const accuracy = Math.round((quizState.score / quizState.questions.length) * 100);
+            
+            // Update user data
+            appData.user.xp += xpEarned;
+            updateStats();
+            
+            const resultScreen = document.getElementById('resultScreen');
+            
+            if (completed && quizState.score === quizState.questions.length) {
+                // Perfect score
+                resultScreen.innerHTML = `
+                    <div class="result-icon">🎉</div>
+                    <div class="result-title" style="color: var(--primary);">ممتاز!</div>
+                    <div class="result-subtitle">أجبت على جميع الأسئلة بشكل صحيح</div>
+                    <div class="result-stats">
+                        <div class="result-stat">
+                            <div class="result-stat-value">${xpEarned}</div>
+                            <div class="result-stat-label">نقاط XP</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="result-stat-value">${accuracy}%</div>
+                            <div class="result-stat-label">دقة</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="closeResult()">متابعة</button>
+                `;
+                createConfetti();
+            } else if (completed) {
+                // Completed but not perfect
+                resultScreen.innerHTML = `
+                    <div class="result-icon">👍</div>
+                    <div class="result-title" style="color: var(--secondary);">أحسنت!</div>
+                    <div class="result-subtitle">أكملت الاختبار بنجاح</div>
+                    <div class="result-stats">
+                        <div class="result-stat">
+                            <div class="result-stat-value">${quizState.score}/${quizState.questions.length}</div>
+                            <div class="result-stat-label">إجابات صحيحة</div>
+                        </div>
+                        <div class="result-stat">
+                            <div class="result-stat-value">${xpEarned}</div>
+                            <div class="result-stat-label">نقاط XP</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="closeResult()">متابعة</button>
+                    <button class="btn btn-outline" onclick="closeResult(); startQuiz('${quizState.type}')">إعادة المحاولة</button>
+                `;
+            } else {
+                // Failed (no hearts)
+                resultScreen.innerHTML = `
+                    <div class="result-icon">💔</div>
+                    <div class="result-title" style="color: var(--danger);">انتهت القلوب!</div>
+                    <div class="result-subtitle">حاول مرة أخرى لاحقاً</div>
+                    <div class="result-stats">
+                        <div class="result-stat">
+                            <div class="result-stat-value">${quizState.score}/${quizState.questions.length}</div>
+                            <div class="result-stat-label">إجابات صحيحة</div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" onclick="closeResult()">العودة</button>
+                `;
+            }
+            
+            document.getElementById('resultModal').classList.add('active');
+            
+            // Show XP animation
+            if (xpEarned > 0) {
+                showXPGain(xpEarned);
+            }
+        }
+
+        function closeQuiz() {
+            document.getElementById('quizModal').classList.remove('active');
+        }
+
+        function closeResult() {
+            document.getElementById('resultModal').classList.remove('active');
+        }
+
+        // ==================== البطاقات التعليمية ====================
+        let flashcardState = {
+            cards: [],
+            currentIndex: 0
+        };
+
+        function openFlashcards() {
+            flashcardState.cards = [...appData.vocabulary].sort(() => Math.random() - 0.5);
+            flashcardState.currentIndex = 0;
+            
+            updateFlashcard();
+            document.getElementById('flashcardsModal').classList.add('active');
+        }
+
+        function closeFlashcards() {
+            document.getElementById('flashcardsModal').classList.remove('active');
+            document.getElementById('flashcard').classList.remove('flipped');
+        }
+
+        function updateFlashcard() {
+            const card = flashcardState.cards[flashcardState.currentIndex];
+            document.getElementById('flashcardFront').textContent = card.it;
+            document.getElementById('flashcardBack').textContent = card.ar;
+            document.getElementById('flashcardCounter').textContent = 
+                `${flashcardState.currentIndex + 1} / ${flashcardState.cards.length}`;
+            document.getElementById('flashcard').classList.remove('flipped');
+        }
+
+        function flipCard() {
+            document.getElementById('flashcard').classList.toggle('flipped');
+            speakWord(flashcardState.cards[flashcardState.currentIndex].it);
+        }
+
+        function nextFlashcard() {
+            if (flashcardState.currentIndex < flashcardState.cards.length - 1) {
+                flashcardState.currentIndex++;
+                updateFlashcard();
+            } else {
+                showToast('أكملت جميع البطاقات! 🎉', 'success');
+                closeFlashcards();
+            }
+        }
+
+        function prevFlashcard() {
+            if (flashcardState.currentIndex > 0) {
+                flashcardState.currentIndex--;
+                updateFlashcard();
+            }
+        }
+
+        // ==================== التحديات ====================
+        function startChallenge() {
+            quizState = {
+                questions: generateQuestions('vocab', 10),
+                currentIndex: 0,
+                score: 0,
+                hearts: 1, // Only one heart for challenge
+                answered: false,
+                type: 'challenge'
+            };
+            
+            document.getElementById('quizTitle').textContent = '🏆 تحدي الـ 10 كلمات';
+            document.getElementById('quizModal').classList.add('active');
+            renderQuestion();
+        }
+
+        function reviewMistakes() {
+            if (appData.mistakes.length === 0) {
+                showToast('لا توجد أخطاء للمراجعة!', 'info');
+                return;
+            }
+            
+            showToast('مراجعة الأخطاء...', 'info');
+            startQuiz('vocab');
+        }
+
+        // ==================== النطق ====================
+        function speakWord(word) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(word);
+                utterance.lang = 'it-IT';
+                utterance.rate = 0.8;
+                speechSynthesis.speak(utterance);
+            }
+        }
+
+        // ==================== تحديث الإحصائيات ====================
+        function updateStats() {
+            document.getElementById('streakCount').textContent = appData.user.streak;
+            document.getElementById('gemsCount').textContent = appData.user.gems;
+            document.getElementById('heartsCount').textContent = appData.user.hearts;
+            
+            // Profile stats
+            document.getElementById('profileStreak').textContent = appData.user.streak;
+            document.getElementById('profileXP').textContent = appData.user.xp;
+            document.getElementById('profileWords').textContent = appData.user.wordsLearned;
+            document.getElementById('profileLessons').textContent = appData.user.lessonsCompleted;
+            
+            // Save to localStorage
+            saveData();
+        }
+
+        // ==================== التخزين المحلي ====================
+        function saveData() {
+            localStorage.setItem('italianoHubData', JSON.stringify(appData));
+        }
+
+        function loadData() {
+            const saved = localStorage.getItem('italianoHubData');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                Object.assign(appData, parsed);
+                updateStats();
+            }
+        }
+
+        // ==================== الإشعارات ====================
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // ==================== تأثير XP ====================
+        function showXPGain(amount) {
+            const xp = document.createElement('div');
+            xp.className = 'xp-gain';
+            xp.textContent = `+${amount} XP`;
+            document.body.appendChild(xp);
+            
+            setTimeout(() => xp.remove(), 1000);
+        }
+
+        // ==================== تأثير الاحتفال ====================
+        function createConfetti() {
+            const colors = ['#58CC02', '#1CB0F6', '#FF9600', '#FF4B4B', '#CE82FF'];
+            
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-10px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+                document.body.appendChild(confetti);
+                
+                const animation = confetti.animate([
+                    { transform: 'translateY(0) rotate(0deg)', opacity: 1 },
+                    { transform: `translateY(100vh) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+                ], {
+                    duration: 2000 + Math.random() * 1000,
+                    easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+                });
+                
+                animation.onfinish = () => confetti.remove();
+            }
+        }
+
+        // ==================== استعادة القلوب ====================
+        function restoreHearts() {
+            if (appData.user.hearts < appData.user.maxHearts) {
+                appData.user.hearts = appData.user.maxHearts;
+                updateStats();
+                showToast('تم استعادة القلوب! ❤️', 'success');
+            }
+        }
+
+        // Check hearts restoration every minute
+        setInterval(() => {
+            if (appData.user.hearts < appData.user.maxHearts) {
+                appData.user.hearts++;
+                updateStats();
+            }
+        }, 60000); // Restore 1 heart every minute
+
+        // ==================== تهيئة التطبيق ====================
+        document.addEventListener('DOMContentLoaded', () => {
+            loadData();
+            updateStats();
+            
+            // Check daily streak
+            const lastVisit = localStorage.getItem('lastVisit');
+            const today = new Date().toDateString();
+            
+            if (lastVisit !== today) {
+                localStorage.setItem('lastVisit', today);
+                if (lastVisit) {
+                    const last = new Date(lastVisit);
+                    const diff = Math.floor((new Date() - last) / (1000 * 60 * 60 * 24));
+                    
+                    if (diff === 1) {
+                        appData.user.streak++;
+                        showToast(`🔥 ${appData.user.streak} أيام متتالية!`, 'success');
+                    } else if (diff > 1) {
+                        appData.user.streak = 1;
+                        showToast('مرحباً بعودتك! ابدأ سلسلة جديدة 🔥', 'info');
+                    }
+                    updateStats();
+                }
+            }
+        });
+
+        // Prevent pull-to-refresh on mobile
+        document.body.addEventListener('touchmove', (e) => {
+            if (e.target.closest('.modal-body')) return;
+        }, { passive: false });
+    </script>
+</body>
+</html>
