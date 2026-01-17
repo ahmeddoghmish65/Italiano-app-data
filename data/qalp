@@ -1,0 +1,3456 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html dir='rtl' lang='ar' xmlns='http://www.w3.org/1999/xhtml' xmlns:b='http://www.google.com/2005/gml/b' xmlns:data='http://www.google.com/2005/gml/data' xmlns:expr='http://www.google.com/2005/gml/expr'>
+
+<head>
+<meta charset='UTF-8'/>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'/>
+<meta content='IE=edge' http-equiv='X-UA-Compatible'/>
+
+<!-- SEO Meta Tags -->
+<title><data:blog.pageTitle/></title>
+<meta expr:content='data:blog.metaDescription ? data:blog.metaDescription : data:blog.title' name='description'/>
+<meta content='تعلم الإيطالية, تطبيق تعلم اللغة, Italian learning, دروس إيطالية' name='keywords'/>
+<meta content='index, follow' name='robots'/>
+<link expr:href='data:blog.canonicalUrl' rel='canonical'/>
+
+<!-- Open Graph -->
+<meta content='website' property='og:type'/>
+<meta expr:content='data:blog.pageTitle' property='og:title'/>
+<meta expr:content='data:blog.metaDescription' property='og:description'/>
+<meta expr:content='data:blog.canonicalUrl' property='og:url'/>
+
+<!-- Fonts & Icons -->
+<link href='https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&amp;display=swap' rel='stylesheet'/>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css' rel='stylesheet'/>
+
+<style type='text/css'>
+/* ===== CSS Variables ===== */
+:root {
+  --primary: #009246;
+  --secondary: #CE2B37;
+  --dark: #0f0f1a;
+  --darker: #080810;
+  --card: #16162a;
+  --card-hover: #1e1e3a;
+  --text: #ffffff;
+  --text-muted: #a0a0b0;
+  --accent: #00d4ff;
+  --gradient-1: linear-gradient(135deg, #009246 0%, #00d4ff 100%);
+  --gradient-2: linear-gradient(135deg, #CE2B37 0%, #ff6b6b 100%);
+  --gradient-3: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 10px 30px rgba(0, 0, 0, 0.3);
+  --radius: 20px;
+  --radius-sm: 12px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Light Mode Variables */
+[data-theme="light"] {
+  --dark: #f5f5f7;
+  --darker: #ffffff;
+  --card: #ffffff;
+  --card-hover: #f0f0f5;
+  --text: #1a1a2e;
+  --text-muted: #666680;
+}
+
+/* ===== Reset & Base ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Tajawal', sans-serif;
+  background: var(--darker);
+  color: var(--text);
+  direction: rtl;
+  line-height: 1.8;
+  font-size: 16px;
+  overflow-x: hidden;
+  transition: var(--transition);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ===== Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--darker);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* ===== Loading Screen ===== */
+.loading-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--darker);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loading-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader {
+  width: 60px;
+  height: 60px;
+  border: 4px solid rgba(255,255,255,0.1);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== Animated Background ===== */
+.bg-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bg-animation span {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(135deg, rgba(0,146,70,0.1), rgba(0,212,255,0.1));
+  border-radius: 50%;
+  animation: float 20s infinite ease-in-out;
+}
+
+.bg-animation span:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+.bg-animation span:nth-child(2) { top: 60%; left: 80%; animation-delay: -5s; width: 200px; height: 200px; }
+.bg-animation span:nth-child(3) { top: 80%; left: 20%; animation-delay: -10s; width: 100px; height: 100px; }
+.bg-animation span:nth-child(4) { top: 30%; left: 70%; animation-delay: -15s; width: 180px; height: 180px; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
+  50% { transform: translateY(-30px) rotate(180deg); opacity: 0.8; }
+}
+
+/* ===== Back to Top Button ===== */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  width: 55px;
+  height: 55px;
+  background: var(--gradient-1);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+  z-index: 9999;
+  box-shadow: 0 10px 30px rgba(0, 146, 70, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 146, 70, 0.5);
+}
+
+/* ===== Header ===== */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9999;
+  padding: 15px 0;
+  transition: var(--transition);
+  background: rgba(8, 8, 16, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.header.scrolled {
+  padding: 10px 0;
+  background: rgba(8, 8, 16, 0.95);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+}
+
+.header-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo-icon {
+  width: 55px;
+  height: 55px;
+  background: var(--gradient-1);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  box-shadow: 0 10px 30px rgba(0, 146, 70, 0.4);
+  transition: var(--transition);
+}
+
+.logo:hover .logo-icon {
+  transform: rotate(10deg) scale(1.05);
+}
+
+.logo-text h1 {
+  font-size: 24px;
+  font-weight: 800;
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.logo-text span {
+  font-size: 12px;
+  color: var(--text-muted);
+  display: block;
+}
+
+/* Navigation */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-menu a {
+  padding: 12px 22px;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-muted);
+  transition: var(--transition);
+  position: relative;
+}
+
+.nav-menu a:hover {
+  color: var(--text);
+  background: rgba(255,255,255,0.1);
+}
+
+.nav-menu a.active {
+  background: var(--gradient-1);
+  color: white;
+}
+
+.download-btn {
+  background: var(--gradient-2) !important;
+  color: white !important;
+  padding: 14px 28px !important;
+  border-radius: 50px !important;
+  font-weight: 700 !important;
+  box-shadow: 0 10px 30px rgba(206, 43, 55, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.download-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(206, 43, 55, 0.5);
+}
+
+/* Header Actions */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.theme-toggle {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: var(--text);
+  font-size: 18px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.theme-toggle:hover {
+  background: var(--primary);
+  transform: rotate(180deg);
+}
+
+.search-toggle {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: var(--text);
+  font-size: 18px;
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-toggle:hover {
+  background: var(--accent);
+}
+
+.menu-toggle {
+  display: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: var(--text);
+  font-size: 22px;
+  cursor: pointer;
+  transition: var(--transition);
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-toggle:hover {
+  background: var(--primary);
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 320px;
+  height: 100vh;
+  background: var(--card);
+  z-index: 99999;
+  padding: 30px;
+  transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+  box-shadow: -10px 0 40px rgba(0,0,0,0.5);
+}
+
+.mobile-menu.active {
+  right: 0;
+}
+
+.mobile-menu-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.mobile-menu-close {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: var(--text);
+  font-size: 20px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.mobile-menu-close:hover {
+  background: var(--secondary);
+  transform: rotate(90deg);
+}
+
+.mobile-nav a {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 18px 20px;
+  border-radius: var(--radius-sm);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  transition: var(--transition);
+}
+
+.mobile-nav a:hover,
+.mobile-nav a.active {
+  background: rgba(0, 146, 70, 0.2);
+  color: var(--text);
+}
+
+.mobile-nav a i {
+  width: 25px;
+  font-size: 18px;
+}
+
+.mobile-menu-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.7);
+  z-index: 99998;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+}
+
+.mobile-menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ===== Search Modal ===== */
+.search-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  z-index: 999999;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 150px;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+}
+
+.search-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.search-modal-content {
+  width: 100%;
+  max-width: 700px;
+  padding: 0 30px;
+  transform: translateY(-30px);
+  transition: var(--transition);
+}
+
+.search-modal.active .search-modal-content {
+  transform: translateY(0);
+}
+
+.search-modal-close {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.search-modal-close:hover {
+  background: var(--secondary);
+  transform: rotate(90deg);
+}
+
+.search-input-wrapper {
+  position: relative;
+}
+
+.search-input-wrapper input {
+  width: 100%;
+  padding: 25px 30px 25px 70px;
+  font-size: 22px;
+  border: 2px solid rgba(255,255,255,0.2);
+  border-radius: 60px;
+  background: rgba(255,255,255,0.05);
+  color: white;
+  font-family: 'Tajawal', sans-serif;
+  transition: var(--transition);
+}
+
+.search-input-wrapper input:focus {
+  outline: none;
+  border-color: var(--primary);
+  background: rgba(255,255,255,0.1);
+}
+
+.search-input-wrapper input::placeholder {
+  color: rgba(255,255,255,0.5);
+}
+
+.search-input-wrapper i {
+  position: absolute;
+  left: 30px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: var(--primary);
+}
+
+.search-hint {
+  text-align: center;
+  margin-top: 20px;
+  color: rgba(255,255,255,0.5);
+  font-size: 14px;
+}
+
+/* ===== Hero Section ===== */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 140px 30px 80px;
+  position: relative;
+}
+
+.hero-content {
+  max-width: 900px;
+  text-align: center;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255,255,255,0.1);
+  padding: 10px 25px;
+  border-radius: 50px;
+  font-size: 14px;
+  margin-bottom: 30px;
+  border: 1px solid rgba(255,255,255,0.1);
+  animation: fadeInUp 0.8s ease;
+}
+
+.hero-badge .dot {
+  width: 8px;
+  height: 8px;
+  background: #00ff88;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero h2 {
+  font-size: 60px;
+  font-weight: 900;
+  line-height: 1.2;
+  margin-bottom: 25px;
+  animation: fadeInUp 0.8s ease 0.2s both;
+}
+
+.hero h2 span {
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero p {
+  font-size: 20px;
+  color: var(--text-muted);
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  animation: fadeInUp 0.8s ease 0.4s both;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+  animation: fadeInUp 0.8s ease 0.6s both;
+}
+
+.btn {
+  padding: 18px 40px;
+  border-radius: 60px;
+  font-size: 16px;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  transition: var(--transition);
+  border: none;
+  cursor: pointer;
+  font-family: 'Tajawal', sans-serif;
+}
+
+.btn-primary {
+  background: var(--gradient-1);
+  color: white;
+  box-shadow: 0 15px 40px rgba(0, 146, 70, 0.4);
+}
+
+.btn-primary:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px rgba(0, 146, 70, 0.5);
+}
+
+.btn-outline {
+  background: transparent;
+  color: white;
+  border: 2px solid rgba(255,255,255,0.3);
+}
+
+.btn-outline:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.5);
+  transform: translateY(-5px);
+}
+
+.app-preview {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  animation: fadeInUp 0.8s ease 0.8s both;
+}
+
+.phone-mockup {
+  width: 280px;
+  height: 560px;
+  background: var(--card);
+  border-radius: 40px;
+  padding: 15px;
+  box-shadow: var(--shadow);
+  border: 3px solid rgba(255,255,255,0.1);
+  position: relative;
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.phone-mockup:hover {
+  transform: translateY(-10px) rotate(2deg);
+}
+
+.phone-mockup img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 28px;
+}
+
+.phone-mockup::before {
+  content: '';
+  position: absolute;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 25px;
+  background: #000;
+  border-radius: 15px;
+  z-index: 10;
+}
+
+/* ===== Stats Section ===== */
+.stats {
+  padding: 60px 30px;
+  background: var(--dark);
+}
+
+.stats-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+}
+
+.stat-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 35px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: var(--transition);
+}
+
+.stat-card:hover {
+  transform: translateY(-10px);
+  border-color: var(--primary);
+  box-shadow: 0 20px 40px rgba(0, 146, 70, 0.2);
+}
+
+.stat-card .icon {
+  font-size: 45px;
+  margin-bottom: 15px;
+}
+
+.stat-card h3 {
+  font-size: 42px;
+  font-weight: 900;
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.stat-card p {
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+/* ===== Main Content ===== */
+.main-wrapper {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 80px 30px;
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 50px;
+}
+
+/* ===== Section Titles ===== */
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.section-title {
+  font-size: 32px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.section-title span {
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.view-all {
+  color: var(--accent);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.view-all:hover {
+  gap: 15px;
+}
+
+/* ===== Featured Post ===== */
+.featured-post {
+  background: var(--card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-bottom: 50px;
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: var(--transition);
+}
+
+.featured-post:hover {
+  transform: translateY(-10px);
+  box-shadow: var(--shadow);
+  border-color: var(--primary);
+}
+
+.featured-img {
+  height: 350px;
+  overflow: hidden;
+  position: relative;
+}
+
+.featured-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.featured-post:hover .featured-img img {
+  transform: scale(1.1);
+}
+
+.featured-badge {
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  background: var(--gradient-2);
+  color: white;
+  padding: 10px 25px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.featured-content {
+  padding: 35px;
+}
+
+.post-category {
+  display: inline-block;
+  background: rgba(0, 212, 255, 0.15);
+  color: var(--accent);
+  padding: 8px 18px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.featured-content h2 {
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 18px;
+  line-height: 1.4;
+}
+
+.featured-content h2 a:hover {
+  color: var(--accent);
+}
+
+.post-excerpt {
+  color: var(--text-muted);
+  font-size: 16px;
+  margin-bottom: 25px;
+  line-height: 1.9;
+}
+
+.post-meta {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  color: var(--text-muted);
+  font-size: 14px;
+  flex-wrap: wrap;
+}
+
+.post-meta span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ===== Posts Grid ===== */
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.post-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: var(--transition);
+}
+
+.post-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.post-img {
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.post-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.post-card:hover .post-img img {
+  transform: scale(1.1);
+}
+
+.post-type-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: white;
+}
+
+.type-update { background: var(--primary); }
+.type-news { background: var(--secondary); }
+.type-tip { background: #9b59b6; }
+.type-feature { background: #3498db; }
+
+.post-body {
+  padding: 25px;
+}
+
+.post-body .post-meta {
+  margin-bottom: 12px;
+  font-size: 13px;
+}
+
+.post-body h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.post-body h3 a:hover {
+  color: var(--accent);
+}
+
+.post-body p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 18px;
+  line-height: 1.7;
+}
+
+.read-more {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.read-more:hover {
+  gap: 15px;
+}
+</style>
+</head>
+<style type='text/css'>
+/* ===== Single Post ===== */
+.single-post {
+  background: var(--card);
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.05);
+}
+
+.single-header {
+  position: relative;
+  height: 450px;
+  overflow: hidden;
+}
+
+.single-header img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.single-header-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 60px 40px 40px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.95));
+}
+
+.single-header-overlay .post-category {
+  margin-bottom: 15px;
+}
+
+.single-header-overlay h1 {
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+.single-body {
+  padding: 45px;
+  font-size: 18px;
+  line-height: 2.1;
+}
+
+.single-body h2 {
+  font-size: 26px;
+  font-weight: 800;
+  margin: 40px 0 20px;
+  color: var(--accent);
+}
+
+.single-body h3 {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 30px 0 15px;
+}
+
+.single-body p {
+  margin-bottom: 20px;
+  color: var(--text-muted);
+}
+
+.single-body ul, .single-body ol {
+  margin: 20px 0;
+  padding-right: 30px;
+}
+
+.single-body li {
+  margin-bottom: 12px;
+  list-style-type: disc;
+  color: var(--text-muted);
+}
+
+.single-body img {
+  border-radius: var(--radius-sm);
+  margin: 25px 0;
+}
+
+.single-body a {
+  color: var(--accent);
+  border-bottom: 1px solid var(--accent);
+}
+
+.single-body blockquote {
+  background: rgba(0, 146, 70, 0.1);
+  border-right: 4px solid var(--primary);
+  padding: 25px 30px;
+  margin: 30px 0;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-style: italic;
+}
+
+.single-body pre {
+  background: var(--darker);
+  padding: 25px;
+  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  margin: 25px 0;
+}
+
+.single-body code {
+  background: rgba(0, 212, 255, 0.1);
+  padding: 3px 8px;
+  border-radius: 5px;
+  color: var(--accent);
+  font-size: 15px;
+}
+
+/* ===== Share Buttons ===== */
+.share-section {
+  padding: 35px 45px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.share-section h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.share-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.share-btn {
+  padding: 12px 25px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: var(--transition);
+}
+
+.share-btn:hover {
+  transform: translateY(-3px);
+}
+
+.share-btn.facebook { background: #1877f2; }
+.share-btn.twitter { background: #1da1f2; }
+.share-btn.whatsapp { background: #25d366; }
+.share-btn.telegram { background: #0088cc; }
+.share-btn.linkedin { background: #0077b5; }
+.share-btn.copy-link { background: var(--card-hover); border: 1px solid rgba(255,255,255,0.1); }
+
+.share-btn.copy-link.copied {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+
+/* ===== Post Tags ===== */
+.post-tags {
+  padding: 0 45px 35px;
+}
+
+.post-tags h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: var(--text-muted);
+}
+
+.tags-list {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.tags-list a {
+  padding: 8px 18px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50px;
+  font-size: 13px;
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+.tags-list a:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* ===== Author Box ===== */
+.author-box {
+  margin: 40px 45px;
+  padding: 30px;
+  background: rgba(255,255,255,0.03);
+  border-radius: var(--radius);
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.author-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+  border: 3px solid var(--primary);
+}
+
+.author-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.author-info h4 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.author-info p {
+  color: var(--text-muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+/* ===== Related Posts ===== */
+.related-posts {
+  padding: 45px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.related-posts h3 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.related-posts h3 i {
+  color: var(--primary);
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+.related-card {
+  background: rgba(255,255,255,0.03);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  transition: var(--transition);
+}
+
+.related-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255,255,255,0.06);
+}
+
+.related-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.related-card h4 {
+  padding: 18px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.related-card h4 a:hover {
+  color: var(--accent);
+}
+
+/* ===== Comments Section ===== */
+.comments-section {
+  padding: 45px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.comments-section h3 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.comments-section h3 i {
+  color: var(--primary);
+}
+
+.comments-section h3 .count {
+  font-size: 14px;
+  background: var(--primary);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 50px;
+  margin-right: 10px;
+}
+
+/* Comment Form */
+.comment-form {
+  background: rgba(255,255,255,0.03);
+  padding: 30px;
+  border-radius: var(--radius);
+  margin-bottom: 40px;
+}
+
+.comment-form h4 {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.comment-form textarea {
+  width: 100%;
+  min-height: 150px;
+  padding: 20px;
+  background: var(--darker);
+  border: 2px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 16px;
+  font-family: 'Tajawal', sans-serif;
+  resize: vertical;
+  transition: var(--transition);
+}
+
+.comment-form textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.comment-form button {
+  margin-top: 15px;
+  padding: 15px 35px;
+  background: var(--gradient-1);
+  border: none;
+  border-radius: 50px;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: 'Tajawal', sans-serif;
+}
+
+.comment-form button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 146, 70, 0.4);
+}
+
+/* Comments List */
+.comments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.comment-item {
+  background: rgba(255,255,255,0.03);
+  padding: 25px;
+  border-radius: var(--radius);
+  border-right: 3px solid var(--primary);
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.comment-avatar {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.comment-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.comment-meta h5 {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.comment-meta span {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.comment-body {
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+.comment-actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 20px;
+}
+
+.comment-actions a {
+  color: var(--text-muted);
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.comment-actions a:hover {
+  color: var(--primary);
+}
+
+/* ===== Post Navigation ===== */
+.post-navigation {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  padding: 45px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.nav-post {
+  background: rgba(255,255,255,0.03);
+  padding: 25px;
+  border-radius: var(--radius);
+  transition: var(--transition);
+}
+
+.nav-post:hover {
+  background: rgba(255,255,255,0.06);
+  transform: translateY(-3px);
+}
+
+.nav-post span {
+  font-size: 13px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.nav-post h4 {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.nav-post.next {
+  text-align: left;
+}
+
+/* ===== Sidebar ===== */
+.sidebar {
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.widget {
+  background: var(--card);
+  border-radius: var(--radius);
+  padding: 30px;
+  border: 1px solid rgba(255,255,255,0.05);
+  transition: var(--transition);
+}
+
+.widget:hover {
+  border-color: rgba(255,255,255,0.1);
+}
+
+.widget-title {
+  font-size: 20px;
+  font-weight: 800;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.widget-title i {
+  color: var(--primary);
+}
+
+.widget-title span {
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Download Widget */
+.download-widget {
+  background: var(--gradient-1);
+  text-align: center;
+  padding: 40px 30px;
+  border: none;
+}
+
+.download-widget .app-icon {
+  width: 90px;
+  height: 90px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 25px;
+  margin: 0 auto 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 45px;
+}
+
+.download-widget h3 {
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 12px;
+}
+
+.download-widget p {
+  font-size: 14px;
+  opacity: 0.9;
+  margin-bottom: 25px;
+}
+
+.download-widget .store-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.store-btn {
+  background: rgba(0,0,0,0.3);
+  padding: 15px 20px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: var(--transition);
+}
+
+.store-btn:hover {
+  background: rgba(0,0,0,0.5);
+  transform: translateX(-5px);
+}
+
+.store-btn i {
+  font-size: 28px;
+}
+
+.store-btn .text {
+  text-align: right;
+}
+
+.store-btn .text small {
+  font-size: 11px;
+  opacity: 0.8;
+  display: block;
+}
+
+.store-btn .text strong {
+  font-size: 16px;
+}
+
+/* Search Widget */
+.search-widget .search-form {
+  position: relative;
+}
+
+.search-widget input {
+  width: 100%;
+  padding: 16px 20px 16px 50px;
+  background: rgba(255,255,255,0.05);
+  border: 2px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-sm);
+  color: var(--text);
+  font-size: 15px;
+  font-family: 'Tajawal', sans-serif;
+  transition: var(--transition);
+}
+
+.search-widget input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.search-widget button {
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  background: var(--gradient-1);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.search-widget button:hover {
+  transform: translateY(-50%) scale(1.05);
+}
+
+/* Categories Widget */
+.cat-list li {
+  margin-bottom: 10px;
+}
+
+.cat-list a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  background: rgba(255,255,255,0.03);
+  border-radius: var(--radius-sm);
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+.cat-list a:hover {
+  background: rgba(0, 146, 70, 0.2);
+  color: var(--text);
+  transform: translateX(-8px);
+}
+
+.cat-list a i {
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.cat-list .count {
+  background: var(--primary);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Popular Posts Widget */
+.popular-posts li {
+  display: flex;
+  gap: 15px;
+  padding: 15px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.popular-posts li:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.popular-posts li:first-child {
+  padding-top: 0;
+}
+
+.popular-thumb {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.popular-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.popular-posts li:hover .popular-thumb img {
+  transform: scale(1.1);
+}
+
+.popular-info h4 {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+
+.popular-info h4 a:hover {
+  color: var(--accent);
+}
+
+.popular-info span {
+  font-size: 13px;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Social Widget */
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.social-btn {
+  padding: 18px;
+  border-radius: var(--radius-sm);
+  text-align: center;
+  color: white;
+  font-weight: 700;
+  font-size: 14px;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.social-btn:hover {
+  transform: translateY(-5px);
+}
+
+.social-btn i {
+  font-size: 24px;
+}
+
+.social-btn.youtube { background: linear-gradient(135deg, #FF0000, #cc0000); }
+.social-btn.telegram { background: linear-gradient(135deg, #0088cc, #006699); }
+.social-btn.instagram { background: linear-gradient(135deg, #E1306C, #C13584, #833AB4); }
+.social-btn.twitter { background: linear-gradient(135deg, #1DA1F2, #0d8ecf); }
+.social-btn.facebook { background: linear-gradient(135deg, #1877f2, #0d5bbd); }
+.social-btn.tiktok { background: linear-gradient(135deg, #000000, #333333); }
+
+/* Newsletter Widget */
+.newsletter-widget p {
+  color: var(--text-muted);
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+.newsletter-widget input {
+  width: 100%;
+  padding: 16px 20px;
+  border: 2px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-sm);
+  background: rgba(255,255,255,0.03);
+  color: var(--text);
+  font-size: 15px;
+  margin-bottom: 15px;
+  transition: var(--transition);
+  font-family: 'Tajawal', sans-serif;
+}
+
+.newsletter-widget input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.newsletter-widget button {
+  width: 100%;
+  padding: 16px;
+  background: var(--gradient-1);
+  border: none;
+  border-radius: var(--radius-sm);
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+  font-family: 'Tajawal', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.newsletter-widget button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 146, 70, 0.4);
+}
+
+.newsletter-success {
+  background: rgba(0, 146, 70, 0.2);
+  color: var(--primary);
+  padding: 15px;
+  border-radius: var(--radius-sm);
+  text-align: center;
+  display: none;
+}
+
+/* Tags Cloud Widget */
+.tags-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.tags-cloud a {
+  padding: 8px 16px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50px;
+  font-size: 13px;
+  color: var(--text-muted);
+  transition: var(--transition);
+}
+
+.tags-cloud a:hover {
+  background: var(--primary);
+  color: white;
+  transform: translateY(-2px);
+}
+
+/* ===== Footer ===== */
+.footer {
+  background: var(--dark);
+  padding: 80px 30px 30px;
+  margin-top: 80px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.footer-grid {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 50px;
+  margin-bottom: 50px;
+}
+
+.footer-brand .logo {
+  margin-bottom: 20px;
+}
+
+.footer-brand > p {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.9;
+  margin-bottom: 25px;
+}
+
+.footer-social {
+  display: flex;
+  gap: 12px;
+}
+
+.footer-social a {
+  width: 45px;
+  height: 45px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: var(--transition);
+}
+
+.footer-social a:hover {
+  background: var(--primary);
+  transform: translateY(-5px);
+}
+
+.footer-col h4 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: var(--text);
+}
+
+.footer-col ul li {
+  margin-bottom: 14px;
+}
+
+.footer-col a {
+  color: var(--text-muted);
+  font-size: 15px;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-col a:hover {
+  color: var(--accent);
+  padding-right: 10px;
+}
+
+.footer-col a i {
+  font-size: 12px;
+  color: var(--primary);
+}
+
+.footer-bottom {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+/* ===== Pagination ===== */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 50px;
+  flex-wrap: wrap;
+}
+
+.pagination a, .pagination span {
+  padding: 12px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: var(--transition);
+  font-size: 15px;
+}
+
+.pagination a {
+  background: var(--card);
+  color: var(--text);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.pagination a:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  transform: translateY(-3px);
+}
+
+.pagination .current {
+  background: var(--gradient-1);
+  color: white;
+}
+
+.pagination .prev, .pagination .next {
+  padding: 12px 25px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ===== Breadcrumb ===== */
+.breadcrumb {
+  padding: 20px 0;
+  margin-bottom: 30px;
+}
+
+.breadcrumb ul {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.breadcrumb li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.breadcrumb li a:hover {
+  color: var(--primary);
+}
+
+.breadcrumb li i {
+  font-size: 10px;
+}
+
+.breadcrumb li:last-child {
+  color: var(--accent);
+}
+
+/* ===== 404 Page ===== */
+.error-page {
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 100px 30px;
+}
+
+.error-content h1 {
+  font-size: 150px;
+  font-weight: 900;
+  background: var(--gradient-1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1;
+}
+
+.error-content h2 {
+  font-size: 32px;
+  margin: 20px 0;
+}
+
+.error-content p {
+  color: var(--text-muted);
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width: 1200px) {
+  .main-wrapper {
+    grid-template-columns: 1fr;
+  }
+  
+  .sidebar {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .download-widget {
+    grid-column: span 2;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .hero h2 {
+    font-size: 42px;
+  }
+  
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .posts-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .related-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .post-navigation {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .nav-menu {
+    display: none;
+  }
+  
+  .menu-toggle {
+    display: flex;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .sidebar {
+    grid-template-columns: 1fr;
+  }
+  
+  .download-widget {
+    grid-column: span 1;
+  }
+  
+  .single-header {
+    height: 300px;
+  }
+  
+  .single-header-overlay h1 {
+    font-size: 26px;
+  }
+  
+  .single-body {
+    padding: 30px 25px;
+    font-size: 16px;
+  }
+  
+  .author-box {
+    flex-direction: column;
+    text-align: center;
+    margin: 30px 25px;
+  }
+  
+  .share-section, .post-tags, .related-posts, .comments-section, .post-navigation {
+    padding: 30px 25px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .hero {
+    padding: 120px 20px 60px;
+  }
+  
+  .hero h2 {
+    font-size: 32px;
+  }
+  
+  .hero p {
+    font-size: 16px;
+  }
+  
+  .btn {
+    padding: 15px 30px;
+    font-size: 14px;
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .hero-buttons {
+    flex-direction: column;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .footer-social {
+    justify-content: center;
+  }
+  
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .section-title {
+    font-size: 22px;
+  }
+  
+  .featured-content h2 {
+    font-size: 20px;
+  }
+  
+  .phone-mockup {
+    width: 220px;
+    height: 440px;
+  }
+  
+  .related-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .share-buttons {
+    flex-direction: column;
+  }
+  
+  .share-btn {
+    justify-content: center;
+  }
+  
+  .social-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ===== Animations ===== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideRight {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.animate-fadeIn { animation: fadeIn 0.6s ease forwards; }
+.animate-slideUp { animation: slideUp 0.6s ease forwards; }
+.animate-slideRight { animation: slideRight 0.6s ease forwards; }
+
+/* Delay Classes */
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+</style>
+</head>
+
+<body>
+
+<!-- Loading Screen -->
+<div class='loading-screen' id='loadingScreen'>
+  <div class='loader'></div>
+</div>
+
+<!-- Animated Background -->
+<div class='bg-animation'>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<!-- Back to Top Button -->
+<button class='back-to-top' id='backToTop' title='العودة للأعلى'>
+  <i class='fas fa-arrow-up'></i>
+</button>
+
+<!-- Search Modal -->
+<div class='search-modal' id='searchModal'>
+  <button class='search-modal-close' id='searchModalClose'>
+    <i class='fas fa-times'></i>
+  </button>
+  <div class='search-modal-content'>
+    <form action='/search' method='get'>
+      <div class='search-input-wrapper'>
+        <input name='q' placeholder='ابحث في الموقع...' type='text' required=''/>
+        <i class='fas fa-search'></i>
+      </div>
+    </form>
+    <p class='search-hint'>اكتب كلمة البحث ثم اضغط Enter</p>
+  </div>
+</div>
+
+<!-- Mobile Menu Overlay -->
+<div class='mobile-menu-overlay' id='mobileOverlay'></div>
+
+<!-- Mobile Menu -->
+<nav class='mobile-menu' id='mobileMenu'>
+  <div class='mobile-menu-header'>
+    <a class='logo' expr:href='data:blog.homepageUrl'>
+      <div class='logo-icon'>🇮🇹</div>
+      <div class='logo-text'>
+        <h1><data:blog.title/></h1>
+      </div>
+    </a>
+    <button class='mobile-menu-close' id='mobileMenuClose'>
+      <i class='fas fa-times'></i>
+    </button>
+  </div>
+  
+  <div class='mobile-nav'>
+    <a expr:href='data:blog.homepageUrl'><i class='fas fa-home'></i> الرئيسية</a>
+    <a href='/search/label/تحديثات'><i class='fas fa-sync-alt'></i> التحديثات</a>
+    <a href='/search/label/مميزات'><i class='fas fa-star'></i> المميزات</a>
+    <a href='/search/label/نصائح'><i class='fas fa-lightbulb'></i> نصائح</a>
+    <a href='/search/label/دروس'><i class='fas fa-book'></i> الدروس</a>
+    <a href='/p/about.html'><i class='fas fa-info-circle'></i> عن التطبيق</a>
+    <a href='/p/contact.html'><i class='fas fa-envelope'></i> اتصل بنا</a>
+  </div>
+  
+  <div style='margin-top: 30px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1);'>
+    <a class='btn btn-primary' href='#' style='width: 100%; justify-content: center;'>
+      <i class='fas fa-download'></i> حمل التطبيق
+    </a>
+  </div>
+</nav>
+
+<!-- ===== HEADER ===== -->
+<header class='header' id='header'>
+  <div class='header-inner'>
+    
+    <a class='logo' expr:href='data:blog.homepageUrl'>
+      <div class='logo-icon'>🇮🇹</div>
+      <div class='logo-text'>
+        <h1><data:blog.title/></h1>
+        <span>تطبيق تعلم الإيطالية</span>
+      </div>
+    </a>
+    
+    <nav class='nav-menu'>
+      <a class='active' expr:href='data:blog.homepageUrl'>الرئيسية</a>
+      <a href='/search/label/تحديثات'>التحديثات</a>
+      <a href='/search/label/مميزات'>المميزات</a>
+      <a href='/search/label/نصائح'>نصائح</a>
+      <a href='/p/about.html'>عن التطبيق</a>
+      <a class='download-btn' href='#'>
+        <i class='fas fa-download'></i> حمل التطبيق
+      </a>
+    </nav>
+    
+    <div class='header-actions'>
+      <button class='theme-toggle' id='themeToggle' title='تغيير المظهر'>
+        <i class='fas fa-moon'></i>
+      </button>
+      <button class='search-toggle' id='searchToggle' title='البحث'>
+        <i class='fas fa-search'></i>
+      </button>
+      <button class='menu-toggle' id='menuToggle'>
+        <i class='fas fa-bars'></i>
+      </button>
+    </div>
+    
+  </div>
+</header>
+
+<!-- ===== HERO (Homepage Only) ===== -->
+<b:if cond='data:view.isHomepage'>
+<section class='hero'>
+  <div class='hero-content'>
+    
+    <div class='hero-badge'>
+      <span class='dot'></span>
+      الإصدار 2.0 متاح الآن
+    </div>
+    
+    <h2>تعلم <span>الإيطالية</span><br/>بطريقة ذكية وممتعة</h2>
+    
+    <p>اكتشف أحدث التحديثات والمميزات الجديدة في تطبيقنا. تابع أخبارنا واحصل على نصائح حصرية لتعلم اللغة الإيطالية</p>
+    
+    <div class='hero-buttons'>
+      <a class='btn btn-primary' href='#'>
+        <i class='fas fa-download'></i> حمل التطبيق مجاناً
+      </a>
+      <a class='btn btn-outline' href='/search/label/مميزات'>
+        <i class='fas fa-star'></i> اكتشف المميزات
+      </a>
+    </div>
+    
+    <div class='app-preview'>
+      <div class='phone-mockup'>
+        <img alt='App Screenshot' src='https://via.placeholder.com/250x500/1a1a2e/ffffff?text=App+Screenshot'/>
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+<!-- Stats -->
+<section class='stats'>
+  <div class='stats-grid'>
+    <div class='stat-card'>
+      <div class='icon'>📱</div>
+      <h3 data-target='100000'>0</h3>
+      <p>تحميل للتطبيق</p>
+    </div>
+    <div class='stat-card'>
+      <div class='icon'>⭐</div>
+      <h3>4.9</h3>
+      <p>تقييم المستخدمين</p>
+    </div>
+    <div class='stat-card'>
+      <div class='icon'>📚</div>
+      <h3 data-target='500'>0</h3>
+      <p>درس تعليمي</p>
+    </div>
+    <div class='stat-card'>
+      <div class='icon'>🌍</div>
+      <h3 data-target='50'>0</h3>
+      <p>دولة حول العالم</p>
+    </div>
+  </div>
+</section>
+</b:if>
+
+<!-- ===== BREADCRUMB (Not Homepage) ===== -->
+<b:if cond='!data:view.isHomepage'>
+<div style='padding-top: 100px;'>
+  <div class='main-wrapper' style='padding-top: 20px; padding-bottom: 0;'>
+    <nav class='breadcrumb'>
+      <ul>
+        <li><a expr:href='data:blog.homepageUrl'><i class='fas fa-home'></i> الرئيسية</a></li>
+        <li><i class='fas fa-chevron-left'></i></li>
+        <b:if cond='data:view.isPost'>
+          <li><a href='/search/label/مقالات'>المقالات</a></li>
+          <li><i class='fas fa-chevron-left'></i></li>
+        </b:if>
+        <b:if cond='data:view.isPage'>
+          <li>صفحة</li>
+          <li><i class='fas fa-chevron-left'></i></li>
+        </b:if>
+        <li><data:blog.pageName/></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+</b:if>
+
+<!-- ===== ERROR PAGE ===== -->
+<b:if cond='data:view.isError'>
+<section class='error-page'>
+  <div class='error-content'>
+    <h1>404</h1>
+    <h2>الصفحة غير موجودة</h2>
+    <p>عذراً، الصفحة التي تبحث عنها غير موجودة أو تم نقلها</p>
+    <a class='btn btn-primary' expr:href='data:blog.homepageUrl'>
+      <i class='fas fa-home'></i> العودة للرئيسية
+    </a>
+  </div>
+</section>
+</b:if>
+
+<!-- ===== MAIN CONTENT ===== -->
+<b:if cond='!data:view.isError'>
+<div class='main-wrapper'>
+
+  <main class='content-area'>
+  
+    <b:if cond='data:view.isHomepage'>
+      <div class='section-header'>
+        <h2 class='section-title'><i class='fas fa-newspaper'></i> <span>آخر الأخبار</span></h2>
+        <a class='view-all' href='/search'>عرض الكل <i class='fas fa-arrow-left'></i></a>
+      </div>
+    </b:if>
+    
+    <b:if cond='data:view.isLabelSearch'>
+      <div class='section-header'>
+        <h2 class='section-title'><i class='fas fa-tag'></i> <span><data:blog.pageName/></span></h2>
+      </div>
+    </b:if>
+    
+    <b:if cond='data:view.search &amp;&amp; !data:view.isLabelSearch'>
+      <div class='section-header'>
+        <h2 class='section-title'><i class='fas fa-search'></i> <span>نتائج البحث</span></h2>
+      </div>
+    </b:if>
+
+    <!-- Posts Section -->
+    <b:section class='main' id='main' showaddelement='no'>
+      <b:widget id='Blog1' locked='true' title='المقالات' type='Blog' version='2' visible='true'>
+        <b:includable id='main' var='this'>
+
+          <b:if cond='data:view.isPost'>
+            <!-- ========== SINGLE POST VIEW ========== -->
+            <b:loop values='data:posts' var='post'>
+              <article class='single-post'>
+              
+                <!-- Post Header -->
+                <header class='single-header'>
+                  <b:if cond='data:post.featuredImage'>
+                    <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 1200, "16:9")'/>
+                  <b:else/>
+                    <img alt='Post' src='https://via.placeholder.com/1200x450/1a1a2e/009246?text=Italian+App'/>
+                  </b:if>
+                  <div class='single-header-overlay'>
+                    <b:if cond='data:post.labels'>
+                      <a class='post-category' expr:href='data:post.labels.first.url'>
+                        <data:post.labels.first.name/>
+                      </a>
+                    </b:if>
+                    <h1><data:post.title/></h1>
+                    <div class='post-meta'>
+                      <span><i class='far fa-calendar-alt'></i> <data:post.date/></span>
+                      <span><i class='far fa-user'></i> <data:post.author.name/></span>
+                      <span><i class='far fa-clock'></i> <b:eval expr='data:post.body.length / 1000'/> دقائق للقراءة</span>
+                    </div>
+                  </div>
+                </header>
+                
+                <!-- Post Body -->
+                <div class='single-body'>
+                  <data:post.body/>
+                </div>
+                
+                <!-- Post Tags -->
+                <b:if cond='data:post.labels'>
+                <div class='post-tags'>
+                  <h4><i class='fas fa-tags'></i> الوسوم:</h4>
+                  <div class='tags-list'>
+                    <b:loop values='data:post.labels' var='label'>
+                      <a expr:href='data:label.url'><data:label.name/></a>
+                    </b:loop>
+                  </div>
+                </div>
+                </b:if>
+                
+                <!-- Share Buttons -->
+                <div class='share-section'>
+                  <h4><i class='fas fa-share-alt'></i> شارك المقال:</h4>
+                  <div class='share-buttons'>
+                    <a class='share-btn facebook' expr:href='&quot;https://www.facebook.com/sharer/sharer.php?u=&quot; + data:post.url' target='_blank'>
+                      <i class='fab fa-facebook-f'></i> فيسبوك
+                    </a>
+                    <a class='share-btn twitter' expr:href='&quot;https://twitter.com/intent/tweet?url=&quot; + data:post.url + &quot;&amp;text=&quot; + data:post.title' target='_blank'>
+                      <i class='fab fa-twitter'></i> تويتر
+                    </a>
+                    <a class='share-btn whatsapp' expr:href='&quot;https://api.whatsapp.com/send?text=&quot; + data:post.title + &quot; &quot; + data:post.url' target='_blank'>
+                      <i class='fab fa-whatsapp'></i> واتساب
+                    </a>
+                    <a class='share-btn telegram' expr:href='&quot;https://t.me/share/url?url=&quot; + data:post.url + &quot;&amp;text=&quot; + data:post.title' target='_blank'>
+                      <i class='fab fa-telegram-plane'></i> تليجرام
+                    </a>
+                    <a class='share-btn linkedin' expr:href='&quot;https://www.linkedin.com/shareArticle?mini=true&amp;url=&quot; + data:post.url' target='_blank'>
+                      <i class='fab fa-linkedin-in'></i> لينكدإن
+                    </a>
+                    <button class='share-btn copy-link' onclick='copyLink()'>
+                      <i class='fas fa-link'></i> نسخ الرابط
+                    </button>
+                  </div>
+                </div>
+                
+                <!-- Author Box -->
+                <div class='author-box'>
+                  <div class='author-avatar'>
+                    <img expr:alt='data:post.author.name' expr:src='data:post.author.authorPhoto.image ? resizeImage(data:post.author.authorPhoto.image, 90, "1:1") : "https://via.placeholder.com/90/009246/ffffff?text=A"'/>
+                  </div>
+                  <div class='author-info'>
+                    <h4><data:post.author.name/></h4>
+                    <p>كاتب ومطور محتوى متخصص في تعليم اللغة الإيطالية. أسعى لتقديم محتوى مفيد وممتع لجميع المتعلمين.</p>
+                  </div>
+                </div>
+                
+                <!-- Post Navigation -->
+                <div class='post-navigation'>
+                  <b:if cond='data:newerPageUrl'>
+                    <a class='nav-post prev' expr:href='data:newerPageUrl'>
+                      <span><i class='fas fa-arrow-right'></i> المقال السابق</span>
+                      <h4>المقال السابق</h4>
+                    </a>
+                  <b:else/>
+                    <div class='nav-post prev' style='opacity: 0.5; pointer-events: none;'>
+                      <span><i class='fas fa-arrow-right'></i> المقال السابق</span>
+                      <h4>لا يوجد</h4>
+                    </div>
+                  </b:if>
+                  
+                  <b:if cond='data:olderPageUrl'>
+                    <a class='nav-post next' expr:href='data:olderPageUrl'>
+                      <span>المقال التالي <i class='fas fa-arrow-left'></i></span>
+                      <h4>المقال التالي</h4>
+                    </a>
+                  <b:else/>
+                    <div class='nav-post next' style='opacity: 0.5; pointer-events: none;'>
+                      <span>المقال التالي <i class='fas fa-arrow-left'></i></span>
+                      <h4>لا يوجد</h4>
+                    </div>
+                  </b:if>
+                </div>
+                
+                <!-- Related Posts -->
+                <div class='related-posts'>
+                  <h3><i class='fas fa-th-large'></i> مقالات ذات صلة</h3>
+                  <div class='related-grid' id='relatedPosts'>
+                    <!-- Will be filled by JavaScript -->
+                  </div>
+                </div>
+                
+                <!-- Comments Section -->
+                <div class='comments-section'>
+                  <h3>
+                    <i class='fas fa-comments'></i> التعليقات
+                    <span class='count' id='commentsCount'>0</span>
+                  </h3>
+                  
+                  <div class='comment-form'>
+                    <h4>اترك تعليقاً</h4>
+                    <b:include name='comment-form'/>
+                  </div>
+                  
+                  <div class='comments-list'>
+                    <b:include name='comments'/>
+                  </div>
+                </div>
+                
+              </article>
+            </b:loop>
+
+          <b:elseif cond='data:view.isPage'/>
+            <!-- ========== STATIC PAGE VIEW ========== -->
+            <b:loop values='data:posts' var='post'>
+              <article class='single-post'>
+                <header class='single-header'>
+                  <b:if cond='data:post.featuredImage'>
+                    <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 1200, "16:9")'/>
+                  <b:else/>
+                    <img alt='Page' src='https://via.placeholder.com/1200x400/1a1a2e/009246?text=Italian+App'/>
+                  </b:if>
+                  <div class='single-header-overlay'>
+                    <h1><data:post.title/></h1>
+                  </div>
+                </header>
+                <div class='single-body'>
+                  <data:post.body/>
+                </div>
+              </article>
+            </b:loop>
+
+          <b:else/>
+            <!-- ========== POSTS LIST VIEW ========== -->
+            
+            <!-- Featured Post (First Post) -->
+            <b:loop values='data:posts' var='post' index='i'>
+              <b:if cond='data:i == 0 and data:view.isHomepage'>
+                <article class='featured-post'>
+                  <div class='featured-img'>
+                    <a expr:href='data:post.url'>
+                      <b:if cond='data:post.featuredImage'>
+                        <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 800, "16:9")'/>
+                      <b:else/>
+                        <img alt='Featured' src='https://via.placeholder.com/800x350/1a1a2e/009246?text=🇮🇹'/>
+                      </b:if>
+                    </a>
+                    <span class='featured-badge'><i class='fas fa-fire'></i> مميز</span>
+                  </div>
+                  <div class='featured-content'>
+                    <b:if cond='data:post.labels'>
+                      <a class='post-category' expr:href='data:post.labels.first.url'>
+                        <data:post.labels.first.name/>
+                      </a>
+                    </b:if>
+                    <h2><a expr:href='data:post.url'><data:post.title/></a></h2>
+                    <p class='post-excerpt'><data:post.snippet/></p>
+                    <div class='post-meta'>
+                      <span><i class='far fa-calendar-alt'></i> <data:post.date/></span>
+                      <span><i class='far fa-user'></i> <data:post.author.name/></span>
+                      <span><i class='far fa-comments'></i> <data:post.numberOfComments/> تعليق</span>
+                    </div>
+                  </div>
+                </article>
+                
+                <div class='section-header' style='margin-top: 50px;'>
+                  <h2 class='section-title'><i class='fas fa-clock'></i> <span>أحدث المقالات</span></h2>
+                </div>
+              </b:if>
+            </b:loop>
+            
+            <!-- Posts Grid -->
+            <div class='posts-grid'>
+              <b:loop values='data:posts' var='post' index='i'>
+                <b:if cond='data:i &gt; 0 or !data:view.isHomepage'>
+                  <article class='post-card'>
+                    <div class='post-img'>
+                      <a expr:href='data:post.url'>
+                        <b:if cond='data:post.featuredImage'>
+                          <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 400, "16:9")'/>
+                        <b:else/>
+                          <img alt='Post' src='https://via.placeholder.com/400x200/1a1a2e/009246?text=🇮🇹'/>
+                        </b:if>
+                      </a>
+                      <b:if cond='data:post.labels'>
+                        <span class='post-type-badge type-update'><data:post.labels.first.name/></span>
+                      </b:if>
+                    </div>
+                    <div class='post-body'>
+                      <div class='post-meta'>
+                        <span><i class='far fa-calendar-alt'></i> <data:post.date/></span>
+                        <span><i class='far fa-comments'></i> <data:post.numberOfComments/></span>
+                      </div>
+                      <h3><a expr:href='data:post.url'><data:post.title/></a></h3>
+                      <p><b:eval expr='snippet(data:post.body, {length: 100})'/></p>
+                      <a class='read-more' expr:href='data:post.url'>
+                        قراءة المزيد <i class='fas fa-arrow-left'></i>
+                      </a>
+                    </div>
+                  </article>
+                </b:if>
+              </b:loop>
+            </div>
+            
+            <!-- Pagination -->
+            <div class='pagination'>
+              <b:if cond='data:newerPageUrl'>
+                <a class='prev' expr:href='data:newerPageUrl'>
+                  <i class='fas fa-arrow-right'></i> أحدث
+                </a>
+              </b:if>
+              
+              <span class='current'>الصفحة الحالية</span>
+              
+              <b:if cond='data:olderPageUrl'>
+                <a class='next' expr:href='data:olderPageUrl'>
+                  أقدم <i class='fas fa-arrow-left'></i>
+                </a>
+              </b:if>
+            </div>
+          </b:if>
+
+        </b:includable>
+        
+        <!-- Comments Includables -->
+        <b:includable id='comment-form'>
+          <div class='comment-form-wrapper'>
+            <a expr:href='data:post.commentsUrl' target='_blank'>
+              <textarea placeholder='اكتب تعليقك هنا...' rows='4'></textarea>
+              <button type='button'>
+                <i class='fas fa-paper-plane'></i> إرسال التعليق
+              </button>
+            </a>
+          </div>
+        </b:includable>
+        
+        <b:includable id='comments'>
+          <b:if cond='data:post.numberOfComments &gt; 0'>
+            <b:loop values='data:post.comments' var='comment'>
+              <div class='comment-item'>
+                <div class='comment-header'>
+                  <div class='comment-avatar'>
+                    <img expr:alt='data:comment.author.name' expr:src='data:comment.author.avatarImage ? data:comment.author.avatarImage : "https://via.placeholder.com/50/009246/ffffff?text=U"'/>
+                  </div>
+                  <div class='comment-meta'>
+                    <h5><data:comment.author.name/></h5>
+                    <span><data:comment.date/></span>
+                  </div>
+                </div>
+                <div class='comment-body'>
+                  <data:comment.body/>
+                </div>
+                <div class='comment-actions'>
+                  <a expr:href='data:comment.replyUrl'><i class='fas fa-reply'></i> رد</a>
+                  <a href='#'><i class='fas fa-heart'></i> إعجاب</a>
+                </div>
+              </div>
+            </b:loop>
+          <b:else/>
+            <div class='no-comments' style='text-align: center; padding: 40px; color: var(--text-muted);'>
+              <i class='far fa-comment-dots' style='font-size: 50px; margin-bottom: 15px; display: block; opacity: 0.5;'></i>
+              <p>لا توجد تعليقات حتى الآن. كن أول من يعلق!</p>
+            </div>
+          </b:if>
+        </b:includable>
+        
+      </b:widget>
+    </b:section>
+
+  </main>
+
+  <!-- ===== SIDEBAR ===== -->
+  <aside class='sidebar'>
+
+    <!-- Search Widget -->
+    <div class='widget search-widget'>
+      <h3 class='widget-title'><i class='fas fa-search'></i> <span>البحث</span></h3>
+      <form action='/search' class='search-form' method='get'>
+        <input name='q' placeholder='ابحث هنا...' type='text'/>
+        <button type='submit'><i class='fas fa-search'></i></button>
+      </form>
+    </div>
+
+    <!-- Download App Widget -->
+    <div class='widget download-widget'>
+      <div class='app-icon'>🇮🇹</div>
+      <h3>حمل التطبيق الآن</h3>
+      <p>ابدأ رحلة تعلم الإيطالية اليوم</p>
+      <div class='store-btns'>
+        <a class='store-btn' href='#'>
+          <i class='fab fa-apple'></i>
+          <span class='text'>
+            <small>Download on the</small>
+            <strong>App Store</strong>
+          </span>
+        </a>
+        <a class='store-btn' href='#'>
+          <i class='fab fa-google-play'></i>
+          <span class='text'>
+            <small>GET IT ON</small>
+            <strong>Google Play</strong>
+          </span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Categories Widget -->
+    <div class='widget'>
+      <h3 class='widget-title'><i class='fas fa-folder-open'></i> <span>التصنيفات</span></h3>
+      <ul class='cat-list'>
+        <b:section id='categories-section' showaddelement='no'>
+          <b:widget id='Label1' locked='false' title='التصنيفات' type='Label' visible='true'>
+            <b:includable id='main'>
+              <b:loop values='data:labels' var='label'>
+                <li>
+                  <a expr:href='data:label.url'>
+                    <span><i class='fas fa-chevron-left'></i> <data:label.name/></span>
+                    <span class='count'><data:label.count/></span>
+                  </a>
+                </li>
+              </b:loop>
+            </b:includable>
+          </b:widget>
+        </b:section>
+      </ul>
+    </div>
+
+    <!-- Popular Posts Widget -->
+    <div class='widget'>
+      <h3 class='widget-title'><i class='fas fa-fire-alt'></i> <span>الأكثر قراءة</span></h3>
+      <ul class='popular-posts'>
+        <b:section id='popular-section' showaddelement='no'>
+          <b:widget id='PopularPosts1' locked='false' title='الأكثر قراءة' type='PopularPosts' visible='true'>
+            <b:includable id='main'>
+              <b:loop values='data:posts' var='post'>
+                <li>
+                  <div class='popular-thumb'>
+                    <a expr:href='data:post.url'>
+                      <b:if cond='data:post.featuredImage'>
+                        <img expr:alt='data:post.title' expr:src='resizeImage(data:post.featuredImage, 80, "1:1")'/>
+                      <b:else/>
+                        <img alt='Post' src='https://via.placeholder.com/80/1a1a2e/009246?text=🇮🇹'/>
+                      </b:if>
+                    </a>
+                  </div>
+                  <div class='popular-info'>
+                    <h4><a expr:href='data:post.url'><data:post.title/></a></h4>
+                    <span><i class='far fa-calendar-alt'></i> <data:post.date/></span>
+                  </div>
+                </li>
+              </b:loop>
+            </b:includable>
+          </b:widget>
+        </b:section>
+      </ul>
+    </div>
+
+    <!-- Social Widget -->
+    <div class='widget'>
+      <h3 class='widget-title'><i class='fas fa-share-alt'></i> <span>تابعنا</span></h3>
+      <div class='social-grid'>
+        <a class='social-btn youtube' href='#' target='_blank'>
+          <i class='fab fa-youtube'></i>
+          <span>يوتيوب</span>
+        </a>
+        <a class='social-btn telegram' href='#' target='_blank'>
+          <i class='fab fa-telegram-plane'></i>
+          <span>تليجرام</span>
+        </a>
+        <a class='social-btn instagram' href='#' target='_blank'>
+          <i class='fab fa-instagram'></i>
+          <span>انستجرام</span>
+        </a>
+        <a class='social-btn facebook' href='#' target='_blank'>
+          <i class='fab fa-facebook-f'></i>
+          <span>فيسبوك</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Newsletter Widget -->
+    <div class='widget newsletter-widget'>
+      <h3 class='widget-title'><i class='fas fa-envelope-open-text'></i> <span>النشرة البريدية</span></h3>
+      <p>اشترك ليصلك كل جديد عن التطبيق والدروس</p>
+      <form id='newsletterForm'>
+        <input id='newsletterEmail' placeholder='بريدك الإلكتروني' type='email' required=''/>
+        <button type='submit'>
+          <i class='fas fa-paper-plane'></i> اشتراك
+        </button>
+      </form>
+      <div class='newsletter-success' id='newsletterSuccess'>
+        <i class='fas fa-check-circle'></i> تم الاشتراك بنجاح!
+      </div>
+    </div>
+
+    <!-- Tags Cloud Widget -->
+    <div class='widget'>
+      <h3 class='widget-title'><i class='fas fa-tags'></i> <span>الوسوم</span></h3>
+      <div class='tags-cloud'>
+        <a href='/search/label/تحديثات'>تحديثات</a>
+        <a href='/search/label/مميزات'>مميزات</a>
+        <a href='/search/label/نصائح'>نصائح</a>
+        <a href='/search/label/دروس'>دروس</a>
+        <a href='/search/label/قواعد'>قواعد</a>
+        <a href='/search/label/مفردات'>مفردات</a>
+        <a href='/search/label/محادثة'>محادثة</a>
+        <a href='/search/label/ثقافة'>ثقافة إيطالية</a>
+      </div>
+    </div>
+
+  </aside>
+
+</div>
+</b:if>
+<!-- ===== FOOTER ===== -->
+<footer class='footer'>
+
+  <div class='footer-grid'>
+  
+    <div class='footer-brand'>
+      <a class='logo' expr:href='data:blog.homepageUrl'>
+        <div class='logo-icon'>🇮🇹</div>
+        <div class='logo-text'>
+          <h1><data:blog.title/></h1>
+        </div>
+      </a>
+      <p>تطبيق متكامل لتعلم اللغة الإيطالية بطريقة تفاعلية وممتعة. انضم لآلاف المتعلمين حول العالم واكتشف متعة تعلم لغة جديدة.</p>
+      <div class='footer-social'>
+        <a href='#' title='فيسبوك'><i class='fab fa-facebook-f'></i></a>
+        <a href='#' title='انستجرام'><i class='fab fa-instagram'></i></a>
+        <a href='#' title='تويتر'><i class='fab fa-twitter'></i></a>
+        <a href='#' title='يوتيوب'><i class='fab fa-youtube'></i></a>
+        <a href='#' title='تليجرام'><i class='fab fa-telegram-plane'></i></a>
+      </div>
+    </div>
+    
+    <div class='footer-col'>
+      <h4>روابط سريعة</h4>
+      <ul>
+        <li><a expr:href='data:blog.homepageUrl'><i class='fas fa-chevron-left'></i> الرئيسية</a></li>
+        <li><a href='/search/label/تحديثات'><i class='fas fa-chevron-left'></i> التحديثات</a></li>
+        <li><a href='/search/label/مميزات'><i class='fas fa-chevron-left'></i> المميزات</a></li>
+        <li><a href='/search/label/نصائح'><i class='fas fa-chevron-left'></i> نصائح التعلم</a></li>
+        <li><a href='/search/label/دروس'><i class='fas fa-chevron-left'></i> الدروس</a></li>
+      </ul>
+    </div>
+    
+    <div class='footer-col'>
+      <h4>التطبيق</h4>
+      <ul>
+        <li><a href='#'><i class='fas fa-chevron-left'></i> حمل للأندرويد</a></li>
+        <li><a href='#'><i class='fas fa-chevron-left'></i> حمل للآيفون</a></li>
+        <li><a href='/p/features.html'><i class='fas fa-chevron-left'></i> المميزات</a></li>
+        <li><a href='/p/changelog.html'><i class='fas fa-chevron-left'></i> سجل التحديثات</a></li>
+        <li><a href='/p/screenshots.html'><i class='fas fa-chevron-left'></i> صور التطبيق</a></li>
+      </ul>
+    </div>
+    
+    <div class='footer-col'>
+      <h4>الدعم والمساعدة</h4>
+      <ul>
+        <li><a href='/p/contact.html'><i class='fas fa-chevron-left'></i> اتصل بنا</a></li>
+        <li><a href='/p/faq.html'><i class='fas fa-chevron-left'></i> الأسئلة الشائعة</a></li>
+        <li><a href='/p/privacy.html'><i class='fas fa-chevron-left'></i> سياسة الخصوصية</a></li>
+        <li><a href='/p/terms.html'><i class='fas fa-chevron-left'></i> الشروط والأحكام</a></li>
+        <li><a href='/p/about.html'><i class='fas fa-chevron-left'></i> عن التطبيق</a></li>
+      </ul>
+    </div>
+    
+  </div>
+  
+  <div class='footer-bottom'>
+    <p>© <span id='currentYear'></span> <data:blog.title/> - جميع الحقوق محفوظة 🇮🇹</p>
+    <p>صنع بـ ❤️ لمحبي اللغة الإيطالية</p>
+  </div>
+
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+//<![CDATA[
+
+// ===== Loading Screen =====
+window.addEventListener('load', function() {
+  const loadingScreen = document.getElementById('loadingScreen');
+  if (loadingScreen) {
+    setTimeout(function() {
+      loadingScreen.classList.add('hidden');
+    }, 500);
+  }
+});
+
+// ===== Current Year =====
+document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+// ===== Header Scroll Effect =====
+const header = document.getElementById('header');
+let lastScroll = 0;
+
+window.addEventListener('scroll', function() {
+  const currentScroll = window.pageYOffset;
+  
+  if (currentScroll > 50) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+  
+  lastScroll = currentScroll;
+});
+
+// ===== Back to Top Button =====
+const backToTop = document.getElementById('backToTop');
+
+window.addEventListener('scroll', function() {
+  if (window.pageYOffset > 500) {
+    backToTop.classList.add('visible');
+  } else {
+    backToTop.classList.remove('visible');
+  }
+});
+
+backToTop.addEventListener('click', function() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+
+// ===== Mobile Menu =====
+const menuToggle = document.getElementById('menuToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+const mobileMenuClose = document.getElementById('mobileMenuClose');
+const mobileOverlay = document.getElementById('mobileOverlay');
+
+function openMobileMenu() {
+  mobileMenu.classList.add('active');
+  mobileOverlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMobileMenu() {
+  mobileMenu.classList.remove('active');
+  mobileOverlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+menuToggle.addEventListener('click', openMobileMenu);
+mobileMenuClose.addEventListener('click', closeMobileMenu);
+mobileOverlay.addEventListener('click', closeMobileMenu);
+
+// Close menu on link click
+document.querySelectorAll('.mobile-nav a').forEach(function(link) {
+  link.addEventListener('click', closeMobileMenu);
+});
+
+// ===== Search Modal =====
+const searchToggle = document.getElementById('searchToggle');
+const searchModal = document.getElementById('searchModal');
+const searchModalClose = document.getElementById('searchModalClose');
+
+searchToggle.addEventListener('click', function() {
+  searchModal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  setTimeout(function() {
+    searchModal.querySelector('input').focus();
+  }, 300);
+});
+
+searchModalClose.addEventListener('click', function() {
+  searchModal.classList.remove('active');
+  document.body.style.overflow = '';
+});
+
+searchModal.addEventListener('click', function(e) {
+  if (e.target === searchModal) {
+    searchModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+});
+
+// Close with Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    searchModal.classList.remove('active');
+    closeMobileMenu();
+    document.body.style.overflow = '';
+  }
+});
+
+// ===== Theme Toggle =====
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = themeToggle.querySelector('i');
+
+// Check for saved theme
+const savedTheme = localStorage.getItem('theme') || 'dark';
+document.documentElement.setAttribute('data-theme', savedTheme);
+updateThemeIcon(savedTheme);
+
+themeToggle.addEventListener('click', function() {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+  updateThemeIcon(newTheme);
+});
+
+function updateThemeIcon(theme) {
+  if (theme === 'light') {
+    themeIcon.classList.remove('fa-moon');
+    themeIcon.classList.add('fa-sun');
+  } else {
+    themeIcon.classList.remove('fa-sun');
+    themeIcon.classList.add('fa-moon');
+  }
+}
+
+// ===== Copy Link Function =====
+function copyLink() {
+  const url = window.location.href;
+  navigator.clipboard.writeText(url).then(function() {
+    const copyBtn = document.querySelector('.copy-link');
+    const originalHTML = copyBtn.innerHTML;
+    copyBtn.innerHTML = '<i class="fas fa-check"></i> تم النسخ!';
+    copyBtn.classList.add('copied');
+    
+    setTimeout(function() {
+      copyBtn.innerHTML = originalHTML;
+      copyBtn.classList.remove('copied');
+    }, 2000);
+  });
+}
+
+// ===== Newsletter Form =====
+const newsletterForm = document.getElementById('newsletterForm');
+const newsletterSuccess = document.getElementById('newsletterSuccess');
+
+if (newsletterForm) {
+  newsletterForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const email = document.getElementById('newsletterEmail').value;
+    
+    // Simulate subscription (replace with actual API call)
+    newsletterForm.style.display = 'none';
+    newsletterSuccess.style.display = 'block';
+    
+    // You can add your newsletter service integration here
+    // Example: Mailchimp, ConvertKit, etc.
+    console.log('Newsletter subscription:', email);
+  });
+}
+
+// ===== Stats Counter Animation =====
+function animateCounters() {
+  const counters = document.querySelectorAll('.stat-card h3[data-target]');
+  
+  counters.forEach(function(counter) {
+    const target = parseInt(counter.getAttribute('data-target'));
+    const duration = 2000;
+    const step = target / (duration / 16);
+    let current = 0;
+    
+    const updateCounter = function() {
+      current += step;
+      if (current < target) {
+        counter.textContent = Math.floor(current).toLocaleString() + '+';
+        requestAnimationFrame(updateCounter);
+      } else {
+        counter.textContent = target.toLocaleString() + '+';
+      }
+    };
+    
+    updateCounter();
+  });
+}
+
+// Trigger counter animation when stats section is visible
+const statsSection = document.querySelector('.stats');
+if (statsSection) {
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        animateCounters();
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  observer.observe(statsSection);
+}
+
+// ===== Related Posts (Dynamic) =====
+function loadRelatedPosts() {
+  const relatedContainer = document.getElementById('relatedPosts');
+  if (!relatedContainer) return;
+  
+  // Get current post labels
+  const postLabels = document.querySelectorAll('.post-tags .tags-list a');
+  if (postLabels.length === 0) return;
+  
+  const label = postLabels[0].textContent;
+  const feedUrl = '/feeds/posts/default/-/' + encodeURIComponent(label) + '?alt=json&max-results=4';
+  
+  fetch(feedUrl)
+    .then(function(response) { return response.json(); })
+    .then(function(data) {
+      if (!data.feed.entry) return;
+      
+      let html = '';
+      const currentUrl = window.location.href;
+      let count = 0;
+      
+      data.feed.entry.forEach(function(entry) {
+        // Skip current post
+        const postUrl = entry.link.find(function(l) { return l.rel === 'alternate'; }).href;
+        if (postUrl === currentUrl || count >= 3) return;
+        
+        const title = entry.title.$t;
+        let thumbnail = 'https://via.placeholder.com/300x140/1a1a2e/009246?text=🇮🇹';
+        
+        if (entry.media$thumbnail) {
+          thumbnail = entry.media$thumbnail.url.replace('/s72-c/', '/s300-c/');
+        }
+        
+        html += `
+          <a href="${postUrl}" class="related-card">
+            <img src="${thumbnail}" alt="${title}"/>
+            <h4>${title}</h4>
+          </a>
+        `;
+        count++;
+      });
+      
+      if (html) {
+        relatedContainer.innerHTML = html;
+      } else {
+        relatedContainer.innerHTML = '<p style="color: var(--text-muted); grid-column: span 3; text-align: center;">لا توجد مقالات ذات صلة</p>';
+      }
+    })
+    .catch(function(error) {
+      console.log('Error loading related posts:', error);
+      relatedContainer.innerHTML = '<p style="color: var(--text-muted); grid-column: span 3; text-align: center;">لا توجد مقالات ذات صلة</p>';
+    });
+}
+
+// Load related posts on single post page
+if (document.querySelector('.single-post')) {
+  loadRelatedPosts();
+}
+
+// ===== Comments Count =====
+function updateCommentsCount() {
+  const commentsCount = document.getElementById('commentsCount');
+  const commentsList = document.querySelectorAll('.comment-item');
+  
+  if (commentsCount) {
+    commentsCount.textContent = commentsList.length;
+  }
+}
+
+updateCommentsCount();
+
+// ===== Active Navigation Link =====
+function setActiveNavLink() {
+  const currentPath = window.location.pathname;
+  const navLinks = document.querySelectorAll('.nav-menu a, .mobile-nav a');
+  
+  navLinks.forEach(function(link) {
+    link.classList.remove('active');
+    
+    const linkPath = new URL(link.href).pathname;
+    
+    if (currentPath === linkPath) {
+      link.classList.add('active');
+    } else if (currentPath === '/' && linkPath === '/') {
+      link.classList.add('active');
+    }
+  });
+}
+
+setActiveNavLink();
+
+// ===== Smooth Scroll for Anchor Links =====
+document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+  anchor.addEventListener('click', function(e) {
+    const targetId = this.getAttribute('href');
+    if (targetId === '#') return;
+    
+    const targetElement = document.querySelector(targetId);
+    if (targetElement) {
+      e.preventDefault();
+      targetElement.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  });
+});
+
+// ===== Lazy Loading Images =====
+if ('IntersectionObserver' in window) {
+  const imageObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        if (img.dataset.src) {
+          img.src = img.dataset.src;
+          img.removeAttribute('data-src');
+        }
+        imageObserver.unobserve(img);
+      }
+    });
+  });
+  
+  document.querySelectorAll('img[data-src]').forEach(function(img) {
+    imageObserver.observe(img);
+  });
+}
+
+// ===== Post Card Hover Effect =====
+document.querySelectorAll('.post-card, .featured-post').forEach(function(card) {
+  card.addEventListener('mouseenter', function() {
+    this.style.transform = 'translateY(-10px)';
+  });
+  
+  card.addEventListener('mouseleave', function() {
+    this.style.transform = 'translateY(0)';
+  });
+});
+
+// ===== Reading Progress Bar (for Single Post) =====
+if (document.querySelector('.single-post')) {
+  // Create progress bar
+  const progressBar = document.createElement('div');
+  progressBar.id = 'readingProgress';
+  progressBar.style.cssText = `
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 4px;
+    background: linear-gradient(90deg, #009246, #00d4ff);
+    z-index: 99999;
+    transition: width 0.1s ease;
+  `;
+  document.body.appendChild(progressBar);
+  
+  window.addEventListener('scroll', function() {
+    const article = document.querySelector('.single-body');
+    if (!article) return;
+    
+    const articleTop = article.offsetTop;
+    const articleHeight = article.offsetHeight;
+    const windowHeight = window.innerHeight;
+    const scrollTop = window.pageYOffset;
+    
+    const progress = Math.min(100, Math.max(0, 
+      ((scrollTop - articleTop + windowHeight) / articleHeight) * 100
+    ));
+    
+    progressBar.style.width = progress + '%';
+  });
+}
+
+// ===== Table of Contents Generator (for Single Post) =====
+function generateTOC() {
+  const article = document.querySelector('.single-body');
+  if (!article) return;
+  
+  const headings = article.querySelectorAll('h2, h3');
+  if (headings.length < 3) return;
+  
+  let tocHTML = `
+    <div class="toc-widget" style="
+      background: rgba(0, 146, 70, 0.1);
+      border: 1px solid rgba(0, 146, 70, 0.3);
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+    ">
+      <h4 style="
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      ">
+        <i class="fas fa-list-ul" style="color: var(--primary);"></i>
+        محتويات المقال
+      </h4>
+      <ul style="list-style: none; padding: 0; margin: 0;">
+  `;
+  
+  headings.forEach(function(heading, index) {
+    const id = 'heading-' + index;
+    heading.id = id;
+    
+    const indent = heading.tagName === 'H3' ? 'padding-right: 20px;' : '';
+    
+    tocHTML += `
+      <li style="margin-bottom: 10px; ${indent}">
+        <a href="#${id}" style="
+          color: var(--text-muted);
+          font-size: 14px;
+          transition: all 0.3s ease;
+        ">${heading.textContent}</a>
+      </li>
+    `;
+  });
+  
+  tocHTML += '</ul></div>';
+  
+  article.insertAdjacentHTML('afterbegin', tocHTML);
+}
+
+generateTOC();
+
+// ===== Print Article =====
+function printArticle() {
+  window.print();
+}
+
+// ===== Estimated Reading Time =====
+function calculateReadingTime() {
+  const article = document.querySelector('.single-body');
+  if (!article) return;
+  
+  const text = article.textContent;
+  const words = text.trim().split(/\s+/).length;
+  const readingTime = Math.ceil(words / 200);
+  
+  const readingTimeElement = document.querySelector('.post-meta span:last-child');
+  if (readingTimeElement && readingTimeElement.textContent.includes('دقائق')) {
+    readingTimeElement.innerHTML = `<i class="far fa-clock"></i> ${readingTime} دقائق للقراءة`;
+  }
+}
+
+calculateReadingTime();
+
+// ===== Handle External Links =====
+document.querySelectorAll('.single-body a').forEach(function(link) {
+  if (link.hostname !== window.location.hostname) {
+    link.setAttribute('target', '_blank');
+    link.setAttribute('rel', 'noopener noreferrer');
+  }
+});
+
+// ===== Console Welcome Message =====
+console.log('%c🇮🇹 مرحباً بك في تطبيق تعلم الإيطالية!', 'font-size: 20px; font-weight: bold; color: #009246;');
+console.log('%cتم تطوير هذا القالب بحب ❤️', 'font-size: 14px; color: #666;');
+
+//]]>
+</script>
+
+  </body>
+</html>
