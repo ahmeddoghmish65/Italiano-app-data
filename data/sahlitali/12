@@ -3676,6 +3676,8 @@ let matchingCards = [], firstSelectedCard = null, matchingLocked = false, matche
 let speedTimer = null, speedTimeLeft = 0, selectedLetters = [];
 let isListening = false, recognition = null;
 let myWordsFilterDifficulty = null, currentConversation = null, conversationPlaying = false;
+let myWordsPage = 1;
+const WORDS_PER_PAGE = 50;
 let currentConversationLine = 0;
 let toastTimeout;
 let scrollPositions = {};
