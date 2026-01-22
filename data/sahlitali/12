@@ -1095,14 +1095,17 @@
 
         .my-words-category.open .my-words-category-toggle { transform: rotate(180deg); }
 
-        .my-words-category-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
+.my-words-category-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+}
 
-        .my-words-category.open .my-words-category-content { max-height: 2000px; padding: 8px 10px 10px; }
-
+.my-words-category.open .my-words-category-content { 
+    max-height: none; 
+    padding: 8px 10px 10px; 
+    overflow-y: auto;
+}
         .word-list-item {
             background: var(--light);
             border-radius: var(--radius-sm);
