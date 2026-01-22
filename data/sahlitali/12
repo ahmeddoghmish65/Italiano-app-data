@@ -4445,12 +4445,15 @@ function updateCurrentWordFavoriteBtn() {
 function setMyWordsTab(tab) {
     appState.myWordsTab = tab;
     myWordsFilterDifficulty = null;
+    myWordsPage = 1; // إعادة تعيين الصفحة
     saveState();
     
     $$('.my-words-tab').forEach(t => t.classList.remove('active'));
     const tabEl = $(`tab${tab.charAt(0).toUpperCase() + tab.slice(1)}`);
     if (tabEl) tabEl.classList.add('active');
     
+    renderMyWords();
+}
 let myWordsPage = 1;
 const WORDS_PER_PAGE = 50;
 
