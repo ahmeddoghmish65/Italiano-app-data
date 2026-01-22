@@ -4656,6 +4656,8 @@ function renderWordsGrouped(wordsToShow) {
         if (myWordsFilterDifficulty && myWordsFilterDifficulty !== diff) return;
         
         const isOpen = appState.openCategories[`mywords_${diff}`] || false;
+        const wordsList = grouped[diff];
+        const totalCount = wordsList.length;
         
         html += `
             <div class="my-words-category ${isOpen ? 'open' : ''}" id="mywords-cat-${diff}">
@@ -4666,13 +4668,13 @@ function renderWordsGrouped(wordsToShow) {
                         </div>
                         <div class="my-words-category-text">
                             <h3>${difficultyLabels[diff]}</h3>
-                            <span>${grouped[diff].length} كلمة</span>
+                            <span>${totalCount} كلمة</span>
                         </div>
                     </div>
                     <i class="fas fa-chevron-down my-words-category-toggle"></i>
                 </div>
                 <div class="my-words-category-content">
-                    ${renderWordsList(grouped[diff], diff)}
+                    ${renderWordsList(wordsList, diff)}
                 </div>
             </div>
         `;
