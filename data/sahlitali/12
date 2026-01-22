@@ -4451,101 +4451,8 @@ function setMyWordsTab(tab) {
     const tabEl = $(`tab${tab.charAt(0).toUpperCase() + tab.slice(1)}`);
     if (tabEl) tabEl.classList.add('active');
     
-    renderMyWords();
-}
-
-function getDueWords() {
-    const now = new Date();
-    const dueWords = [];
-    
-    Object.entries(appState.learnedWords).forEach(([key, words]) => {
-        const parts = key.split('_');
-        const level = parts[0];
-        const catId = parts.slice(1).join('_');
-        const cat = DATABASE.words[level]?.[catId];
-        
-        if (!cat || !words) return;
-        
-        Object.entries(words).forEach(([wordIt, wordData]) => {
-            if (wordData && wordData.nextReview) {
-                const reviewDate = new Date(wordData.nextReview);
-                if (reviewDate <= now) {
-                    const wordInfo = cat?.words?.find(w => w.it === wordIt);
-                    if (wordInfo) {
-                        dueWords.push({
-                            ...wordInfo,
-                            ...wordData,
-                            level,
-                            category: cat?.name,
-                            categoryId: catId
-                        });
-                    }
-                }
-            }
-        });
-    });
-    
-    return dueWords.sort((a, b) => new Date(a.nextReview) - new Date(b.nextReview));
-}
-
-function getMasteredWords() {
-    const mastered = [];
-    
-    Object.entries(appState.learnedWords).forEach(([key, words]) => {
-        const parts = key.split('_');
-        const level = parts[0];
-        const catId = parts.slice(1).join('_');
-        const cat = DATABASE.words[level]?.[catId];
-        
-        if (!cat || !words) return;
-        
-        Object.entries(words).forEach(([wordIt, wordData]) => {
-            if (wordData && wordData.lastRating === 'easy' && (wordData.repetitions || 0) >= 3) {
-                const wordInfo = cat?.words?.find(w => w.it === wordIt);
-                if (wordInfo) {
-                    mastered.push({
-                        ...wordInfo,
-                        ...wordData,
-                        level,
-                        category: cat?.name
-                    });
-                }
-            }
-        });
-    });
-    
-    return mastered;
-}
-
-function getWordsByDifficulty() {
-    const result = { again: [], hard: [], good: [], easy: [] };
-    
-    Object.entries(appState.learnedWords).forEach(([key, words]) => {
-        const parts = key.split('_');
-        const level = parts[0];
-        const catId = parts.slice(1).join('_');
-        const cat = DATABASE.words[level]?.[catId];
-        
-        if (!cat || !words) return;
-        
-        Object.entries(words).forEach(([wordIt, wordData]) => {
-            if (!wordData || !wordData.lastRating) return;
-            
-            const wordInfo = cat?.words?.find(w => w.it === wordIt);
-            if (wordInfo && result[wordData.lastRating]) {
-                result[wordData.lastRating].push({
-                    ...wordInfo,
-                    ...wordData,
-                    level,
-                    category: cat?.name,
-                    categoryId: catId
-                });
-            }
-        });
-    });
-    
-    return result;
-}
+let myWordsPage = 1;
+const WORDS_PER_PAGE = 50;
 
 function renderMyWords() {
     updateMyWordsStats();
@@ -4591,205 +4498,104 @@ function renderMyWords() {
         return;
     }
     
-    if (appState.myWordsTab === 'due' || appState.myWordsTab === 'mastered') {
-        container.innerHTML = renderWordsList(wordsToShow, appState.myWordsTab === 'due' ? 'due' : 'mastered');
+    // إذا تم اختيار فلتر معين، اعرض كل الكلمات مع pagination
+    if (myWordsFilterDifficulty) {
+        const totalWords = wordsToShow.length;
+        const totalPages = Math.ceil(totalWords / WORDS_PER_PAGE);
+        const startIndex = (myWordsPage - 1) * WORDS_PER_PAGE;
+        const endIndex = Math.min(startIndex + WORDS_PER_PAGE, totalWords);
+        const currentPageWords = wordsToShow.slice(startIndex, endIndex);
+        
+        let html = `
+            <div class="my-words-list-header" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: var(--light); border-radius: var(--radius-sm); margin-bottom: 10px;">
+                <span style="font-size: 13px; font-weight: 700;">عرض ${startIndex + 1} - ${endIndex} من ${totalWords} كلمة</span>
+                ${totalPages > 1 ? `<span style="font-size: 11px; color: var(--text-secondary);">صفحة ${myWordsPage} من ${totalPages}</span>` : ''}
+            </div>
+        `;
+        
+        html += renderWordsList(currentPageWords, myWordsFilterDifficulty);
+        
+        // أزرار التنقل بين الصفحات
+        if (totalPages > 1) {
+            html += `
+                <div class="my-words-pagination" style="display: flex; justify-content: center; gap: 10px; margin-top: 15px; padding: 10px;">
+                    <button class="word-control-btn secondary" onclick="changeMyWordsPage(-1)" ${myWordsPage <= 1 ? 'disabled' : ''} style="flex: 0 0 auto; padding: 10px 20px;">
+                        <i class="fas fa-chevron-right"></i> السابق
+                    </button>
+                    <span style="display: flex; align-items: center; font-size: 13px; font-weight: 600;">${myWordsPage} / ${totalPages}</span>
+                    <button class="word-control-btn secondary" onclick="changeMyWordsPage(1)" ${myWordsPage >= totalPages ? 'disabled' : ''} style="flex: 0 0 auto; padding: 10px 20px;">
+                        التالي <i class="fas fa-chevron-left"></i>
+                    </button>
+                </div>
+            `;
+        }
+        
+        container.innerHTML = html;
+    } else if (appState.myWordsTab === 'due' || appState.myWordsTab === 'mastered') {
+        // عرض قائمة بسيطة للمستحقة والمتقنة
+        const totalWords = wordsToShow.length;
+        const totalPages = Math.ceil(totalWords / WORDS_PER_PAGE);
+        const startIndex = (myWordsPage - 1) * WORDS_PER_PAGE;
+        const endIndex = Math.min(startIndex + WORDS_PER_PAGE, totalWords);
+        const currentPageWords = wordsToShow.slice(startIndex, endIndex);
+        
+        let html = '';
+        
+        if (totalWords > WORDS_PER_PAGE) {
+            html += `
+                <div class="my-words-list-header" style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: var(--light); border-radius: var(--radius-sm); margin-bottom: 10px;">
+                    <span style="font-size: 13px; font-weight: 700;">عرض ${startIndex + 1} - ${endIndex} من ${totalWords} كلمة</span>
+                    <span style="font-size: 11px; color: var(--text-secondary);">صفحة ${myWordsPage} من ${totalPages}</span>
+                </div>
+            `;
+        }
+        
+        html += renderWordsList(currentPageWords, appState.myWordsTab === 'due' ? 'due' : 'mastered');
+        
+        // أزرار التنقل
+        if (totalPages > 1) {
+            html += `
+                <div class="my-words-pagination" style="display: flex; justify-content: center; gap: 10px; margin-top: 15px; padding: 10px;">
+                    <button class="word-control-btn secondary" onclick="changeMyWordsPage(-1)" ${myWordsPage <= 1 ? 'disabled' : ''} style="flex: 0 0 auto; padding: 10px 20px;">
+                        <i class="fas fa-chevron-right"></i> السابق
+                    </button>
+                    <span style="display: flex; align-items: center; font-size: 13px; font-weight: 600;">${myWordsPage} / ${totalPages}</span>
+                    <button class="word-control-btn secondary" onclick="changeMyWordsPage(1)" ${myWordsPage >= totalPages ? 'disabled' : ''} style="flex: 0 0 auto; padding: 10px 20px;">
+                        التالي <i class="fas fa-chevron-left"></i>
+                    </button>
+                </div>
+            `;
+        }
+        
+        container.innerHTML = html;
     } else {
+        // عرض مجمع حسب الصعوبة
         container.innerHTML = renderWordsGrouped(wordsToShow);
     }
 }
 
-function renderWordsList(words, type) {
-    const labels = { due: '⏰', mastered: '👑', again: 'أ', hard: 'ص', good: 'ج', easy: 'س' };
-    
-    return words.map(word => {
-        const liked = isWordLiked(word);
-        const diff = word.lastRating || 'again';
-        const label = type === 'due' ? labels.due : type === 'mastered' ? labels.mastered : labels[diff];
-        const levelClass = type === 'due' ? 'due' : type === 'mastered' ? 'easy' : diff;
-        
-        return `
-            <div class="word-list-item">
-                <div class="word-list-level ${levelClass}">${label}</div>
-                <div class="word-list-info">
-                    <div class="word-list-italian">${word.it}</div>
-                    <div class="word-list-arabic">${word.ar}</div>
-                    <div class="word-list-stats">
-                        <span class="word-list-stat"><i class="fas fa-redo"></i> ${word.totalReviews || 0}</span>
-                        <span class="word-list-stat"><i class="fas fa-check"></i> ${word.correctCount || 0}</span>
-                        ${word.nextReview ? `<span class="word-list-stat"><i class="fas fa-clock"></i> ${formatNextReview(word.nextReview)}</span>` : ''}
-                    </div>
-                </div>
-                <div class="word-list-actions">
-                    <button class="word-list-btn speak" onclick="event.stopPropagation(); speak('${escapeQuotes(word.it)}')">
-                        <i class="fas fa-volume-up"></i>
-                    </button>
-                    <button class="word-list-btn like ${liked ? 'liked' : ''}" onclick="event.stopPropagation(); toggleLikeFromMyWords(this, '${escapeQuotes(word.it)}')">
-                        <i class="${liked ? 'fas' : 'far'} fa-heart"></i>
-                    </button>
-                </div>
-            </div>
-        `;
-    }).join('');
-}
-
-function renderWordsGrouped(wordsToShow) {
-    const difficultyLabels = { again: 'أعد', hard: 'صعب', good: 'جيد', easy: 'سهل' };
-    const difficultyIcons = { again: 'redo', hard: 'brain', good: 'thumbs-up', easy: 'check-double' };
-    const difficultyColors = {
-        again: 'linear-gradient(135deg, #EF4444, #F87171)',
-        hard: 'linear-gradient(135deg, #F59E0B, #FBBF24)',
-        good: 'linear-gradient(135deg, #3B82F6, #60A5FA)',
-        easy: 'linear-gradient(135deg, #22C55E, #4ADE80)'
-    };
-    
-    const grouped = {};
-    wordsToShow.forEach(word => {
-        const diff = word.lastRating || 'again';
-        if (!grouped[diff]) grouped[diff] = [];
-        grouped[diff].push(word);
-    });
-    
-    let html = '';
-    
-    ['again', 'hard', 'good', 'easy'].forEach(diff => {
-        if (!grouped[diff] || !grouped[diff].length) return;
-        if (myWordsFilterDifficulty && myWordsFilterDifficulty !== diff) return;
-        
-        const isOpen = appState.openCategories[`mywords_${diff}`] || false;
-        const wordsList = grouped[diff];
-        const totalCount = wordsList.length;
-        
-        html += `
-            <div class="my-words-category ${isOpen ? 'open' : ''}" id="mywords-cat-${diff}">
-                <div class="my-words-category-header" onclick="toggleMyWordsCategory('${diff}')">
-                    <div class="my-words-category-info">
-                        <div class="my-words-category-icon" style="background: ${difficultyColors[diff]};">
-                            <i class="fas fa-${difficultyIcons[diff]}"></i>
-                        </div>
-                        <div class="my-words-category-text">
-                            <h3>${difficultyLabels[diff]}</h3>
-                            <span>${totalCount} كلمة</span>
-                        </div>
-                    </div>
-                    <i class="fas fa-chevron-down my-words-category-toggle"></i>
-                </div>
-                <div class="my-words-category-content">
-                    ${renderWordsList(wordsList, diff)}
-                </div>
-            </div>
-        `;
-    });
-    
-    return html || '<div class="empty-state"><i class="fas fa-book-open"></i><p>لا توجد كلمات</p></div>';
-}
-
-function updateMyWordsTabs() {
-    const allWords = getWordsByDifficulty();
-    const allCount = Object.values(allWords).reduce((sum, arr) => sum + arr.length, 0);
-    const dueCount = getDueWords().length;
-    const masteredCount = getMasteredWords().length;
-    
-    if ($('tabAllCount')) $('tabAllCount').textContent = allCount;
-    if ($('tabDueCount')) $('tabDueCount').textContent = dueCount;
-    if ($('tabMasteredCount')) $('tabMasteredCount').textContent = masteredCount;
-}
-
-function showDueWords() {
-    setMyWordsTab('due');
-}
-
-function studyDueWords() {
-    const dueWords = getDueWords();
-    if (!dueWords.length) {
-        showToast('لا توجد كلمات مستحقة للمراجعة', 'info');
-        return;
-    }
-    
-    currentWords = dueWords.slice(0, 20);
-    currentWordIndex = 0;
-    currentCategory = 'due_review';
-    $('wordCategoryTitle').textContent = '⏰ مراجعة الكلمات المستحقة';
-    $$('.page').forEach(p => p.classList.remove('active'));
-    $('wordStudyPage').classList.add('active');
-    displayCurrentWord();
-}
-
-function formatNextReview(dateStr) {
-    const date = new Date(dateStr);
-    const now = new Date();
-    const diff = date - now;
-    
-    if (diff < 0) return 'الآن';
-    if (diff < 3600000) return `${Math.round(diff / 60000)} د`;
-    if (diff < 86400000) return `${Math.round(diff / 3600000)} س`;
-    return `${Math.round(diff / 86400000)} يوم`;
-}
-
-function updateMyWordsStats() {
+function changeMyWordsPage(direction) {
     const wordsByDifficulty = getWordsByDifficulty();
+    let totalWords = 0;
     
-    const set = (id, val) => { const el = $(id); if (el) el.textContent = val; };
-    set('myWordsAgainCount', wordsByDifficulty.again.length);
-    set('myWordsHardCount', wordsByDifficulty.hard.length);
-    set('myWordsGoodCount', wordsByDifficulty.good.length);
-    set('myWordsEasyCount', wordsByDifficulty.easy.length);
-}
-
-function highlightMyWordsFilter() {
-    $$('.my-words-stat').forEach(el => {
-        const diff = el.classList.contains('again') ? 'again' :
-                     el.classList.contains('hard') ? 'hard' :
-                     el.classList.contains('good') ? 'good' : 'easy';
-        el.classList.toggle('active', diff === myWordsFilterDifficulty);
-    });
-}
-
-function filterMyWordsByDifficulty(difficulty) {
-    if (appState.myWordsTab !== 'all') {
-        setMyWordsTab('all');
-    }
-    myWordsFilterDifficulty = myWordsFilterDifficulty === difficulty ? null : difficulty;
-    renderMyWords();
-}
-
-function toggleMyWordsCategory(diff) {
-    const key = `mywords_${diff}`;
-    appState.openCategories[key] = !appState.openCategories[key];
-    saveState();
-    $(`mywords-cat-${diff}`)?.classList.toggle('open', appState.openCategories[key]);
-}
-
-function toggleLikeFromMyWords(btn, wordIt) {
-    const allWords = getAllWordsFlat();
-    const word = allWords.find(w => w.it === wordIt);
-    if (!word) return;
-    
-    toggleLikeWord(word);
-    const liked = isWordLiked(word);
-    btn.classList.toggle('liked', liked);
-    btn.innerHTML = `<i class="${liked ? 'fas' : 'far'} fa-heart"></i>`;
-}
-
-const searchMyWords = debounce(() => {
-    const query = $('myWordsSearch')?.value.trim().toLowerCase();
-    const container = $('myWordsContent');
-    
-    if (!query) { renderMyWords(); return; }
-    
-    const wordsByDifficulty = getWordsByDifficulty();
-    const allWords = [...wordsByDifficulty.again, ...wordsByDifficulty.hard, ...wordsByDifficulty.good, ...wordsByDifficulty.easy];
-    
-    const results = allWords.filter(w => 
-        w.it.toLowerCase().includes(query) || w.ar.includes(query)
-    );
-    
-    if (!results.length) {
-        container.innerHTML = '<div class="empty-state"><i class="fas fa-search"></i><p>لا توجد نتائج</p></div>';
-        return;
+    if (myWordsFilterDifficulty) {
+        totalWords = (wordsByDifficulty[myWordsFilterDifficulty] || []).length;
+    } else if (appState.myWordsTab === 'due') {
+        totalWords = getDueWords().length;
+    } else if (appState.myWordsTab === 'mastered') {
+        totalWords = getMasteredWords().length;
     }
     
-    container.innerHTML = renderWordsList(results.slice(0, 50), 'search');
-}, 250);
+    const totalPages = Math.ceil(totalWords / WORDS_PER_PAGE);
+    const newPage = myWordsPage + direction;
+    
+    if (newPage >= 1 && newPage <= totalPages) {
+        myWordsPage = newPage;
+        renderMyWords();
+        // Scroll to top of content
+        $('myWordsContent')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
 
 // ==================== Favorites ====================
 function openFavorites() {
