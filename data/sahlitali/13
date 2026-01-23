@@ -3200,7 +3200,7 @@
             <div class="settings-item" onclick="setDailyGoal()">
                 <div class="settings-item-info">
                     <div class="settings-item-icon"><i class="fas fa-bullseye"></i></div>
-                    <div class="settings-item-text"><h4>الهدف اليومي</h4><p id="dailyGoalDisplay">50 XP</p></div>
+                    <div class="settings-item-text"><h4>الهدف اليومي</h4><p id="dailyGoalDisplay">1500 XP</p></div>
                 </div>
                 <i class="fas fa-chevron-left" style="color: var(--text-secondary);"></i>
             </div>
