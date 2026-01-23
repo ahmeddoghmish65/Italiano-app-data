@@ -6813,7 +6813,7 @@ function setReminderTime() {
 }
 
 function setDailyGoal() {
-    const goals = [30, 50, 75, 100, 150, 200];
+    const goals = [1500, 2500, 3500, 4500, 5500, 6500];
     const currentIdx = goals.indexOf(appState.dailyGoal);
     const newIdx = (currentIdx + 1) % goals.length;
     appState.dailyGoal = goals[newIdx];
