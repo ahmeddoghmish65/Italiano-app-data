@@ -5500,7 +5500,7 @@ function renderPhrases() {
     container.innerHTML = phrases.map(p => {
         const key = `${appState.currentLevel}_${p.id}`;
         const isLearned = appState.learnedPhrases?.[key];
-        const learnedBadge = isLearned ? '<span class="learned-badge"><i class="fas fa-check"></i> تمت القراءة </span>' : '';
+        const learnedBadge = isLearned ? '<span class="learned-badge"><i class="fas fa-check"></i> تمت القرءة</span>' : '';
         
         return `<div class="category-item" onclick="openPhraseCategory('${p.id}')">
             <div class="category-icon" style="background: linear-gradient(135deg, var(--a2-color), #60A5FA); color: white;">
