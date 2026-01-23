@@ -3353,7 +3353,7 @@
                                 <span id="dailyGoalNextLevel"></span>
                             </div>
                         </div>
-                        <div class="daily-goal-xp"><span id="dailyXP">0</span> / <span id="dailyTarget">50</span> XP</div>
+                        <div class="daily-goal-xp"><span id="dailyXP">0</span> / <span id="dailyTarget">1500</span> XP</div>
                     </div>
                     <div class="daily-goal-progress">
                         <div class="daily-goal-fill" id="dailyGoalFill" style="width: 0%"></div>
