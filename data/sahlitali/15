@@ -4194,7 +4194,7 @@ const ACHIEVEMENTS = [
 // ==================== App State ====================
 let appState = {
     currentLevel: 'a1', darkMode: false, soundEnabled: true, notificationsEnabled: true,
-    reminderTime: '09:00', dailyGoal: 500, dailyGoalLevel: 1, xp: 0, streak: 0, longestStreak: 0,
+    reminderTime: '09:00', dailyGoal: 1500, dailyGoalLevel: 1, xp: 0, streak: 0, longestStreak: 0,
     userLevel: 1, dailyXP: 0, lastStudyDate: null, learnedWords: {}, quizzesDone: 0,
     perfectQuizzes: 0, totalCorrectAnswers: 0, totalQuizQuestions: 0, likedWords: [],
     wordOfDay: null, wordOfDayDate: null, unlockedAchievements: [], newAchievements: [],
