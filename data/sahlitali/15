@@ -3713,7 +3713,7 @@
             <div class="page" id="phrasesPage">
                 <div class="page-header">
                     <button class="page-back" onclick="goBack()"><i class="fas fa-arrow-right"></i></button>
-                    <div><div class="page-title">ا��عبارات</div><div class="page-subtitle">المستوى <span class="current-level-text">A1</span></div></div>
+                    <div><div class="page-title">العبارات</div><div class="page-subtitle">المستوى <span class="current-level-text">A1</span></div></div>
                 </div>
                 <div class="category-list" id="phrasesList"></div>
             </div>
