@@ -5106,7 +5106,10 @@ function startQuiz(type) {
     quizType = type;
     quizQuestions = generateQuiz(type);
     
-    if (quizQuestions.length < 4) { 
+    // تعديل الشرط لاختبار مطابقة الكلمات
+    const minQuestions = (type === 'wordMatching') ? 1 : 4;
+    
+    if (quizQuestions.length < minQuestions) { 
         showToast('لا توجد أسئلة كافية', 'warning'); 
         return; 
     }
@@ -5266,9 +5269,19 @@ function generateVoiceQuiz(words) {
     return questions.sort(() => Math.random() - 0.5).slice(0, 10);
 }
 
-// اختبار مطابقة الكلمات - التعديل السادس
+// اختبار مطابقة الكلمات - التعديل السادس// اختبار مطابقة الكلمات - التعديل السادس (مُصلح)
 function generateWordMatchingQuiz(words) {
+    if (words.length < 4) return [];
+    
     const selectedWords = words.sort(() => Math.random() - 0.5).slice(0, 6);
+    
+    // إرجاع 4 أسئلة وهمية + سؤال المطابقة الفعلي لتجاوز الشرط
+    const dummyQuestions = [
+        { type: 'wordMatching', skip: true },
+        { type: 'wordMatching', skip: true },
+        { type: 'wordMatching', skip: true },
+        { type: 'wordMatching', skip: true }
+    ];
     
     return [{
         type: 'wordMatching',
@@ -5973,8 +5986,11 @@ function showQuizResult() {
     $('quizContainer').style.display = 'none';
     $('quizResult').style.display = 'block';
     
-    const percent = Math.round((quizScore / quizQuestions.length) * 100);
-    const xpEarned = quizScore * 5;
+    // تعديل لاختبار المطابقة
+    const totalQuestions = quizType === 'wordMatching' ? 1 : quizQuestions.length;
+    const percent = Math.round((quizScore / totalQuestions) * 100);
+    const xpEarned = quizType === 'wordMatching' ? (quizScore > 0 ? 20 : 0) : quizScore * 5;
+    
     if (percent === 100) appState.perfectQuizzes++;
     
     let icon = '💪', title = 'حاول مجدداً!';
@@ -5984,9 +6000,11 @@ function showQuizResult() {
     
     $('quizResultIcon').textContent = icon;
     $('quizResultTitle').textContent = title;
-    $('quizResultScore').textContent = `${quizScore}/${quizQuestions.length} (${percent}%)`;
+    $('quizResultScore').textContent = quizType === 'wordMatching' ? 
+        (quizScore > 0 ? '✓ أكملت المطابقة!' : '✗ لم تكمل') : 
+        `${quizScore}/${quizQuestions.length} (${percent}%)`;
     $('quizCorrectCount').textContent = quizScore;
-    $('quizWrongCount').textContent = quizQuestions.length - quizScore;
+    $('quizWrongCount').textContent = totalQuestions - quizScore;
     $('quizXPEarned').textContent = '+' + xpEarned;
     
     appState.quizzesDone++;
