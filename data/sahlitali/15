@@ -4505,9 +4505,9 @@ function checkAndUpdateDailyGoal() {
     updateDailyGoalUI();
 }
 
-// Updated: Start at 500 XP
+// Updated: Start at 1500 XP
 function calculateDailyGoalForLevel(level) {
-    const goals = [500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000, 1100, 1200, 1300, 1400, 1500, 1600, 1700, 1800, 2000];
+    const goals = [1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000, 5500, 6000, 6500, 7000, 7500, 8000, 8500, 9000, 9500, 10000, 10500, 11000];
     return goals[Math.min(level - 1, goals.length - 1)];
 }
 
