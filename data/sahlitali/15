@@ -6473,133 +6473,186 @@ function generateAdvancedMatchingQuiz() {
     }];
 }
 
-// Generate comprehensive quiz (all types mixed)
+// Generate comprehensive quiz (all types mixed) - 15 questions
 function generateComprehensiveQuiz() {
     const reviewedWords = getReviewedWords();
     const readPhrases = getReadPhrases();
     
-    if (reviewedWords.length < 2 && readPhrases.length < 2) {
-        showToast('تحتاج لمراجعة المزيد من الكلمات والعبارات أولاً', 'warning');
+    // Fallback to current level if not enough reviewed content
+    let wordsToUse = reviewedWords.length >= 4 ? reviewedWords : getCurrentLevelWords();
+    let phrasesToUse = readPhrases.length >= 3 ? readPhrases : [];
+    
+    // Get phrases from current level if needed
+    if (phrasesToUse.length < 3) {
+        (DATABASE.phrases[appState.currentLevel] || []).forEach(cat => {
+            cat.phrases?.forEach(p => phrasesToUse.push(p));
+        });
+    }
+    
+    if (wordsToUse.length < 4) {
+        showToast('تحتاج لتعلم المزيد من الكلمات أولاً', 'warning');
         return [];
     }
     
     let allQuestions = [];
     
-    // Add word questions
-    if (reviewedWords.length >= 4) {
-        // Choice questions
-        reviewedWords.slice(0, 3).forEach(word => {
-            const wrong = reviewedWords.filter(w => w.ar !== word.ar).sort(() => Math.random() - 0.5).slice(0, 3);
-            allQuestions.push({
-                type: 'choice',
-                question: `ما معنى "<span class="italian-word">${word.it}</span>"؟`,
-                correct: word.ar,
-                options: [word.ar, ...wrong.map(w => w.ar)].sort(() => Math.random() - 0.5),
-                audio: word.it
-            });
-        });
-        
-        // Reverse questions
-        reviewedWords.slice(3, 5).forEach(word => {
-            const wrong = reviewedWords.filter(w => w.it !== word.it).sort(() => Math.random() - 0.5).slice(0, 3);
-            allQuestions.push({
-                type: 'choice',
-                question: `ما الترجمة الإيطالية لـ "${word.ar}"؟`,
-                correct: word.it,
-                options: [word.it, ...wrong.map(w => w.it)].sort(() => Math.random() - 0.5),
-                audio: word.it,
-                isItalianOptions: true
-            });
-        });
-        
-        // Listening question
-        if (reviewedWords.length >= 6) {
-            const word = reviewedWords[5];
-            const wrong = reviewedWords.filter(w => w.ar !== word.ar).sort(() => Math.random() - 0.5).slice(0, 3);
-            allQuestions.push({
-                type: 'listening',
-                question: 'استمع واختر الترجمة الصحيحة',
-                correct: word.ar,
-                options: [word.ar, ...wrong.map(w => w.ar)].sort(() => Math.random() - 0.5),
-                audio: word.it
-            });
-        }
-    }
+    // ========== WORD QUESTIONS (8-9 questions) ==========
     
-    // Add phrase questions
-    if (readPhrases.length >= 3) {
-        // Order Italian
-        const phrase1 = readPhrases[0];
-        const words1 = splitSentenceToWords(phrase1.it);
-        if (words1.length >= 3) {
-            allQuestions.push({
-                type: 'orderItalian',
-                question: 'رتب الكلمات لتكوين الجملة الإيطالية الصحيحة:',
-                hint: phrase1.ar,
-                correctSentence: phrase1.it,
-                correctWords: words1,
-                shuffledWords: [...words1].sort(() => Math.random() - 0.5),
-                audio: phrase1.it
-            });
-        }
-        
-        // Order Arabic
-        const phrase2 = readPhrases[1];
-        const words2 = splitArabicSentence(phrase2.ar);
-        if (words2.length >= 3) {
-            allQuestions.push({
-                type: 'orderArabic',
-                question: 'استمع للعبارة الإيطالية ورتب الترجمة العربية:',
-                correctSentence: phrase2.ar,
-                correctWords: words2,
-                shuffledWords: [...words2].sort(() => Math.random() - 0.5),
-                audio: phrase2.it,
-                italianText: phrase2.it
-            });
-        }
-        
-        // Fill blank
-        const phrase3 = readPhrases[2];
-        const words3 = splitSentenceToWords(phrase3.it);
-        if (words3.length >= 3) {
-            const blankIndex = Math.floor(Math.random() * words3.length);
-            const correctWord = words3[blankIndex];
-            const sentenceWithBlank = words3.map((w, i) => i === blankIndex ? '______' : w).join(' ');
-            
-            const otherWords = [];
-            readPhrases.forEach(p => {
-                if (p.it !== phrase3.it) {
-                    splitSentenceToWords(p.it).forEach(w => {
-                        if (w !== correctWord && w.length > 1) otherWords.push(w);
-                    });
-                }
-            });
-            
-            const wrongOptions = [...new Set(otherWords)].sort(() => Math.random() - 0.5).slice(0, 3);
-            
-            allQuestions.push({
-                type: 'fillBlank',
-                question: 'أكمل الفراغ بالكلمة المناسبة:',
-                sentence: sentenceWithBlank,
-                fullSentence: phrase3.it,
-                correct: correctWord,
-                options: [correctWord, ...wrongOptions].sort(() => Math.random() - 0.5),
-                translation: phrase3.ar,
-                audio: phrase3.it
-            });
-        }
-    }
+    // 1. Choice questions (Italian -> Arabic) - 3 questions
+    const shuffledWords1 = [...wordsToUse].sort(() => Math.random() - 0.5);
+    shuffledWords1.slice(0, 3).forEach(word => {
+        const wrong = wordsToUse.filter(w => w.ar !== word.ar).sort(() => Math.random() - 0.5).slice(0, 3);
+        allQuestions.push({
+            type: 'choice',
+            question: `ما معنى "<span class="italian-word">${word.it}</span>"؟`,
+            correct: word.ar,
+            options: [word.ar, ...wrong.map(w => w.ar)].sort(() => Math.random() - 0.5),
+            audio: word.it
+        });
+    });
     
-    // Add matching if enough words
-    if (reviewedWords.length >= 4) {
+    // 2. Reverse questions (Arabic -> Italian) - 3 questions
+    const shuffledWords2 = [...wordsToUse].sort(() => Math.random() - 0.5);
+    shuffledWords2.slice(0, 3).forEach(word => {
+        const wrong = wordsToUse.filter(w => w.it !== word.it).sort(() => Math.random() - 0.5).slice(0, 3);
+        allQuestions.push({
+            type: 'choice',
+            question: `ما الترجمة الإيطالية لـ "${word.ar}"؟`,
+            correct: word.it,
+            options: [word.it, ...wrong.map(w => w.it)].sort(() => Math.random() - 0.5),
+            audio: word.it,
+            isItalianOptions: true
+        });
+    });
+    
+    // 3. Listening questions - 2 questions
+    const shuffledWords3 = [...wordsToUse].sort(() => Math.random() - 0.5);
+    shuffledWords3.slice(0, 2).forEach(word => {
+        const wrong = wordsToUse.filter(w => w.ar !== word.ar).sort(() => Math.random() - 0.5).slice(0, 3);
+        allQuestions.push({
+            type: 'listening',
+            question: 'استمع واختر الترجمة الصحيحة',
+            correct: word.ar,
+            options: [word.ar, ...wrong.map(w => w.ar)].sort(() => Math.random() - 0.5),
+            audio: word.it
+        });
+    });
+    
+    // 4. Advanced Matching - 1 question (counts as 1 but covers multiple words)
+    if (wordsToUse.length >= 5) {
         allQuestions.push({
             type: 'advancedMatching',
             question: 'طابق الكلمات الإيطالية بمعانيها العربية:',
-            pairs: reviewedWords.sort(() => Math.random() - 0.5).slice(0, 5).map(w => ({ it: w.it, ar: w.ar }))
+            pairs: [...wordsToUse].sort(() => Math.random() - 0.5).slice(0, 5).map(w => ({ it: w.it, ar: w.ar }))
         });
     }
     
-    return allQuestions.sort(() => Math.random() - 0.5).slice(0, 15);
+    // ========== PHRASE QUESTIONS (6-7 questions) ==========
+    
+    if (phrasesToUse.length >= 3) {
+        const shuffledPhrases = [...phrasesToUse].sort(() => Math.random() - 0.5);
+        
+        // 5. Order Italian sentence - 2 questions
+        shuffledPhrases.slice(0, 2).forEach(phrase => {
+            const words = splitSentenceToWords(phrase.it);
+            if (words.length >= 3) {
+                allQuestions.push({
+                    type: 'orderItalian',
+                    question: 'رتب الكلمات لتكوين الجملة الإيطالية الصحيحة:',
+                    hint: phrase.ar,
+                    correctSentence: phrase.it,
+                    correctWords: words,
+                    shuffledWords: [...words].sort(() => Math.random() - 0.5),
+                    audio: phrase.it
+                });
+            }
+        });
+        
+        // 6. Order Arabic sentence - 2 questions
+        shuffledPhrases.slice(2, 4).forEach(phrase => {
+            const words = splitArabicSentence(phrase.ar);
+            if (words.length >= 3) {
+                allQuestions.push({
+                    type: 'orderArabic',
+                    question: 'استمع للعبارة الإيطالية ورتب الترجمة العربية:',
+                    correctSentence: phrase.ar,
+                    correctWords: words,
+                    shuffledWords: [...words].sort(() => Math.random() - 0.5),
+                    audio: phrase.it,
+                    italianText: phrase.it
+                });
+            }
+        });
+        
+        // 7. Fill in the blank - 2 questions
+        shuffledPhrases.slice(4, 6).forEach(phrase => {
+            const words = splitSentenceToWords(phrase.it);
+            if (words.length >= 3) {
+                const blankIndex = Math.floor(Math.random() * words.length);
+                const correctWord = words[blankIndex];
+                const sentenceWithBlank = words.map((w, i) => i === blankIndex ? '______' : w).join(' ');
+                
+                const otherWords = [];
+                phrasesToUse.forEach(p => {
+                    if (p.it !== phrase.it) {
+                        splitSentenceToWords(p.it).forEach(w => {
+                            if (w !== correctWord && w.length > 1) otherWords.push(w);
+                        });
+                    }
+                });
+                
+                const wrongOptions = [...new Set(otherWords)].sort(() => Math.random() - 0.5).slice(0, 3);
+                
+                if (wrongOptions.length >= 2) {
+                    allQuestions.push({
+                        type: 'fillBlank',
+                        question: 'أكمل الفراغ بالكلمة المناسبة:',
+                        sentence: sentenceWithBlank,
+                        fullSentence: phrase.it,
+                        correct: correctWord,
+                        options: [correctWord, ...wrongOptions].sort(() => Math.random() - 0.5),
+                        translation: phrase.ar,
+                        audio: phrase.it
+                    });
+                }
+            }
+        });
+        
+        // 8. Order as you hear - 1 question
+        if (shuffledPhrases.length >= 7) {
+            const phrase = shuffledPhrases[6];
+            const words = splitSentenceToWords(phrase.it);
+            if (words.length >= 3) {
+                allQuestions.push({
+                    type: 'orderAsYouHear',
+                    question: 'استمع ورتب الكلمات كما سمعتها:',
+                    correctSentence: phrase.it,
+                    correctWords: words,
+                    shuffledWords: [...words].sort(() => Math.random() - 0.5),
+                    audio: phrase.it,
+                    translation: phrase.ar
+                });
+            }
+        }
+    }
+    
+    // Shuffle all questions and return exactly 15
+    const finalQuestions = allQuestions.sort(() => Math.random() - 0.5);
+    
+    // If we have less than 15, duplicate some questions with different words
+    while (finalQuestions.length < 15 && wordsToUse.length >= 4) {
+        const word = wordsToUse[Math.floor(Math.random() * wordsToUse.length)];
+        const wrong = wordsToUse.filter(w => w.ar !== word.ar).sort(() => Math.random() - 0.5).slice(0, 3);
+        finalQuestions.push({
+            type: 'choice',
+            question: `ما معنى "<span class="italian-word">${word.it}</span>"؟`,
+            correct: word.ar,
+            options: [word.ar, ...wrong.map(w => w.ar)].sort(() => Math.random() - 0.5),
+            audio: word.it
+        });
+    }
+    
+    return finalQuestions.slice(0, 15);
 }
 
 // Display quiz question based on type
