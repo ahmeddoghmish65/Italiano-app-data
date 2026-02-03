@@ -6751,9 +6751,13 @@ function displayOrderQuestion(q) {
     $('quizQuestionHint').innerHTML = hintText;
     $('quizOrderArea').style.display = 'block';
     
+    // تحديد اتجاه النص حسب نوع السؤال
+    const isArabic = q.type === 'orderArabic';
+    const direction = isArabic ? 'rtl' : 'ltr';
+    
     $('quizOrderArea').innerHTML = `
-        <div class="answer-words" id="answerWordsArea"></div>
-        <div class="word-tiles" id="wordTilesArea">
+        <div class="answer-words" id="answerWordsArea" style="direction: ${direction};"></div>
+        <div class="word-tiles" id="wordTilesArea" style="direction: ${direction};">
             ${q.shuffledWords.map((word, i) => `
                 <div class="word-tile" data-index="${i}" data-word="${escapeQuotes(word)}" onclick="selectOrderWord(this)">${word}</div>
             `).join('')}
@@ -6762,7 +6766,6 @@ function displayOrderQuestion(q) {
     
     $('quizCheckBtn').style.display = 'block';
     
-    // Auto-play audio for listening-based questions
     if (q.type === 'orderArabic' || q.type === 'orderAsYouHear') {
         setTimeout(() => speak(q.audio), 500);
     }
@@ -6773,20 +6776,22 @@ function selectOrderWord(el) {
     
     const word = el.dataset.word;
     const answerArea = $('answerWordsArea');
+    const q = quizQuestions[currentQuizIndex];
+    const isArabic = q.type === 'orderArabic';
     
     if (el.classList.contains('selected')) {
-        // Remove from answer
         el.classList.remove('selected');
         selectedOrderWords = selectedOrderWords.filter(w => w !== word);
     } else {
-        // Add to answer
         el.classList.add('selected');
         selectedOrderWords.push(word);
     }
     
-    // Update answer display
+    // تحديد اتجاه النص
+    const direction = isArabic ? 'rtl' : 'ltr';
+    
     answerArea.innerHTML = selectedOrderWords.map(w => `
-        <div class="word-tile selected" onclick="removeOrderWord('${escapeQuotes(w)}')">${w}</div>
+        <div class="word-tile selected" style="direction: ${direction};" onclick="removeOrderWord('${escapeQuotes(w)}')">${w}</div>
     `).join('');
 }
 
@@ -6795,17 +6800,19 @@ function removeOrderWord(word) {
     
     selectedOrderWords = selectedOrderWords.filter(w => w !== word);
     
-    // Update tiles
     $$('#wordTilesArea .word-tile').forEach(tile => {
         if (tile.dataset.word === word) {
             tile.classList.remove('selected');
         }
     });
     
-    // Update answer display
     const answerArea = $('answerWordsArea');
+    const q = quizQuestions[currentQuizIndex];
+    const isArabic = q.type === 'orderArabic';
+    const direction = isArabic ? 'rtl' : 'ltr';
+    
     answerArea.innerHTML = selectedOrderWords.map(w => `
-        <div class="word-tile selected" onclick="removeOrderWord('${escapeQuotes(w)}')">${w}</div>
+        <div class="word-tile selected" style="direction: ${direction};" onclick="removeOrderWord('${escapeQuotes(w)}')">${w}</div>
     `).join('');
 }
 
