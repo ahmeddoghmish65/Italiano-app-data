@@ -7103,25 +7103,72 @@ function showQuizResult() {
     const xpEarned = quizScore * 5;
     if (percent === 100) appState.perfectQuizzes++;
     
-    let icon = '🚀', title = 'حاول مجدداً!';
+    let icon = '💪', title = 'حاول مجدداً! لا تستسلم أبداً!';
 
-    if (percent === 100) { icon = '👑'; title = 'مثالي! أنت عبقري!'; }
-    else if (percent >= 95) { icon = '🏆'; title = 'مذهل!'; }
-    else if (percent >= 90) { icon = '🥇'; title = 'ممتاز!'; }
-    else if (percent >= 85) { icon = '🌟'; title = 'رائع جداً!'; }
-    else if (percent >= 80) { icon = '⭐'; title = 'رائع !'; }
-    else if (percent >= 75) { icon = '🎉'; title = 'جيد جداً!'; }
-    else if (percent >= 70) { icon = '👏'; title = 'جيد جداً!'; }
-    else if (percent >= 65) { icon = '💪'; title = 'جيد!'; }
-    else if (percent >= 60) { icon = '👍'; title = 'جيد!'; }
-    else if (percent >= 55) { icon = '👌'; title = 'فوق المتوسط'; }
-    else if (percent >= 50) { icon = '📚'; title = 'مقبول'; }
-    else if (percent >= 40) { icon = '📖'; title = 'ضعيف'; }
-    else if (percent >= 30) { icon = '✏️'; title = 'تحتاج تحسين'; }
-    else if (percent >= 20) { icon = '🔄'; title = 'ضعيف جداً'; }
-    else if (percent >= 10) { icon = '⏰'; title = 'حاول مرة أخرى'; }
-    else { icon = '🚀'; title = 'حاول مجدداً!'; }    
-    
+if (percent === 100) { 
+    icon = '👑'; 
+    title = 'مثالي! أنت عبقري!'; 
+}
+else if (percent >= 95) { 
+    icon = '🏆'; 
+    title = 'مذهل! أداء استثنائي!'; 
+}
+else if (percent >= 90) { 
+    icon = '🥇'; 
+    title = 'ممتاز! استمر في التألق!'; 
+}
+else if (percent >= 85) { 
+    icon = '🌟'; 
+    title = 'رائع! أنت مميز!'; 
+}
+else if (percent >= 80) { 
+    icon = '⭐'; 
+    title = 'رائع جداً! أنت في القمة!'; 
+}
+else if (percent >= 75) { 
+    icon = '🎉'; 
+    title = 'جيد جداً! أنت تتقدم بثبات!'; 
+}
+else if (percent >= 70) { 
+    icon = '👏'; 
+    title = 'جيد جداً! برافو عليك!'; 
+}
+else if (percent >= 65) { 
+    icon = '💪'; 
+    title = 'جيد! يمكنك تحقيق المزيد!'; 
+}
+else if (percent >= 60) { 
+    icon = '👍'; 
+    title = 'جيد! مع التركيز ستتفوق!'; 
+}
+else if (percent >= 55) { 
+    icon = '👌'; 
+    title = 'فوق المتوسط! واصل المذاكرة!'; 
+}
+else if (percent >= 50) { 
+    icon = '📚'; 
+    title = 'مقبول! راجع الدروس وستتحسن!'; 
+}
+else if (percent >= 40) { 
+    icon = '📖'; 
+    title = 'ضعيف! لا تيأس واستمر!'; 
+}
+else if (percent >= 30) { 
+    icon = '✏️'; 
+    title = 'تحتاج تحسين! النجاح قريب!'; 
+}
+else if (percent >= 20) { 
+    icon = '🔄'; 
+    title = 'ضعيف جداً! كل تجربة تعلمك!'; 
+}
+else if (percent >= 10) { 
+    icon = '⏰'; 
+    title = 'حاول مرة أخرى! وارجع أقوى!'; 
+}
+else { 
+    icon = '🚀'; 
+    title = 'حاول مجدداً! لا تستسلم أبداً!'; 
+}    
     $('quizResultIcon').textContent = icon;
     $('quizResultTitle').textContent = title;
     $('quizResultScore').textContent = `${quizScore}/${quizQuestions.length} (${percent}%)`;
