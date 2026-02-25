@@ -1,0 +1,202 @@
+[
+  {
+    "id": "s1",
+    "nameAr": "تعريفات الطريق والمركبات",
+    "nameIt": "Definizioni stradali e dei veicoli",
+    "descriptionAr": "تصنيفات الطرق والمركبات وواجبات السائق العامة",
+    "descriptionIt": "Classificazione di strade, veicoli e doveri generali",
+    "icon": "commute",
+    "color": "#64748b",
+    "order": 1
+  },
+  {
+    "id": "s2",
+    "nameAr": "إشارات الخطر",
+    "nameIt": "Segnali di pericolo",
+    "descriptionAr": "المثلثات الحمراء والتحذيرات من مخاطر الطريق",
+    "descriptionIt": "Segnali che preavvisano un pericolo",
+    "icon": "warning",
+    "color": "#ef4444",
+    "order": 2
+  },
+  {
+    "id": "s3",
+    "nameAr": "إشارات المنع",
+    "nameIt": "Segnali di divieto",
+    "descriptionAr": "إشارات الحظر والقيود المفروضة على السير",
+    "descriptionIt": "Segnali che vietano determinati transiti o azioni",
+    "icon": "block",
+    "color": "#dc2626",
+    "order": 3
+  },
+  {
+    "id": "s4",
+    "nameAr": "إشارات الإلزام",
+    "nameIt": "Segnali d'obbligo",
+    "descriptionAr": "الإشارات الزرقاء التي تفرض سلوكاً معيناً",
+    "descriptionIt": "Segnali che impongono un comportamento obbligatorio",
+    "icon": "arrow_circle_up",
+    "color": "#2563eb",
+    "order": 4
+  },
+  {
+    "id": "s5",
+    "nameAr": "إشارات الأولوية",
+    "nameIt": "Segnali di precedenza",
+    "descriptionAr": "تنظيم حق المرور عند التقاطعات",
+    "descriptionIt": "Segnali che regolano il diritto di precedenza",
+    "icon": "priority_high",
+    "color": "#f59e0b",
+    "order": 5
+  },
+  {
+    "id": "s6",
+    "nameAr": "إشارات المرور الضوئية واليدوية",
+    "nameIt": "Segnalazioni semaforiche e degli agenti",
+    "descriptionAr": "إشارات السيمفورو وإشارات شرطي المرور",
+    "descriptionIt": "Semafori e segnali degli agenti del traffico",
+    "icon": "traffic",
+    "color": "#10b981",
+    "order": 6
+  },
+  {
+    "id": "s7",
+    "nameAr": "الإشارات الأفقية وعلامات الطريق",
+    "nameIt": "Segnali orizzontali e segni sulla strada",
+    "descriptionAr": "الخطوط الأرضية والأسهم والرموز المكتوبة",
+    "descriptionIt": "Strisce, frecce e scritte sulla carreggiata",
+    "icon": "reorder",
+    "color": "#94a3b8",
+    "order": 7
+  },
+  {
+    "id": "s8",
+    "nameAr": "إشارات مكملة ومؤقتة",
+    "nameIt": "Segnaletica complementare e di cantiere",
+    "descriptionAr": "إشارات الأشغال والمناطق الخطرة والمنعطفات",
+    "descriptionIt": "Segnali di cantiere e delineatori di curva",
+    "icon": "construction",
+    "color": "#f97316",
+    "order": 8
+  },
+  {
+    "id": "s9",
+    "nameAr": "السرعة ومسافة الأمان",
+    "nameIt": "Velocità e distanza di sicurezza",
+    "descriptionAr": "قواعد السرعة وحساب مسافة التوقف",
+    "descriptionIt": "Limiti di velocità e distanziamento tra veicoli",
+    "icon": "speed",
+    "color": "#8b5cf6",
+    "order": 9
+  },
+  {
+    "id": "s10",
+    "nameAr": "قواعد التقاطع والأولوية",
+    "nameIt": "Norme sulla precedenza",
+    "descriptionAr": "قواعد المرور في الميادين والتقاطعات غير المنظمة",
+    "descriptionIt": "Regole generali per l'immissione nei crocevia",
+    "icon": "swap_calls",
+    "color": "#ea580c",
+    "order": 10
+  },
+  {
+    "id": "s11",
+    "nameAr": "قواعد التجاوز",
+    "nameIt": "Norme sul sorpasso",
+    "descriptionAr": "كيفية تنفيذ التجاوز بأمان وحالات المنع",
+    "descriptionIt": "Esecuzione e divieti di sorpasso",
+    "icon": "double_arrow",
+    "color": "#4338ca",
+    "order": 11
+  },
+  {
+    "id": "s12",
+    "nameAr": "التوقف والوقوف والرجوع للخلف",
+    "nameIt": "Fermata, sosta e retromarcia",
+    "descriptionAr": "أين وكيف تترك سيارتك وقواعد المناورة",
+    "descriptionIt": "Regole per il parcheggio e le manovre",
+    "icon": "local_parking",
+    "color": "#1d4ed8",
+    "order": 12
+  },
+  {
+    "id": "s13",
+    "nameAr": "استخدام الأضواء والتحذيرات",
+    "nameIt": "Uso delle luci e dei segnalatori",
+    "descriptionAr": "متى تستخدم العالي والمنخفض وأضواء الطوارئ",
+    "descriptionIt": "Impiego di fari, indicatori e clacson",
+    "icon": "lightbulb",
+    "color": "#eab308",
+    "order": 13
+  },
+  {
+    "id": "s14",
+    "nameAr": "حمولة المركبات وسحب المقطورات",
+    "nameIt": "Carico dei veicoli e traino",
+    "descriptionAr": "توزيع الوزن وبروز الحمولة وسحب السيارات",
+    "descriptionIt": "Trasporto di merci, persone e rimorchi",
+    "icon": "unarchive",
+    "color": "#71717a",
+    "order": 14
+  },
+  {
+    "id": "s15",
+    "nameAr": "رخص القيادة ونقاطها",
+    "nameIt": "Patenti di guida e sistema a punti",
+    "descriptionAr": "أنواع الرخص، الصلاحية، وسحب النقاط",
+    "descriptionIt": "Categorie di patenti e recupero punti",
+    "icon": "badge",
+    "color": "#059669",
+    "order": 15
+  },
+  {
+    "id": "s16",
+    "nameAr": "المسؤولية المدنية والجنائية",
+    "nameIt": "Responsabilità civile e penale",
+    "descriptionAr": "التأمين والعقوبات في حالة الحوادث",
+    "descriptionIt": "Assicurazione RCA e sanzioni legali",
+    "icon": "gavel",
+    "color": "#7f1d1d",
+    "order": 16
+  },
+  {
+    "id": "s17",
+    "nameAr": "الوقاية من الحوادث والإسعافات الأولية",
+    "nameIt": "Prevenzione incidenti e primo soccorso",
+    "descriptionAr": "التصرف في حالة الحوادث ومساعدة المصابين",
+    "descriptionIt": "Comportamento in caso di incidente e soccorso",
+    "icon": "medical_services",
+    "color": "#be123c",
+    "order": 17
+  },
+  {
+    "id": "s18",
+    "nameAr": "القيادة والحالة البدنية (الكحول والمخدرات)",
+    "nameIt": "Stato psicofisico e guida",
+    "descriptionAr": "تأثير الكحول والأدوية والتعب على القيادة",
+    "descriptionIt": "Effetti di alcol, droga e stanchezza",
+    "icon": "psychology",
+    "color": "#4c1d95",
+    "order": 18
+  },
+  {
+    "id": "s19",
+    "nameAr": "الميكانيكا والصيانة العامة",
+    "nameIt": "Elementi di meccanica e manutenzione",
+    "descriptionAr": "المحرك، الفرامل، الإطارات والأنظمة المساعدة",
+    "descriptionIt": "Manutenzione del veicolo e sicurezza tecnica",
+    "icon": "settings_suggest",
+    "color": "#334155",
+    "order": 19
+  },
+  {
+    "id": "s20",
+    "nameAr": "التلوث واحترام البيئة",
+    "nameIt": "Inquinamento e rispetto dell'ambiente",
+    "descriptionAr": "توفير الوقود وتقليل الانبعاثات والضجيج",
+    "descriptionIt": "Riduzione consumi e impatto ambientale",
+    "icon": "eco",
+    "color": "#16a34a",
+    "order": 20
+  }
+]
