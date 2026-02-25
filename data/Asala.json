@@ -6,7 +6,7 @@
     "descriptionAr": "تعريف الطريق وعناصره، تصنيف المركبات، واجبات السائق والمشاة، المصطلحات الأساسية",
     "descriptionIt": "Strada e suoi elementi, classificazione veicoli, doveri del conducente e dei pedoni",
     "image": "",
-    "icon": "menu_book",
+    "icon": "auto_stories",
     "color": "#64748b",
     "order": 1,
     "createdAt": "2026-01-01T00:00:00.000Z"
@@ -18,7 +18,7 @@
     "descriptionAr": "الإشارات المثلثة ذات الحافة الحمراء التي تحذر من مخاطر قادمة على الطريق",
     "descriptionIt": "Segnali triangolari con bordo rosso che avvertono di pericoli imminenti",
     "image": "",
-    "icon": "warning",
+    "icon": "warning_amber",
     "color": "#ef4444",
     "order": 2,
     "createdAt": "2026-01-01T00:00:00.000Z"
@@ -30,7 +30,7 @@
     "descriptionAr": "الإشارات الدائرية ذات الحافة الحمراء التي تمنع أفعالاً معينة كالدخول والتجاوز والسرعة",
     "descriptionIt": "Segnali circolari con bordo rosso che vietano determinate azioni",
     "image": "",
-    "icon": "do_not_disturb",
+    "icon": "do_not_disturb_on",
     "color": "#dc2626",
     "order": 3,
     "createdAt": "2026-01-01T00:00:00.000Z"
@@ -42,7 +42,7 @@
     "descriptionAr": "الإشارات الدائرية الزرقاء التي تفرض اتجاهاً أو سلوكاً إلزامياً على السائق",
     "descriptionIt": "Segnali circolari blu che impongono un comportamento obbligatorio",
     "image": "",
-    "icon": "arrow_circle_up",
+    "icon": "radio_button_checked",
     "color": "#2563eb",
     "order": 4,
     "createdAt": "2026-01-01T00:00:00.000Z"
@@ -54,7 +54,7 @@
     "descriptionAr": "الإشارات التي تحدد من له حق المرور أولاً عند التقاطعات والطرق",
     "descriptionIt": "Segnali che regolano il diritto di precedenza agli incroci",
     "image": "",
-    "icon": "swap_vert",
+    "icon": "change_history",
     "color": "#f59e0b",
     "order": 5,
     "createdAt": "2026-01-01T00:00:00.000Z"
@@ -90,7 +90,7 @@
     "descriptionAr": "أوضاع شرطي المرور وإشاراته اليدوية وما يعادلها من ألوان الإشارة الضوئية",
     "descriptionIt": "Posizioni e gesti dell'agente e corrispondenza con i colori del semaforo",
     "image": "",
-    "icon": "person",
+    "icon": "pan_tool",
     "color": "#0d9488",
     "order": 8,
     "createdAt": "2026-01-01T00:00:00.000Z"
@@ -99,8 +99,8 @@
     "id": "s9",
     "nameAr": "إشارات الإرشاد واللوحات التكميلية",
     "nameIt": "Segnali di indicazione e pannelli integrativi",
-    "descriptionAr": "لوحات الاتجاهات والخدمات والمعلومات، واللوحات الصغيرة المكملة تحت الإشارات وإشارات الأشغال",
-    "descriptionIt": "Segnali di direzione, servizi, informazioni, pannelli integrativi e segnaletica di cantiere",
+    "descriptionAr": "لوحات الاتجاهات والخدمات والمعلومات، واللوحات الصغيرة المكملة وإشارات الأشغال",
+    "descriptionIt": "Segnali di direzione, servizi, pannelli integrativi e segnaletica di cantiere",
     "image": "",
     "icon": "signpost",
     "color": "#0284c7",
@@ -162,7 +162,7 @@
     "descriptionAr": "قواعد وشروط التجاوز، الحالات المسموحة والممنوعة، التجاوز من اليمين واليسار",
     "descriptionIt": "Regole del sorpasso, casi consentiti e vietati, sorpasso a destra e a sinistra",
     "image": "",
-    "icon": "compare_arrows",
+    "icon": "swap_horiz",
     "color": "#d97706",
     "order": 14,
     "createdAt": "2026-01-01T00:00:00.000Z"
@@ -186,7 +186,7 @@
     "descriptionAr": "قواعد الأولوية عند التقاطعات، أولوية اليمين، الدوارات، حل مسائل التقاطعات",
     "descriptionIt": "Regole di precedenza negli incroci, precedenza a destra, rotatorie, soluzione incroci",
     "image": "",
-    "icon": "call_merge",
+    "icon": "call_split",
     "color": "#b45309",
     "order": 16,
     "createdAt": "2026-01-01T00:00:00.000Z"
@@ -198,7 +198,7 @@
     "descriptionAr": "أنواع معابر القطارات وسلوكها الصحيح، وقواعد نقل الركاب والأطفال والبضائع",
     "descriptionIt": "Passaggi a livello e comportamento corretto; norme trasporto passeggeri, bambini e merci",
     "image": "",
-    "icon": "tram",
+    "icon": "train",
     "color": "#dc2626",
     "order": 17,
     "createdAt": "2026-01-01T00:00:00.000Z"
@@ -210,7 +210,7 @@
     "descriptionAr": "قواعد الدخول والخروج والسير على الأوتوسترادا، حارات التسارع والتباطؤ، الممنوعات",
     "descriptionIt": "Immissione, circolazione e uscita dall'autostrada, corsie di accelerazione e decelerazione",
     "image": "",
-    "icon": "edit_road",
+    "icon": "add_road",
     "color": "#1d4ed8",
     "order": 18,
     "createdAt": "2026-01-01T00:00:00.000Z"
@@ -222,7 +222,7 @@
     "descriptionAr": "أنواع أضواء المركبة ومتى تُستخدم، البوق، أضواء التحذير على لوحة القيادة ومعانيها",
     "descriptionIt": "Luci del veicolo, clacson, luci di emergenza, spie sul cruscotto e loro significato",
     "image": "",
-    "icon": "light_mode",
+    "icon": "wb_twilight",
     "color": "#ca8a04",
     "order": 19,
     "createdAt": "2026-01-01T00:00:00.000Z"
@@ -258,7 +258,7 @@
     "descriptionAr": "تأثير الكحول والمخدرات والأدوية على القيادة، حدود الكحول، التعب والنعاس",
     "descriptionIt": "Effetti di alcool, droghe e farmaci, limiti alcolemici, stanchezza e sonnolenza",
     "image": "",
-    "icon": "local_bar",
+    "icon": "no_drinks",
     "color": "#9f1239",
     "order": 22,
     "createdAt": "2026-01-01T00:00:00.000Z"
@@ -282,7 +282,7 @@
     "descriptionAr": "الإطارات والفرامل والمحرك والمرايا، ثبات المركبة والانزلاق، الصيانة الدورية",
     "descriptionIt": "Pneumatici, freni, motore, specchietti, stabilità, aquaplaning, manutenzione periodica",
     "image": "",
-    "icon": "build",
+    "icon": "engineering",
     "color": "#57534e",
     "order": 24,
     "createdAt": "2026-01-01T00:00:00.000Z"
